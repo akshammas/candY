@@ -173,23 +173,24 @@
   <script src="assets/js/main.js"></script>
 
   <!-- ============================================================
-       Auth: talks to the FastAPI JWT + double-submit-CSRF endpoints.
-       - GET  /api/auth/csrf   sets a readable csrf_token cookie
-       - POST /api/auth/login  verifies credentials, sets an httpOnly
-                                 access_token cookie (this is the real
-                                 session — JS never touches the token)
-       - GET  /api/auth/me     tells us if the current cookie is valid
-       - POST /api/auth/logout clears the session cookie
+       Auth: talks to the Laravel Sanctum SPA cookie-based endpoints.
+       - GET  /sanctum/csrf-cookie  sets the XSRF-TOKEN cookie (built
+                                     into Sanctum, no custom route needed)
+       - POST /login                verifies credentials, starts a real
+                                     Laravel session (httpOnly cookie —
+                                     JS never touches the session itself)
+       - GET  /api/user              tells us if the current session is valid
+       - POST /logout                ends the session
        All requests use credentials: 'include' so cookies flow across
        the frontend/backend origins (backend CORS must allow this exact
-       origin + allow_credentials=True — wildcard "*" will not work).
+       origin + supports_credentials true — wildcard "*" will not work).
 
        On success (or if already logged in), this redirects to
        admin-dashboard.html — the other page in this same frontend,
-       which itself re-checks the session via /api/auth/me.
+       which itself re-checks the session via /api/user.
        ============================================================ -->
   <script>
-    // TODO: set this to wherever the FastAPI app is actually deployed.
+    // TODO: set this to wherever the Laravel app is actually deployed.
     const API_BASE_URL = "http://127.0.0.1:8000";
     const ADMIN_DASHBOARD_URL = "admin_dashboard.html";
 
@@ -206,10 +207,11 @@
     }
 
     async function ensureCsrfToken() {
+      // Laravel sets this cookie itself when you hit /sanctum/csrf-cookie.
       // Cookie may already exist from a previous visit; only fetch a fresh
       // one if it's missing, so we don't needlessly rotate it every load.
-      if (readCookie("csrf_token")) return;
-      await fetch(`${API_BASE_URL}/api/auth/csrf`, { credentials: "include" });
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
     }
 
     function showError(message) {
@@ -238,7 +240,7 @@
 
     async function checkSession() {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/auth/me`, { credentials: "include" });
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
         if (res.ok) {
           redirectToDashboard(await res.json());
           return;
@@ -260,14 +262,15 @@
 
       try {
         await ensureCsrfToken();
-        const csrf = readCookie("csrf_token");
+        const csrf = readCookie("XSRF-TOKEN");
 
-        const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        const res = await fetch(`${API_BASE_URL}/login`, {
           method: "POST",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
-            "x-csrf-token": csrf || "",
+            "Accept": "application/json",
+            "X-XSRF-TOKEN": csrf || "",
           },
           body: JSON.stringify({
             email: document.getElementById("email").value.trim(),
@@ -281,8 +284,11 @@
           return;
         }
         if (!res.ok) {
+          // Laravel's ValidationException (422) returns { errors: { email: [...] } };
+          // our custom 429 above returns { detail: "..." }. Handle both shapes.
           const data = await res.json().catch(() => ({}));
-          showError(data.detail || "Incorrect email or password.");
+          const message = data.errors?.email?.[0] || data.detail || data.message || "Incorrect email or password.";
+          showError(message);
           return;
         }
 

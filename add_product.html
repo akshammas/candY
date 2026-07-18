@@ -82,7 +82,6 @@
       border-radius: 50px; font-weight: 600; text-decoration: none; transition: border-color .2s ease;
     }
     .btn-cancel:hover { border-color: var(--accent-color, #0d6efd); color: #212529; }
-    .new-category-row { display: none; margin-top: 10px; }
     .form-status { text-align: center; padding: 60px 0; color: #6c757d; }
   </style>
 </head>
@@ -132,24 +131,25 @@
 
           <form id="product-form" class="pform" novalidate>
             <label for="name">Name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" required>
 
-            <label for="category_name">Category <span class="text-danger">*</span></label>
-            <select class="form-select" id="category_select" required>
-              <option value="" disabled selected>Choose a category</option>
-              <option value="__new__">+ Add a new category…</option>
+            <label for="category_select">Category</label>
+            <select class="form-select" id="category_select">
+              <option value="" selected>No category</option>
+              <option value="Sleep Audio Solutions">Sleep Audio Solutions</option>
+              <option value="Everyday Audio Series">Everyday Audio Series</option>
+              <option value="Gaming Audio Series">Gaming Audio Series</option>
+              <option value="Innovation Series">Innovation Series</option>
+              <option value="Charging Solutions">Charging Solutions</option>
             </select>
-            <div class="new-category-row" id="new-category-row">
-              <input type="text" class="form-control" id="new-category-input" placeholder="New category name">
-            </div>
 
             <label for="summary">Summary <span class="field-hint">(short line for the listing card)</span></label>
-            <input type="text" class="form-control" id="summary" name="summary" maxlength="300">
+            <input type="text" class="form-control" id="summary" maxlength="500">
 
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="6"></textarea>
+            <textarea class="form-control" id="description" rows="6"></textarea>
 
-            <label for="images">Images <span class="text-danger">*</span></label>
+            <label for="images">Images</label>
             <div id="drop-zone" class="drop-zone">
               <p>Drag &amp; drop images here, or click to browse</p>
             </div>
@@ -162,7 +162,7 @@
 
             <div class="form-actions">
               <button type="submit" class="btn-save" id="save-btn">Save product</button>
-              <a href="admin_dashboard.html" class="btn-cancel">Cancel</a>
+              <a href="admin-dashboard.html" class="btn-cancel">Cancel</a>
             </div>
           </form>
         </div>
@@ -191,16 +191,18 @@
   <script src="assets/js/main.js"></script>
 
   <!-- ============================================================
-       Talks to the same FastAPI backend as admin_dashboard.html:
-       - GET  /api/auth/me          confirms an admin session
-       - GET  /api/categories       populates the category dropdown
-       - POST /admin/products/new   creates the product (real form
-                                     submission, multipart/form-data,
-                                     same field names the backend's
-                                     own admin_new_product.html uses)
-       A hidden "return_base" field tells the backend to redirect the
-       browser back to this frontend's product_detail.html (with the
-       new product's id) instead of the raw JSON API, once saved.
+       Talks to the Laravel backend (same conventions as login.html /
+       admin-dashboard.html — Sanctum SPA cookie auth):
+       - GET  /api/user              confirms an admin session
+       - POST /api/admin/products    multipart/form-data, creates the product
+
+       The category dropdown sends a plain "category_name" string —
+       the backend resolves/creates the Category row itself
+       (Api\Admin\ProductController::resolveCategoryId), so there's no
+       separate category-lookup request to get wrong here.
+
+       All state-changing requests need the X-XSRF-TOKEN header set from
+       the XSRF-TOKEN cookie Sanctum issues — same pattern as login.html.
        ============================================================ -->
   <script>
     const API_BASE_URL = "http://127.0.0.1:8000";
@@ -212,8 +214,6 @@
     const saveBtn = document.getElementById("save-btn");
 
     const categorySelect = document.getElementById("category_select");
-    const newCategoryRow = document.getElementById("new-category-row");
-    const newCategoryInput = document.getElementById("new-category-input");
 
     const imagesInput = document.getElementById("images");
     const dropZone = document.getElementById("drop-zone");
@@ -227,8 +227,8 @@
     }
 
     async function ensureCsrfToken() {
-      if (readCookie("csrf_token")) return;
-      await fetch(`${API_BASE_URL}/api/auth/csrf`, { credentials: "include" });
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
     }
 
     function showError(message) {
@@ -313,50 +313,11 @@
     });
     dropZone.addEventListener("drop", (event) => addFiles(Array.from(event.dataTransfer.files)));
 
-    categorySelect.addEventListener("change", () => {
-      const isNew = categorySelect.value === "__new__";
-      newCategoryRow.style.display = isNew ? "" : "none";
-      if (isNew) newCategoryInput.focus();
-    });
-
-    async function loadCategories() {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/categories`);
-        const categories = await res.json();
-        const newOption = categorySelect.querySelector('option[value="__new__"]');
-        categories.forEach((name) => {
-          const opt = document.createElement("option");
-          opt.value = name;
-          opt.textContent = name;
-          categorySelect.insertBefore(opt, newOption);
-        });
-      } catch (err) {
-        console.error("Failed to load categories", err);
-      }
-    }
-
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       hideError();
 
       if (!form.reportValidity()) return;
-
-      let categoryName = categorySelect.value;
-      if (categoryName === "__new__") {
-        categoryName = newCategoryInput.value.trim();
-        if (!categoryName) {
-          showError("Please enter a name for the new category.");
-          return;
-        }
-      }
-      if (!categoryName) {
-        showError("Please choose a category.");
-        return;
-      }
-      if (selectedFiles.length === 0) {
-        showError("Please choose at least one image.");
-        return;
-      }
 
       const primaryChecked = previewContainer.querySelector('input[name="primary_index"]:checked');
       const primaryIndex = primaryChecked ? primaryChecked.value : 0;
@@ -364,54 +325,41 @@
       saveBtn.disabled = true;
       saveBtn.textContent = "Saving…";
 
-      // A real (non-fetch) form submission: the save itself is a top-level,
-      // cross-origin navigation straight to the backend, exactly like the
-      // delete action on admin_dashboard.html. This matters because the
-      // backend responds with a 303 redirect back to product_detail.html
-      // on THIS origin — following that via fetch() would hit CORS/opaque-
-      // redirect restrictions, but a plain browser navigation sails through.
       try {
         await ensureCsrfToken();
 
-        const realForm = document.createElement("form");
-        realForm.method = "post";
-        realForm.enctype = "multipart/form-data";
-        realForm.action = `${API_BASE_URL}/admin/products/new`;
-        realForm.style.display = "none";
+        const fd = new FormData();
+        fd.append("name", document.getElementById("name").value.trim());
+        fd.append("category_name", categorySelect.value); // resolved/created server-side
+        fd.append("summary", document.getElementById("summary").value.trim());
+        fd.append("description", document.getElementById("description").value.trim());
+        fd.append("primary_index", primaryIndex);
+        selectedFiles.forEach((file) => fd.append("images[]", file));
 
-        const addHidden = (name, value) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = name;
-          input.value = value;
-          realForm.appendChild(input);
-        };
+        const res = await fetch(`${API_BASE_URL}/api/admin/products`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "X-XSRF-TOKEN": readCookie("XSRF-TOKEN") || "",
+          },
+          body: fd,
+        });
 
-        addHidden("name", document.getElementById("name").value.trim());
-        addHidden("category_name", categoryName);
-        addHidden("summary", document.getElementById("summary").value.trim());
-        addHidden("description", document.getElementById("description").value.trim());
-        addHidden("primary_index", primaryIndex);
-        addHidden(
-          "return_base",
-          `${window.location.origin}${window.location.pathname.replace(/add_product\.html$/, "")}product_detail.html`
-        );
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          const message = data.errors
+            ? Object.values(data.errors).flat().join(" ")
+            : data.message || "Couldn't save the product. Please check the fields and try again.";
+          showError(message);
+          return;
+        }
 
-        const fileInput = document.createElement("input");
-        fileInput.type = "file";
-        fileInput.name = "images";
-        fileInput.multiple = true;
-        fileInput.style.display = "none";
-        const dataTransfer = new DataTransfer();
-        selectedFiles.forEach((file) => dataTransfer.items.add(file));
-        fileInput.files = dataTransfer.files;
-        realForm.appendChild(fileInput);
-
-        document.body.appendChild(realForm);
-        realForm.submit();
+        window.location.href = "admin-dashboard.html";
       } catch (err) {
         console.error("Save failed", err);
-        showError(`Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+        showError(err.message || `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+      } finally {
         saveBtn.disabled = false;
         saveBtn.textContent = "Save product";
       }
@@ -419,7 +367,7 @@
 
     async function init() {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/auth/me`, { credentials: "include" });
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
         if (!res.ok) {
           window.location.href = "login.html";
           return;
@@ -427,7 +375,6 @@
         statusEl.style.display = "none";
         pageRoot.style.display = "";
         await ensureCsrfToken();
-        await loadCategories();
       } catch (err) {
         console.error("Session check failed", err);
         statusEl.textContent = `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`;

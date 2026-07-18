@@ -154,22 +154,17 @@
 
   <!-- ============================================================
        This page is fully static — no server-side templating. It:
-       1. Confirms there's a valid admin session via /api/auth/me
+       1. Confirms there's a valid admin session via /api/user
           (redirects to login.html if not — same guard the backend
           itself enforces on /admin/*, this is just so the page
           doesn't flash empty content first).
        2. Lists products from the existing public /api/products
           endpoint (no new backend route needed for that).
-       3. Add/Edit now go to add_product.html / edit_product.html —
-          candY-styled pages in this same frontend that post straight
-          to the backend's existing /admin/products/* form routes.
-          Delete posts directly to the backend from here. All three
-          are cross-origin, cookie-bearing navigations/form-submits
-          (the session cookie set at login carries over automatically).
-       4. Manage-admins still goes to the backend's existing
-          server-rendered /admin/* form pages — that's not a JSON
-          endpoint yet, so this links out to it as a normal
-          cross-origin navigation.
+       3. Add/Edit/Delete/Manage-ads/Manage-admins still go to the
+          backend's existing server-rendered /admin/* form pages —
+          those aren't JSON endpoints yet, so this links out to them
+          as normal same-origin navigations (the session cookie set
+          at login carries over automatically).
        ============================================================ -->
   <script>
     // TODO: set this to wherever the FastAPI app is actually deployed.
@@ -192,8 +187,8 @@
     }
 
     async function ensureCsrfToken() {
-      if (readCookie("csrf_token")) return;
-      await fetch(`${API_BASE_URL}/api/auth/csrf`, { credentials: "include" });
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
     }
 
     function productRowHTML(product) {
@@ -227,24 +222,29 @@
           ? products.map(productRowHTML).join("")
           : `<tr><td colspan="5" class="text-center text-muted py-4">No products yet.</td></tr>`;
 
-        // Delete links post a real form to the existing (session-protected)
-        // backend delete route — a same-origin navigation, cookie included.
+        // Edit is now a plain link to edit_product.html?id=... (no JS needed
+        // here) — delete is the one that acts immediately in-place below.
+
         rowsEl.querySelectorAll(".delete-link").forEach((link) => {
-          link.addEventListener("click", (e) => {
+          link.addEventListener("click", async (e) => {
             e.preventDefault();
             const { id, name } = link.dataset;
             if (!confirm(`Delete "${name}"?`)) return;
 
-            const form = document.createElement("form");
-            form.method = "post";
-            form.action = `${API_BASE_URL}/admin/products/${id}/delete`;
-            const returnInput = document.createElement("input");
-            returnInput.type = "hidden";
-            returnInput.name = "return_url";
-            returnInput.value = window.location.href;
-            form.appendChild(returnInput);
-            document.body.appendChild(form);
-            form.submit();
+            try {
+              await ensureCsrfToken();
+              const csrf = readCookie("XSRF-TOKEN");
+              const res = await fetch(`${API_BASE_URL}/api/admin/products/${id}`, {
+                method: "DELETE",
+                credentials: "include",
+                headers: { "X-XSRF-TOKEN": csrf || "", "Accept": "application/json" },
+              });
+              if (!res.ok) throw new Error(`HTTP ${res.status}`);
+              await loadProducts();
+            } catch (err) {
+              console.error("Delete failed", err);
+              alert("Couldn't delete that product.");
+            }
           });
         });
       } catch (err) {
@@ -255,7 +255,7 @@
 
     async function init() {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/auth/me`, { credentials: "include" });
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
         if (!res.ok) {
           window.location.href = "login.html";
           return;
@@ -263,9 +263,16 @@
         const user = await res.json();
 
         document.getElementById("user-chip-text").textContent = `Signed in as ${user.name || user.email}`;
+
         document.getElementById("add-product-link").href = "add_product.html";
         document.getElementById("manage-ads-link").href = "manage_ads.html";
-        document.getElementById("manage-admins-link").href = `${API_BASE_URL}/admin/users`;
+
+        // Manage admins still needs a dedicated form built against the
+        // ready-and-waiting POST /api/admin/users endpoint.
+        document.getElementById("manage-admins-link").addEventListener("click", (e) => {
+          e.preventDefault();
+          alert("This form isn't built yet — the backend endpoint is ready and waiting for it.");
+        });
 
         statusEl.style.display = "none";
         dashRoot.style.display = "";
@@ -280,11 +287,11 @@
 
     document.getElementById("logout-btn").addEventListener("click", async () => {
       try {
-        const csrf = readCookie("csrf_token");
-        await fetch(`${API_BASE_URL}/api/auth/logout`, {
+        const csrf = readCookie("XSRF-TOKEN");
+        await fetch(`${API_BASE_URL}/logout`, {
           method: "POST",
           credentials: "include",
-          headers: { "x-csrf-token": csrf || "" },
+          headers: { "X-XSRF-TOKEN": csrf || "", "Accept": "application/json" },
         });
       } catch (err) {
         console.error("Logout failed", err);

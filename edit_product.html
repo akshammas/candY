@@ -39,6 +39,24 @@
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #0d6efd) 15%, transparent);
     }
 
+    .existing-images { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+    .existing-image {
+      position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      border: 2px solid transparent; border-radius: 10px; padding: 8px; background: #f8f9fb; width: 108px;
+    }
+    .existing-image.is-primary { border-color: var(--accent-color, #0d6efd); background: color-mix(in srgb, var(--accent-color, #0d6efd) 8%, transparent); }
+    .existing-image img { width: 92px; height: 92px; object-fit: cover; border-radius: 8px; }
+    .existing-image .primary-badge { font-size: .68rem; font-weight: 700; color: var(--accent-color, #0d6efd); text-transform: uppercase; letter-spacing: .04em; }
+    .existing-image .set-primary-btn {
+      font-size: .72rem; background: none; border: none; color: #6c757d; text-decoration: underline; cursor: pointer; padding: 0;
+    }
+    .existing-image .set-primary-btn:hover { color: var(--accent-color, #0d6efd); }
+    .existing-image-remove {
+      position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%;
+      border: none; background: #b3261e; color: #fff; cursor: pointer; line-height: 1; font-size: 14px;
+    }
+    .no-existing-images { color: #6c757d; font-size: .88rem; margin-top: 8px; }
+
     .drop-zone {
       border: 2px dashed #dcdfe4; border-radius: 12px; padding: 34px; text-align: center;
       color: #8a8f98; cursor: pointer; margin-top: 8px; transition: border-color .15s, background .15s, color .15s;
@@ -54,12 +72,7 @@
       position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px;
       border: 2px solid transparent; border-radius: 10px; padding: 6px; background: #f8f9fb;
     }
-    .image-preview:has(input:checked) {
-      border-color: var(--accent-color, #0d6efd);
-      background: color-mix(in srgb, var(--accent-color, #0d6efd) 8%, transparent);
-    }
     .image-preview img { width: 92px; height: 92px; object-fit: cover; border-radius: 8px; }
-    .image-preview-radio { display: flex; align-items: center; gap: 5px; font-size: .74rem; color: #555; cursor: pointer; }
     .image-preview-remove {
       position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%;
       border: none; background: #b3261e; color: #fff; cursor: pointer; line-height: 1; font-size: 14px;
@@ -82,20 +95,7 @@
       border-radius: 50px; font-weight: 600; text-decoration: none; transition: border-color .2s ease;
     }
     .btn-cancel:hover { border-color: var(--accent-color, #0d6efd); color: #212529; }
-    .new-category-row { display: none; margin-top: 10px; }
     .form-status { text-align: center; padding: 60px 0; color: #6c757d; }
-
-    .danger-zone {
-      max-width: 780px; margin: 24px auto 0; background: #fff8f7; border: 1.5px solid #f5c2bd;
-      border-radius: 16px; padding: 22px 28px; display: flex; align-items: center;
-      justify-content: space-between; gap: 16px; flex-wrap: wrap;
-    }
-    .danger-zone p { margin: 0; font-size: .88rem; color: #6c757d; }
-    .btn-delete {
-      background: #b3261e; color: #fff; border: none; padding: 11px 24px;
-      border-radius: 50px; font-weight: 600; white-space: nowrap;
-    }
-    .btn-delete:hover { background: #8f1e17; color: #fff; }
   </style>
 </head>
 
@@ -123,14 +123,14 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
-            <li class="breadcrumb-item"><a href="admin_dashboard.html">Admin Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="admin-dashboard.html">Admin Dashboard</a></li>
             <li class="breadcrumb-item active current">Edit Product</li>
           </ol>
         </nav>
       </div>
       <div class="title-wrapper">
-        <h1>Edit Product</h1>
-        <p>Update product details, images, and category.</p>
+        <h1 id="page-heading">Edit Product</h1>
+        <p>Update this product's details, photos, and category.</p>
       </div>
     </div>
 
@@ -144,45 +144,45 @@
 
           <form id="product-form" class="pform" novalidate>
             <label for="name">Name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="name" required>
 
-            <label for="category_name">Category <span class="text-danger">*</span></label>
-            <select class="form-select" id="category_select" required>
-              <option value="__new__">+ Add a new category…</option>
+            <label for="category_select">Category</label>
+            <select class="form-select" id="category_select">
+              <option value="">No category</option>
+              <option value="Sleep Audio Solutions">Sleep Audio Solutions</option>
+              <option value="Everyday Audio Series">Everyday Audio Series</option>
+              <option value="Gaming Audio Series">Gaming Audio Series</option>
+              <option value="Innovation Series">Innovation Series</option>
+              <option value="Charging Solutions">Charging Solutions</option>
             </select>
-            <div class="new-category-row" id="new-category-row">
-              <input type="text" class="form-control" id="new-category-input" placeholder="New category name">
-            </div>
 
             <label for="summary">Summary <span class="field-hint">(short line for the listing card)</span></label>
-            <input type="text" class="form-control" id="summary" name="summary" maxlength="300">
+            <input type="text" class="form-control" id="summary" maxlength="500">
 
             <label for="description">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="6"></textarea>
+            <textarea class="form-control" id="description" rows="6"></textarea>
 
-            <label>Current images</label>
-            <div id="existing-previews" class="image-previews"></div>
+            <label>Existing images</label>
+            <div id="existing-images" class="existing-images"></div>
+            <p id="no-existing-images" class="no-existing-images" style="display:none;">No images yet — add some below.</p>
 
-            <label for="images">Add more images</label>
+            <label for="images">Add new images</label>
             <div id="drop-zone" class="drop-zone">
               <p>Drag &amp; drop images here, or click to browse</p>
             </div>
             <input type="file" id="images" accept="image/*" multiple style="display:none;">
             <p class="field-hint">
-              Remove a current image with ×, or drag/click to add new ones. Pick the radio on any thumbnail to make it primary.
+              New uploads are added to the gallery. If the product has no primary photo yet,
+              the first new upload becomes primary automatically — otherwise use "Set primary"
+              on an existing image above.
             </p>
             <div id="image-previews" class="image-previews"></div>
 
             <div class="form-actions">
               <button type="submit" class="btn-save" id="save-btn">Save changes</button>
-              <a href="admin_dashboard.html" class="btn-cancel">Cancel</a>
+              <a href="admin-dashboard.html" class="btn-cancel">Cancel</a>
             </div>
           </form>
-        </div>
-
-        <div class="danger-zone">
-          <p>Deleting a product removes it and its images permanently. This can't be undone.</p>
-          <button type="button" class="btn-delete" id="delete-btn">Delete product</button>
         </div>
       </div>
 
@@ -209,41 +209,43 @@
   <script src="assets/js/main.js"></script>
 
   <!-- ============================================================
-       Talks to the same FastAPI backend as admin_dashboard.html:
-       - GET  /api/auth/me                confirms an admin session
-       - GET  /api/categories             populates the category dropdown
-       - GET  /api/products/{id}          loads the product to prefill
-       - POST /admin/products/{id}/edit   saves changes
-       - POST /admin/products/{id}/delete deletes the product
-       Saving/deleting use real (non-fetch) form submissions — same
-       trick as the delete link on admin_dashboard.html — so the
-       backend's 303 redirect back to this frontend isn't blocked by
-       CORS/opaque-redirect rules the way a fetch() follow would be.
+       Same conventions as add_product.html (Sanctum SPA cookie auth):
+       - GET    /api/user                                    confirm session
+       - GET    /api/products/{id}                            load current data (public endpoint, already has everything needed)
+       - POST   /api/admin/products/{id}                      save changes (Laravel + multipart -> POST, not PATCH)
+       - DELETE /api/admin/products/{id}/images/{imageId}      remove an existing image
+       - POST   /api/admin/products/{id}/images/{imageId}/primary   set an existing image as primary
+       Existing-image actions (delete / set primary) fire immediately on
+       click rather than waiting for the main form save — keeps the gallery
+       state on screen always matching what's actually in the database.
        ============================================================ -->
   <script>
     const API_BASE_URL = "http://127.0.0.1:8000";
 
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get("id");
+    const productId = new URLSearchParams(window.location.search).get("id");
 
     const pageRoot = document.getElementById("page-root");
     const statusEl = document.getElementById("form-status");
     const errorBox = document.getElementById("form-error");
     const form = document.getElementById("product-form");
     const saveBtn = document.getElementById("save-btn");
-    const deleteBtn = document.getElementById("delete-btn");
 
     const categorySelect = document.getElementById("category_select");
-    const newCategoryRow = document.getElementById("new-category-row");
-    const newCategoryInput = document.getElementById("new-category-input");
+    const existingImagesEl = document.getElementById("existing-images");
+    const noExistingImagesEl = document.getElementById("no-existing-images");
 
     const imagesInput = document.getElementById("images");
     const dropZone = document.getElementById("drop-zone");
     const previewContainer = document.getElementById("image-previews");
-    const existingContainer = document.getElementById("existing-previews");
 
-    let selectedFiles = []; // newly added files
-    let currentCategoryName = null;
+    let selectedFiles = [];
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
 
     function readCookie(name) {
       const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
@@ -251,8 +253,12 @@
     }
 
     async function ensureCsrfToken() {
-      if (readCookie("csrf_token")) return;
-      await fetch(`${API_BASE_URL}/api/auth/csrf`, { credentials: "include" });
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
+    }
+
+    function authHeaders(extra = {}) {
+      return { "X-XSRF-TOKEN": readCookie("XSRF-TOKEN") || "", Accept: "application/json", ...extra };
     }
 
     function showError(message) {
@@ -263,17 +269,89 @@
       errorBox.style.display = "none";
     }
 
-    function frontendBase() {
-      return `${window.location.origin}${window.location.pathname.replace(/edit_product\.html$/, "")}`;
+    // ---------- existing images (delete / set primary act immediately) ----------
+
+    function renderExistingImages(images) {
+      existingImagesEl.innerHTML = "";
+      noExistingImagesEl.style.display = images.length ? "none" : "";
+
+      images.forEach((image) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "existing-image" + (image.is_primary ? " is-primary" : "");
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "existing-image-remove";
+        removeBtn.textContent = "\u00d7";
+        removeBtn.setAttribute("aria-label", "Delete image");
+        removeBtn.addEventListener("click", () => deleteExistingImage(image.id));
+
+        const img = document.createElement("img");
+        img.src = image.url;
+        img.alt = image.alt_text || "";
+
+        wrapper.appendChild(removeBtn);
+        wrapper.appendChild(img);
+
+        if (image.is_primary) {
+          const badge = document.createElement("span");
+          badge.className = "primary-badge";
+          badge.textContent = "Primary";
+          wrapper.appendChild(badge);
+        } else {
+          const setPrimaryBtn = document.createElement("button");
+          setPrimaryBtn.type = "button";
+          setPrimaryBtn.className = "set-primary-btn";
+          setPrimaryBtn.textContent = "Set primary";
+          setPrimaryBtn.addEventListener("click", () => setPrimaryImage(image.id));
+          wrapper.appendChild(setPrimaryBtn);
+        }
+
+        existingImagesEl.appendChild(wrapper);
+      });
     }
 
-    function ensureSomePrimaryChecked() {
-      const anyChecked = form.querySelector('input[name="primary_choice"]:checked');
-      if (!anyChecked) {
-        const firstVisibleRadio = form.querySelector('input[name="primary_choice"]');
-        if (firstVisibleRadio) firstVisibleRadio.checked = true;
+    async function reloadProductImages() {
+      const res = await fetch(`${API_BASE_URL}/api/products/${productId}`);
+      if (!res.ok) return;
+      const product = await res.json();
+      renderExistingImages(product.images || []);
+    }
+
+    async function deleteExistingImage(imageId) {
+      if (!confirm("Delete this image?")) return;
+      try {
+        await ensureCsrfToken();
+        const res = await fetch(`${API_BASE_URL}/api/admin/products/${productId}/images/${imageId}`, {
+          method: "DELETE",
+          credentials: "include",
+          headers: authHeaders(),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        await reloadProductImages();
+      } catch (err) {
+        console.error("Delete image failed", err);
+        alert("Couldn't delete that image.");
       }
     }
+
+    async function setPrimaryImage(imageId) {
+      try {
+        await ensureCsrfToken();
+        const res = await fetch(`${API_BASE_URL}/api/admin/products/${productId}/images/${imageId}/primary`, {
+          method: "POST",
+          credentials: "include",
+          headers: authHeaders(),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        await reloadProductImages();
+      } catch (err) {
+        console.error("Set primary failed", err);
+        alert("Couldn't set that image as primary.");
+      }
+    }
+
+    // ---------- new image staging (same drag/drop pattern as add_product.html) ----------
 
     function fileKey(file) {
       return `${file.name}-${file.size}-${file.lastModified}`;
@@ -284,10 +362,10 @@
       const existingKeys = new Set(selectedFiles.map(fileKey));
       const filtered = imageFiles.filter((f) => !existingKeys.has(fileKey(f)));
       selectedFiles = selectedFiles.concat(filtered);
-      renderPreviews();
+      renderNewPreviews();
     }
 
-    function renderPreviews() {
+    function renderNewPreviews() {
       previewContainer.innerHTML = "";
       selectedFiles.forEach((file, index) => {
         const url = URL.createObjectURL(file);
@@ -299,88 +377,19 @@
         removeBtn.type = "button";
         removeBtn.className = "image-preview-remove";
         removeBtn.textContent = "\u00d7";
-        removeBtn.setAttribute("aria-label", "Remove image");
+        removeBtn.setAttribute("aria-label", "Remove staged image");
         removeBtn.addEventListener("click", () => {
           selectedFiles.splice(index, 1);
-          renderPreviews();
+          renderNewPreviews();
         });
 
         const img = document.createElement("img");
         img.src = url;
         img.alt = file.name;
 
-        const radioLabel = document.createElement("label");
-        radioLabel.className = "image-preview-radio";
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "primary_choice";
-        radio.value = `new-${index}`;
-
-        const caption = document.createElement("span");
-        caption.textContent = "Primary";
-
-        radioLabel.appendChild(radio);
-        radioLabel.appendChild(caption);
         wrapper.appendChild(removeBtn);
         wrapper.appendChild(img);
-        wrapper.appendChild(radioLabel);
         previewContainer.appendChild(wrapper);
-      });
-      ensureSomePrimaryChecked();
-    }
-
-    function renderExistingImages(images) {
-      existingContainer.innerHTML = "";
-      images.forEach((image) => {
-        const wrapper = document.createElement("div");
-        wrapper.className = "image-preview";
-        wrapper.dataset.existingId = image.id;
-
-        const removeBtn = document.createElement("button");
-        removeBtn.type = "button";
-        removeBtn.className = "image-preview-remove";
-        removeBtn.textContent = "\u00d7";
-        removeBtn.setAttribute("aria-label", "Remove image");
-
-        const img = document.createElement("img");
-        img.src = image.url;
-        img.alt = image.alt_text || "";
-
-        const radioLabel = document.createElement("label");
-        radioLabel.className = "image-preview-radio";
-
-        const radio = document.createElement("input");
-        radio.type = "radio";
-        radio.name = "primary_choice";
-        radio.value = `existing-${image.id}`;
-        if (image.is_primary) radio.checked = true;
-
-        const caption = document.createElement("span");
-        caption.textContent = "Primary";
-
-        radioLabel.appendChild(radio);
-        radioLabel.appendChild(caption);
-
-        const keepCheckbox = document.createElement("input");
-        keepCheckbox.type = "checkbox";
-        keepCheckbox.name = "keep_image_ids";
-        keepCheckbox.value = image.id;
-        keepCheckbox.checked = true;
-        keepCheckbox.hidden = true;
-
-        removeBtn.addEventListener("click", () => {
-          keepCheckbox.checked = false;
-          radio.checked = false;
-          wrapper.style.display = "none";
-          ensureSomePrimaryChecked();
-        });
-
-        wrapper.appendChild(removeBtn);
-        wrapper.appendChild(img);
-        wrapper.appendChild(radioLabel);
-        wrapper.appendChild(keepCheckbox);
-        existingContainer.appendChild(wrapper);
       });
     }
 
@@ -403,62 +412,34 @@
     });
     dropZone.addEventListener("drop", (event) => addFiles(Array.from(event.dataTransfer.files)));
 
-    categorySelect.addEventListener("change", () => {
-      const isNew = categorySelect.value === "__new__";
-      newCategoryRow.style.display = isNew ? "" : "none";
-      if (isNew) newCategoryInput.focus();
-    });
-
-    async function loadCategories() {
-      const res = await fetch(`${API_BASE_URL}/api/categories`);
-      const categories = await res.json();
-      const newOption = categorySelect.querySelector('option[value="__new__"]');
-      categories.forEach((name) => {
-        const opt = document.createElement("option");
-        opt.value = name;
-        opt.textContent = name;
-        if (name === currentCategoryName) opt.selected = true;
-        categorySelect.insertBefore(opt, newOption);
-      });
-    }
+    // ---------- load + save ----------
 
     async function loadProduct() {
       const res = await fetch(`${API_BASE_URL}/api/products/${productId}`);
-      if (!res.ok) throw new Error("Product not found");
+      if (!res.ok) {
+        statusEl.textContent = "Product not found.";
+        return;
+      }
       const product = await res.json();
 
+      document.title = `Edit ${product.name} | C&Y Material Limited`;
+      document.getElementById("page-heading").textContent = `Edit: ${product.name}`;
       document.getElementById("name").value = product.name || "";
       document.getElementById("summary").value = product.summary || "";
       document.getElementById("description").value = product.description || "";
-      currentCategoryName = product.category ? product.category.name : null;
+      categorySelect.value = product.category ? product.category.name : "";
 
       renderExistingImages(product.images || []);
-    }
 
-    function buildSaveForm() {
-      let categoryName = categorySelect.value;
-      if (categoryName === "__new__") categoryName = newCategoryInput.value.trim();
-      return categoryName;
+      statusEl.style.display = "none";
+      pageRoot.style.display = "";
     }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       hideError();
+
       if (!form.reportValidity()) return;
-
-      const categoryName = buildSaveForm();
-      if (!categoryName) {
-        showError("Please choose or enter a category.");
-        return;
-      }
-
-      const anyKept = Array.from(existingContainer.querySelectorAll('input[type="checkbox"]')).some((cb) => cb.checked);
-      if (!anyKept && selectedFiles.length === 0) {
-        showError("A product needs at least one image.");
-        return;
-      }
-
-      const primaryChecked = form.querySelector('input[name="primary_choice"]:checked');
 
       saveBtn.disabled = true;
       saveBtn.textContent = "Saving…";
@@ -466,78 +447,36 @@
       try {
         await ensureCsrfToken();
 
-        const realForm = document.createElement("form");
-        realForm.method = "post";
-        realForm.enctype = "multipart/form-data";
-        realForm.action = `${API_BASE_URL}/admin/products/${productId}/edit`;
-        realForm.style.display = "none";
+        const fd = new FormData();
+        fd.append("name", document.getElementById("name").value.trim());
+        fd.append("category_name", categorySelect.value);
+        fd.append("summary", document.getElementById("summary").value.trim());
+        fd.append("description", document.getElementById("description").value.trim());
+        selectedFiles.forEach((file) => fd.append("images[]", file));
 
-        const addHidden = (name, value) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = name;
-          input.value = value;
-          realForm.appendChild(input);
-        };
-
-        addHidden("name", document.getElementById("name").value.trim());
-        addHidden("category_name", categoryName);
-        addHidden("summary", document.getElementById("summary").value.trim());
-        addHidden("description", document.getElementById("description").value.trim());
-        addHidden("primary_choice", primaryChecked ? primaryChecked.value : "");
-        addHidden("return_url", `${frontendBase()}product_detail.html?id=${productId}`);
-
-        existingContainer.querySelectorAll('input[name="keep_image_ids"]').forEach((cb) => {
-          if (cb.checked) addHidden("keep_image_ids", cb.value);
+        const res = await fetch(`${API_BASE_URL}/api/admin/products/${productId}`, {
+          method: "POST",
+          credentials: "include",
+          headers: authHeaders(),
+          body: fd,
         });
 
-        const fileInput = document.createElement("input");
-        fileInput.type = "file";
-        fileInput.name = "new_images";
-        fileInput.multiple = true;
-        fileInput.style.display = "none";
-        const dataTransfer = new DataTransfer();
-        selectedFiles.forEach((file) => dataTransfer.items.add(file));
-        fileInput.files = dataTransfer.files;
-        realForm.appendChild(fileInput);
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          const message = data.errors
+            ? Object.values(data.errors).flat().join(" ")
+            : data.message || "Couldn't save changes. Please check the fields and try again.";
+          showError(message);
+          return;
+        }
 
-        document.body.appendChild(realForm);
-        realForm.submit();
+        window.location.href = "admin_dashboard.html";
       } catch (err) {
         console.error("Save failed", err);
-        showError(`Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+        showError(err.message || `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+      } finally {
         saveBtn.disabled = false;
         saveBtn.textContent = "Save changes";
-      }
-    });
-
-    deleteBtn.addEventListener("click", async () => {
-      if (!confirm("Delete this product? This cannot be undone.")) return;
-
-      deleteBtn.disabled = true;
-      deleteBtn.textContent = "Deleting…";
-
-      try {
-        await ensureCsrfToken();
-
-        const realForm = document.createElement("form");
-        realForm.method = "post";
-        realForm.action = `${API_BASE_URL}/admin/products/${productId}/delete`;
-        realForm.style.display = "none";
-
-        const returnInput = document.createElement("input");
-        returnInput.type = "hidden";
-        returnInput.name = "return_url";
-        returnInput.value = `${frontendBase()}admin_dashboard.html`;
-        realForm.appendChild(returnInput);
-
-        document.body.appendChild(realForm);
-        realForm.submit();
-      } catch (err) {
-        console.error("Delete failed", err);
-        showError(`Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
-        deleteBtn.disabled = false;
-        deleteBtn.textContent = "Delete product";
       }
     });
 
@@ -546,22 +485,18 @@
         statusEl.textContent = "No product specified.";
         return;
       }
+
       try {
-        const authRes = await fetch(`${API_BASE_URL}/api/auth/me`, { credentials: "include" });
-        if (!authRes.ok) {
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
+        if (!res.ok) {
           window.location.href = "login.html";
           return;
         }
-
-        await loadProduct();
         await ensureCsrfToken();
-        await loadCategories();
-
-        statusEl.style.display = "none";
-        pageRoot.style.display = "";
+        await loadProduct();
       } catch (err) {
-        console.error("Failed to load product", err);
-        statusEl.textContent = `Couldn't load this product. Is the API running at ${API_BASE_URL}?`;
+        console.error("Session check failed", err);
+        statusEl.textContent = `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`;
       }
     }
 

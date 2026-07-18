@@ -21,15 +21,14 @@
 
   <style>
     .ads-section { padding: 50px 0 80px; }
-
     .form-card {
       background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.06);
-      padding: 32px 36px; margin-bottom: 34px;
+      padding: 36px 40px; max-width: 780px; margin: 0 auto 40px;
     }
-    .form-card h1 { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
-    .form-card .subtext { color: #6c757d; margin-bottom: 22px; font-size: .92rem; }
+    .form-card h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .form-card .subtext { color: #6c757d; margin-bottom: 26px; font-size: .95rem; }
 
-    .pform label { font-weight: 600; font-size: .9rem; margin-bottom: 6px; display: block; margin-top: 18px; }
+    .pform label { font-weight: 600; font-size: .9rem; margin-bottom: 6px; display: block; margin-top: 20px; }
     .pform label:first-of-type { margin-top: 0; }
     .pform .field-hint { font-weight: 400; color: #6c757d; font-size: .82rem; }
     .pform .form-control, .pform .form-select {
@@ -40,56 +39,42 @@
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #0d6efd) 15%, transparent);
     }
 
-    .drop-zone {
-      border: 2px dashed #dcdfe4; border-radius: 12px; padding: 30px; text-align: center;
-      color: #8a8f98; cursor: pointer; margin-top: 8px; transition: border-color .15s, background .15s, color .15s;
-    }
-    .drop-zone p { margin: 0; font-size: .92rem; }
-    .drop-zone:hover, .drop-zone-active {
-      border-color: var(--accent-color, #0d6efd); color: var(--accent-color, #0d6efd);
-      background: color-mix(in srgb, var(--accent-color, #0d6efd) 6%, transparent);
-    }
-    .single-preview { margin-top: 12px; display: none; }
-    .single-preview img { width: 140px; height: 90px; object-fit: cover; border-radius: 8px; }
-    .single-preview .remove-single {
-      display: inline-flex; align-items: center; gap: 6px; margin-left: 12px;
-      color: #b3261e; font-weight: 600; font-size: .85rem; text-decoration: none; cursor: pointer;
-    }
-
     .form-error {
       background: #fdecea; color: #b3261e; border-radius: 10px; padding: 12px 16px;
       font-size: .9rem; margin-bottom: 18px; display: none;
     }
+    .form-actions { display: flex; gap: 12px; margin-top: 30px; }
     .btn-save {
       background: var(--accent-color, #0d6efd); color: #fff; border: none;
-      padding: 12px 28px; border-radius: 50px; font-weight: 600; margin-top: 26px;
+      padding: 13px 30px; border-radius: 50px; font-weight: 600;
       transition: transform .2s ease, box-shadow .2s ease; box-shadow: 0 8px 22px rgba(0,0,0,.18);
     }
     .btn-save:hover:not(:disabled) { transform: translateY(-2px); color: #fff; }
     .btn-save:disabled { opacity: .7; cursor: not-allowed; }
-
-    .ads-list-header {
-      display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+    .btn-cancel {
+      background: #fff; color: #212529; border: 1.5px solid #dcdfe4; padding: 13px 26px;
+      border-radius: 50px; font-weight: 600; text-decoration: none; transition: border-color .2s ease;
     }
-    .ads-list-header h2 { font-size: 1.1rem; font-weight: 700; margin: 0; }
-    .back-link { display: inline-block; margin-bottom: 20px; color: var(--accent-color, #0d6efd); font-weight: 600; text-decoration: none; }
+    .btn-cancel:hover { border-color: var(--accent-color, #0d6efd); color: #212529; }
 
+    .ads-list-wrap { max-width: 780px; margin: 0 auto; }
+    .ads-list-wrap h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 18px; }
     .ad-row {
-      display: flex; align-items: center; gap: 20px; background: #fff; border-radius: 14px;
-      box-shadow: 0 6px 20px rgba(0,0,0,.05); padding: 16px 20px; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 16px; background: #fff; border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.05); padding: 14px 18px; margin-bottom: 14px;
     }
-    .ad-row img { width: 110px; height: 70px; object-fit: cover; border-radius: 8px; background: #f1f3f6; flex-shrink: 0; }
+    .ad-row img { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; background: #f1f3f6; flex-shrink: 0; }
     .ad-row-info { flex: 1; min-width: 0; }
     .ad-row-info p { margin: 0; }
-    .ad-row-info .ad-caption { font-weight: 600; }
-    .ad-row-info .ad-meta { color: #6c757d; font-size: .85rem; margin-top: 2px; }
-    .btn-delete-ad {
-      background: #fff; color: #b3261e; border: 1.5px solid #f5c2bd; padding: 9px 18px;
-      border-radius: 50px; font-weight: 600; font-size: .85rem; white-space: nowrap;
+    .ad-row-caption { font-weight: 600; }
+    .ad-row-meta { color: #6c757d; font-size: .85rem; margin-top: 3px !important; }
+    .ad-delete-btn {
+      background: none; border: none; color: #b3261e; font-weight: 600; font-size: .88rem; cursor: pointer;
+      flex-shrink: 0;
     }
-    .btn-delete-ad:hover { background: #fdecea; }
-    .ads-empty { color: #6c757d; text-align: center; padding: 30px 0; }
-    .ads-status { text-align: center; padding: 60px 0; color: #6c757d; }
+    .ad-delete-btn:hover { text-decoration: underline; }
+    .ads-status { text-align: center; padding: 40px 0; color: #6c757d; }
+    .page-status { text-align: center; padding: 60px 0; color: #6c757d; }
   </style>
 </head>
 
@@ -124,18 +109,16 @@
       </div>
       <div class="title-wrapper">
         <h1>Manage Ads</h1>
-        <p>Ads shown on the products page banner.</p>
+        <p>Sponsored cards that appear in the product grid, each linking to one product.</p>
       </div>
     </div>
 
     <section class="ads-section">
       <div class="container" id="page-root" style="display:none;">
 
-        <a href="admin_dashboard.html" class="back-link">&larr; Back to dashboard</a>
-
         <div class="form-card">
           <h1>Add a new ad</h1>
-          <p class="subtext">Ads link to a product and appear in the banner on the products page.</p>
+          <p class="subtext">Fields marked required must be filled in before saving.</p>
 
           <div class="form-error" id="form-error"></div>
 
@@ -152,27 +135,23 @@
             <input type="text" class="form-control" id="button_text" maxlength="50">
 
             <label for="image">Image <span class="text-danger">*</span></label>
-            <div id="drop-zone" class="drop-zone">
-              <p>Drag &amp; drop an image here, or click to browse</p>
-            </div>
-            <input type="file" id="image" accept="image/*" style="display:none;">
-            <div class="single-preview" id="single-preview">
-              <img id="single-preview-img" alt="Selected ad image">
-              <a class="remove-single" id="remove-single">&times; Remove</a>
-            </div>
+            <input type="file" class="form-control" id="image" accept="image/*" required>
 
-            <button type="submit" class="btn-save" id="save-btn">Save ad</button>
+            <div class="form-actions">
+              <button type="submit" class="btn-save" id="save-btn">Save ad</button>
+              <a href="admin_dashboard.html" class="btn-cancel">Back to dashboard</a>
+            </div>
           </form>
         </div>
 
-        <div class="ads-list-header">
+        <div class="ads-list-wrap">
           <h2>Current ads</h2>
+          <div id="ads-list"></div>
         </div>
-        <div id="ads-list"></div>
 
       </div>
 
-      <div class="ads-status" id="ads-status">Checking session…</div>
+      <div class="page-status" id="page-status">Checking session…</div>
 
     </section>
 
@@ -195,34 +174,33 @@
   <script src="assets/js/main.js"></script>
 
   <!-- ============================================================
-       Talks to the same FastAPI backend as admin_dashboard.html:
-       - GET  /api/auth/me        confirms an admin session
-       - GET  /api/products       populates the "links to product" dropdown
-       - GET  /api/ads            lists existing ads (public, no auth needed)
-       - POST /admin/ads/new      creates an ad
-       - POST /admin/ads/{id}/delete deletes an ad
-       Create/delete use real (non-fetch) form submissions — same
-       trick as the product pages — so the backend's 303 redirect
-       back to this page isn't blocked by CORS/opaque-redirect rules.
+       Same conventions as add_product.html / edit_product.html
+       (Sanctum SPA cookie auth):
+       - GET    /api/user                confirm session
+       - GET    /api/products             populate the "links to product" dropdown
+       - GET    /api/ads                  list existing ads
+       - POST   /api/admin/ads            multipart/form-data, creates an ad
+       - DELETE /api/admin/ads/{id}       remove one
+       Mirrors the old FastAPI admin_ads.html (list) + admin_new_ad.html
+       (create form) combined into a single page.
        ============================================================ -->
   <script>
     const API_BASE_URL = "http://127.0.0.1:8000";
 
     const pageRoot = document.getElementById("page-root");
-    const statusEl = document.getElementById("ads-status");
+    const statusEl = document.getElementById("page-status");
     const errorBox = document.getElementById("form-error");
     const form = document.getElementById("ad-form");
     const saveBtn = document.getElementById("save-btn");
     const productSelect = document.getElementById("product_id");
     const adsList = document.getElementById("ads-list");
 
-    const imageInput = document.getElementById("image");
-    const dropZone = document.getElementById("drop-zone");
-    const singlePreview = document.getElementById("single-preview");
-    const singlePreviewImg = document.getElementById("single-preview-img");
-    const removeSingleBtn = document.getElementById("remove-single");
-
-    let selectedFile = null;
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
 
     function readCookie(name) {
       const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
@@ -230,8 +208,12 @@
     }
 
     async function ensureCsrfToken() {
-      if (readCookie("csrf_token")) return;
-      await fetch(`${API_BASE_URL}/api/auth/csrf`, { credentials: "include" });
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
+    }
+
+    function authHeaders(extra = {}) {
+      return { "X-XSRF-TOKEN": readCookie("XSRF-TOKEN") || "", Accept: "application/json", ...extra };
     }
 
     function showError(message) {
@@ -241,132 +223,74 @@
     function hideError() {
       errorBox.style.display = "none";
     }
-    function escapeHtml(str) {
-      if (!str) return "";
-      return str.replace(/[&<>"']/g, (c) => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-      }[c]));
-    }
-    function frontendBase() {
-      return `${window.location.origin}${window.location.pathname.replace(/manage_ads\.html$/, "")}`;
-    }
 
-    function setSingleFile(file) {
-      selectedFile = file;
-      if (file) {
-        singlePreviewImg.src = URL.createObjectURL(file);
-        singlePreview.style.display = "flex";
-        singlePreview.style.alignItems = "center";
-        dropZone.style.display = "none";
-      } else {
-        singlePreview.style.display = "none";
-        dropZone.style.display = "";
-      }
-    }
+    // products keyed by id, so the ad list can show "Links to: <name>"
+    // without a second round trip per ad.
+    let productsById = {};
 
-    dropZone.addEventListener("click", () => imageInput.click());
-    imageInput.addEventListener("change", () => {
-      const file = imageInput.files[0];
-      if (file && file.type.startsWith("image/")) setSingleFile(file);
-    });
-    ["dragenter", "dragover"].forEach((eventName) => {
-      dropZone.addEventListener(eventName, (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        dropZone.classList.add("drop-zone-active");
-      });
-    });
-    ["dragleave", "drop"].forEach((eventName) => {
-      dropZone.addEventListener(eventName, (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        dropZone.classList.remove("drop-zone-active");
-      });
-    });
-    dropZone.addEventListener("drop", (event) => {
-      const file = event.dataTransfer.files[0];
-      if (file && file.type.startsWith("image/")) setSingleFile(file);
-    });
-    removeSingleBtn.addEventListener("click", () => {
-      imageInput.value = "";
-      setSingleFile(null);
-    });
-
-    async function loadProducts() {
+    async function loadProductOptions() {
       const res = await fetch(`${API_BASE_URL}/api/products`);
       const data = await res.json();
-      (data.products || []).forEach((product) => {
-        const opt = document.createElement("option");
-        opt.value = product.id;
-        opt.textContent = product.name;
-        productSelect.appendChild(opt);
+      const products = data.products || [];
+
+      products.forEach((p) => { productsById[p.id] = p; });
+
+      products.forEach((p) => {
+        const option = document.createElement("option");
+        option.value = p.id;
+        option.textContent = p.name;
+        productSelect.appendChild(option);
       });
     }
 
     function adRowHTML(ad) {
+      const product = productsById[ad.product_id];
       return `
         <div class="ad-row" data-id="${ad.id}">
-          <img src="${ad.image_url}" alt="${escapeHtml(ad.caption || "Ad")}">
+          <img src="${ad.image_url}" alt="${escapeHtml(ad.caption || 'Ad')}">
           <div class="ad-row-info">
-            <p class="ad-caption">${escapeHtml(ad.caption || "(no caption)")}</p>
-            <p class="ad-meta">Links to: ${escapeHtml(ad.product_name || "—")} &middot; Button: ${escapeHtml(ad.button_text || "Shop Now")}</p>
+            <p class="ad-row-caption">${escapeHtml(ad.caption || "(no caption)")}</p>
+            <p class="ad-row-meta">Links to: ${escapeHtml(product ? product.name : `Product #${ad.product_id}`)} · Button: "${escapeHtml(ad.button_text || "Shop Now")}"</p>
           </div>
-          <button type="button" class="btn-delete-ad" data-id="${ad.id}">Delete</button>
+          <button type="button" class="ad-delete-btn" data-id="${ad.id}">Delete</button>
         </div>`;
     }
 
     async function loadAds() {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/ads`);
-        const ads = await res.json();
-        adsList.innerHTML = ads.length
-          ? ads.map(adRowHTML).join("")
-          : `<p class="ads-empty">No ads yet.</p>`;
+      const res = await fetch(`${API_BASE_URL}/api/ads`);
+      const ads = await res.json();
 
-        adsList.querySelectorAll(".btn-delete-ad").forEach((btn) => {
-          btn.addEventListener("click", async () => {
-            if (!confirm("Delete this ad?")) return;
-            btn.disabled = true;
-            btn.textContent = "Deleting…";
-            try {
-              await ensureCsrfToken();
-              const realForm = document.createElement("form");
-              realForm.method = "post";
-              realForm.action = `${API_BASE_URL}/admin/ads/${btn.dataset.id}/delete`;
-              realForm.style.display = "none";
-              const returnInput = document.createElement("input");
-              returnInput.type = "hidden";
-              returnInput.name = "return_url";
-              returnInput.value = window.location.href;
-              realForm.appendChild(returnInput);
-              document.body.appendChild(realForm);
-              realForm.submit();
-            } catch (err) {
-              console.error("Delete failed", err);
-              btn.disabled = false;
-              btn.textContent = "Delete";
-            }
-          });
+      adsList.innerHTML = ads.length
+        ? ads.map(adRowHTML).join("")
+        : `<p class="ads-status">No ads yet.</p>`;
+
+      adsList.querySelectorAll(".ad-delete-btn").forEach((btn) => {
+        btn.addEventListener("click", () => deleteAd(btn.dataset.id));
+      });
+    }
+
+    async function deleteAd(id) {
+      if (!confirm("Delete this ad?")) return;
+      try {
+        await ensureCsrfToken();
+        const res = await fetch(`${API_BASE_URL}/api/admin/ads/${id}`, {
+          method: "DELETE",
+          credentials: "include",
+          headers: authHeaders(),
         });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        await loadAds();
       } catch (err) {
-        console.error("Failed to load ads", err);
-        adsList.innerHTML = `<p class="ads-empty">Couldn't load ads.</p>`;
+        console.error("Delete ad failed", err);
+        alert("Couldn't delete that ad.");
       }
     }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       hideError();
-      if (!form.reportValidity()) return;
 
-      if (!productSelect.value) {
-        showError("Please choose a product.");
-        return;
-      }
-      if (!selectedFile) {
-        showError("Please choose an image.");
-        return;
-      }
+      if (!form.reportValidity()) return;
 
       saveBtn.disabled = true;
       saveBtn.textContent = "Saving…";
@@ -374,39 +298,34 @@
       try {
         await ensureCsrfToken();
 
-        const realForm = document.createElement("form");
-        realForm.method = "post";
-        realForm.enctype = "multipart/form-data";
-        realForm.action = `${API_BASE_URL}/admin/ads/new`;
-        realForm.style.display = "none";
+        const fd = new FormData();
+        fd.append("product_id", productSelect.value);
+        fd.append("caption", document.getElementById("caption").value.trim());
+        fd.append("button_text", document.getElementById("button_text").value.trim());
+        fd.append("image", document.getElementById("image").files[0]);
 
-        const addHidden = (name, value) => {
-          const input = document.createElement("input");
-          input.type = "hidden";
-          input.name = name;
-          input.value = value;
-          realForm.appendChild(input);
-        };
+        const res = await fetch(`${API_BASE_URL}/api/admin/ads`, {
+          method: "POST",
+          credentials: "include",
+          headers: authHeaders(),
+          body: fd,
+        });
 
-        addHidden("product_id", productSelect.value);
-        addHidden("caption", document.getElementById("caption").value.trim());
-        addHidden("button_text", document.getElementById("button_text").value.trim());
-        addHidden("return_base", `${frontendBase()}manage_ads.html`);
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          const message = data.errors
+            ? Object.values(data.errors).flat().join(" ")
+            : data.message || "Couldn't save the ad. Please check the fields and try again.";
+          showError(message);
+          return;
+        }
 
-        const fileInput = document.createElement("input");
-        fileInput.type = "file";
-        fileInput.name = "image";
-        fileInput.style.display = "none";
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(selectedFile);
-        fileInput.files = dataTransfer.files;
-        realForm.appendChild(fileInput);
-
-        document.body.appendChild(realForm);
-        realForm.submit();
+        form.reset();
+        await loadAds();
       } catch (err) {
         console.error("Save failed", err);
-        showError(`Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+        showError(err.message || `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+      } finally {
         saveBtn.disabled = false;
         saveBtn.textContent = "Save ad";
       }
@@ -414,15 +333,17 @@
 
     async function init() {
       try {
-        const res = await fetch(`${API_BASE_URL}/api/auth/me`, { credentials: "include" });
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
         if (!res.ok) {
           window.location.href = "login.html";
           return;
         }
+
         statusEl.style.display = "none";
         pageRoot.style.display = "";
+
         await ensureCsrfToken();
-        await loadProducts();
+        await loadProductOptions();
         await loadAds();
       } catch (err) {
         console.error("Session check failed", err);
