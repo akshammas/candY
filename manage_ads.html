@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Manage Ads | C&amp;Y Material Limited</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .ads-section { padding: 50px 0 80px; }
+
+    .form-card {
+      background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      padding: 32px 36px; margin-bottom: 34px;
+    }
+    .form-card h1 { font-size: 1.3rem; font-weight: 700; margin-bottom: 6px; }
+    .form-card .subtext { color: #6c757d; margin-bottom: 22px; font-size: .92rem; }
+
+    .pform label { font-weight: 600; font-size: .9rem; margin-bottom: 6px; display: block; margin-top: 18px; }
+    .pform label:first-of-type { margin-top: 0; }
+    .pform .field-hint { font-weight: 400; color: #6c757d; font-size: .82rem; }
+    .pform .form-control, .pform .form-select {
+      padding: 11px 14px; border-radius: 10px; border: 1.5px solid #dcdfe4;
+    }
+    .pform .form-control:focus, .pform .form-select:focus {
+      border-color: var(--accent-color, #0d6efd);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #0d6efd) 15%, transparent);
+    }
+
+    .drop-zone {
+      border: 2px dashed #dcdfe4; border-radius: 12px; padding: 30px; text-align: center;
+      color: #8a8f98; cursor: pointer; margin-top: 8px; transition: border-color .15s, background .15s, color .15s;
+    }
+    .drop-zone p { margin: 0; font-size: .92rem; }
+    .drop-zone:hover, .drop-zone-active {
+      border-color: var(--accent-color, #0d6efd); color: var(--accent-color, #0d6efd);
+      background: color-mix(in srgb, var(--accent-color, #0d6efd) 6%, transparent);
+    }
+    .single-preview { margin-top: 12px; display: none; }
+    .single-preview img { width: 140px; height: 90px; object-fit: cover; border-radius: 8px; }
+    .single-preview .remove-single {
+      display: inline-flex; align-items: center; gap: 6px; margin-left: 12px;
+      color: #b3261e; font-weight: 600; font-size: .85rem; text-decoration: none; cursor: pointer;
+    }
+
+    .form-error {
+      background: #fdecea; color: #b3261e; border-radius: 10px; padding: 12px 16px;
+      font-size: .9rem; margin-bottom: 18px; display: none;
+    }
+    .btn-save {
+      background: var(--accent-color, #0d6efd); color: #fff; border: none;
+      padding: 12px 28px; border-radius: 50px; font-weight: 600; margin-top: 26px;
+      transition: transform .2s ease, box-shadow .2s ease; box-shadow: 0 8px 22px rgba(0,0,0,.18);
+    }
+    .btn-save:hover:not(:disabled) { transform: translateY(-2px); color: #fff; }
+    .btn-save:disabled { opacity: .7; cursor: not-allowed; }
+
+    .ads-list-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+    }
+    .ads-list-header h2 { font-size: 1.1rem; font-weight: 700; margin: 0; }
+    .back-link { display: inline-block; margin-bottom: 20px; color: var(--accent-color, #0d6efd); font-weight: 600; text-decoration: none; }
+
+    .ad-row {
+      display: flex; align-items: center; gap: 20px; background: #fff; border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.05); padding: 16px 20px; margin-bottom: 14px;
+    }
+    .ad-row img { width: 110px; height: 70px; object-fit: cover; border-radius: 8px; background: #f1f3f6; flex-shrink: 0; }
+    .ad-row-info { flex: 1; min-width: 0; }
+    .ad-row-info p { margin: 0; }
+    .ad-row-info .ad-caption { font-weight: 600; }
+    .ad-row-info .ad-meta { color: #6c757d; font-size: .85rem; margin-top: 2px; }
+    .btn-delete-ad {
+      background: #fff; color: #b3261e; border: 1.5px solid #f5c2bd; padding: 9px 18px;
+      border-radius: 50px; font-weight: 600; font-size: .85rem; white-space: nowrap;
+    }
+    .btn-delete-ad:hover { background: #fdecea; }
+    .ads-empty { color: #6c757d; text-align: center; padding: 30px 0; }
+    .ads-status { text-align: center; padding: 60px 0; color: #6c757d; }
+  </style>
+</head>
+
+<body class="starter-page-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="assets/img/nav_logo2.png" alt="C&amp;Y Material Limited">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="page-title">
+      <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="admin_dashboard.html">Admin Dashboard</a></li>
+            <li class="breadcrumb-item active current">Manage Ads</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="title-wrapper">
+        <h1>Manage Ads</h1>
+        <p>Ads shown on the products page banner.</p>
+      </div>
+    </div>
+
+    <section class="ads-section">
+      <div class="container" id="page-root" style="display:none;">
+
+        <a href="admin_dashboard.html" class="back-link">&larr; Back to dashboard</a>
+
+        <div class="form-card">
+          <h1>Add a new ad</h1>
+          <p class="subtext">Ads link to a product and appear in the banner on the products page.</p>
+
+          <div class="form-error" id="form-error"></div>
+
+          <form id="ad-form" class="pform" novalidate>
+            <label for="product_id">Links to product <span class="text-danger">*</span></label>
+            <select class="form-select" id="product_id" required>
+              <option value="" disabled selected>Choose a product</option>
+            </select>
+
+            <label for="caption">Caption <span class="field-hint">(optional)</span></label>
+            <input type="text" class="form-control" id="caption" maxlength="200">
+
+            <label for="button_text">Button text <span class="field-hint">(optional, defaults to "Shop Now")</span></label>
+            <input type="text" class="form-control" id="button_text" maxlength="50">
+
+            <label for="image">Image <span class="text-danger">*</span></label>
+            <div id="drop-zone" class="drop-zone">
+              <p>Drag &amp; drop an image here, or click to browse</p>
+            </div>
+            <input type="file" id="image" accept="image/*" style="display:none;">
+            <div class="single-preview" id="single-preview">
+              <img id="single-preview-img" alt="Selected ad image">
+              <a class="remove-single" id="remove-single">&times; Remove</a>
+            </div>
+
+            <button type="submit" class="btn-save" id="save-btn">Save ad</button>
+          </form>
+        </div>
+
+        <div class="ads-list-header">
+          <h2>Current ads</h2>
+        </div>
+        <div id="ads-list"></div>
+
+      </div>
+
+      <div class="ads-status" id="ads-status">Checking session…</div>
+
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container footer-bottom">
+      <div class="row gy-3">
+        <div class="col-12 text-center">
+          <div class="copyright">
+            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- ============================================================
+       Talks to the same FastAPI backend as admin_dashboard.html:
+       - GET  /api/auth/me        confirms an admin session
+       - GET  /api/products       populates the "links to product" dropdown
+       - GET  /api/ads            lists existing ads (public, no auth needed)
+       - POST /admin/ads/new      creates an ad
+       - POST /admin/ads/{id}/delete deletes an ad
+       Create/delete use real (non-fetch) form submissions — same
+       trick as the product pages — so the backend's 303 redirect
+       back to this page isn't blocked by CORS/opaque-redirect rules.
+       ============================================================ -->
+  <script>
+    const API_BASE_URL = "http://127.0.0.1:8000";
+
+    const pageRoot = document.getElementById("page-root");
+    const statusEl = document.getElementById("ads-status");
+    const errorBox = document.getElementById("form-error");
+    const form = document.getElementById("ad-form");
+    const saveBtn = document.getElementById("save-btn");
+    const productSelect = document.getElementById("product_id");
+    const adsList = document.getElementById("ads-list");
+
+    const imageInput = document.getElementById("image");
+    const dropZone = document.getElementById("drop-zone");
+    const singlePreview = document.getElementById("single-preview");
+    const singlePreviewImg = document.getElementById("single-preview-img");
+    const removeSingleBtn = document.getElementById("remove-single");
+
+    let selectedFile = null;
+
+    function readCookie(name) {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    async function ensureCsrfToken() {
+      if (readCookie("csrf_token")) return;
+      await fetch(`${API_BASE_URL}/api/auth/csrf`, { credentials: "include" });
+    }
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+    }
+    function hideError() {
+      errorBox.style.display = "none";
+    }
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+    function frontendBase() {
+      return `${window.location.origin}${window.location.pathname.replace(/manage_ads\.html$/, "")}`;
+    }
+
+    function setSingleFile(file) {
+      selectedFile = file;
+      if (file) {
+        singlePreviewImg.src = URL.createObjectURL(file);
+        singlePreview.style.display = "flex";
+        singlePreview.style.alignItems = "center";
+        dropZone.style.display = "none";
+      } else {
+        singlePreview.style.display = "none";
+        dropZone.style.display = "";
+      }
+    }
+
+    dropZone.addEventListener("click", () => imageInput.click());
+    imageInput.addEventListener("change", () => {
+      const file = imageInput.files[0];
+      if (file && file.type.startsWith("image/")) setSingleFile(file);
+    });
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dropZone.classList.add("drop-zone-active");
+      });
+    });
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dropZone.classList.remove("drop-zone-active");
+      });
+    });
+    dropZone.addEventListener("drop", (event) => {
+      const file = event.dataTransfer.files[0];
+      if (file && file.type.startsWith("image/")) setSingleFile(file);
+    });
+    removeSingleBtn.addEventListener("click", () => {
+      imageInput.value = "";
+      setSingleFile(null);
+    });
+
+    async function loadProducts() {
+      const res = await fetch(`${API_BASE_URL}/api/products`);
+      const data = await res.json();
+      (data.products || []).forEach((product) => {
+        const opt = document.createElement("option");
+        opt.value = product.id;
+        opt.textContent = product.name;
+        productSelect.appendChild(opt);
+      });
+    }
+
+    function adRowHTML(ad) {
+      return `
+        <div class="ad-row" data-id="${ad.id}">
+          <img src="${ad.image_url}" alt="${escapeHtml(ad.caption || "Ad")}">
+          <div class="ad-row-info">
+            <p class="ad-caption">${escapeHtml(ad.caption || "(no caption)")}</p>
+            <p class="ad-meta">Links to: ${escapeHtml(ad.product_name || "—")} &middot; Button: ${escapeHtml(ad.button_text || "Shop Now")}</p>
+          </div>
+          <button type="button" class="btn-delete-ad" data-id="${ad.id}">Delete</button>
+        </div>`;
+    }
+
+    async function loadAds() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/ads`);
+        const ads = await res.json();
+        adsList.innerHTML = ads.length
+          ? ads.map(adRowHTML).join("")
+          : `<p class="ads-empty">No ads yet.</p>`;
+
+        adsList.querySelectorAll(".btn-delete-ad").forEach((btn) => {
+          btn.addEventListener("click", async () => {
+            if (!confirm("Delete this ad?")) return;
+            btn.disabled = true;
+            btn.textContent = "Deleting…";
+            try {
+              await ensureCsrfToken();
+              const realForm = document.createElement("form");
+              realForm.method = "post";
+              realForm.action = `${API_BASE_URL}/admin/ads/${btn.dataset.id}/delete`;
+              realForm.style.display = "none";
+              const returnInput = document.createElement("input");
+              returnInput.type = "hidden";
+              returnInput.name = "return_url";
+              returnInput.value = window.location.href;
+              realForm.appendChild(returnInput);
+              document.body.appendChild(realForm);
+              realForm.submit();
+            } catch (err) {
+              console.error("Delete failed", err);
+              btn.disabled = false;
+              btn.textContent = "Delete";
+            }
+          });
+        });
+      } catch (err) {
+        console.error("Failed to load ads", err);
+        adsList.innerHTML = `<p class="ads-empty">Couldn't load ads.</p>`;
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hideError();
+      if (!form.reportValidity()) return;
+
+      if (!productSelect.value) {
+        showError("Please choose a product.");
+        return;
+      }
+      if (!selectedFile) {
+        showError("Please choose an image.");
+        return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Saving…";
+
+      try {
+        await ensureCsrfToken();
+
+        const realForm = document.createElement("form");
+        realForm.method = "post";
+        realForm.enctype = "multipart/form-data";
+        realForm.action = `${API_BASE_URL}/admin/ads/new`;
+        realForm.style.display = "none";
+
+        const addHidden = (name, value) => {
+          const input = document.createElement("input");
+          input.type = "hidden";
+          input.name = name;
+          input.value = value;
+          realForm.appendChild(input);
+        };
+
+        addHidden("product_id", productSelect.value);
+        addHidden("caption", document.getElementById("caption").value.trim());
+        addHidden("button_text", document.getElementById("button_text").value.trim());
+        addHidden("return_base", `${frontendBase()}manage_ads.html`);
+
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.name = "image";
+        fileInput.style.display = "none";
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(selectedFile);
+        fileInput.files = dataTransfer.files;
+        realForm.appendChild(fileInput);
+
+        document.body.appendChild(realForm);
+        realForm.submit();
+      } catch (err) {
+        console.error("Save failed", err);
+        showError(`Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Save ad";
+      }
+    });
+
+    async function init() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/auth/me`, { credentials: "include" });
+        if (!res.ok) {
+          window.location.href = "login.html";
+          return;
+        }
+        statusEl.style.display = "none";
+        pageRoot.style.display = "";
+        await ensureCsrfToken();
+        await loadProducts();
+        await loadAds();
+      } catch (err) {
+        console.error("Session check failed", err);
+        statusEl.textContent = `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`;
+      }
+    }
+
+    init();
+  </script>
+
+</body>
+
+</html>
