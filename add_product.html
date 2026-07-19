@@ -162,7 +162,7 @@
 
             <div class="form-actions">
               <button type="submit" class="btn-save" id="save-btn">Save product</button>
-              <a href="admin-dashboard.html" class="btn-cancel">Cancel</a>
+              <a href="admin_dashboard.html" class="btn-cancel">Cancel</a>
             </div>
           </form>
         </div>
@@ -355,7 +355,7 @@
           return;
         }
 
-        window.location.href = "admin-dashboard.html";
+        window.location.href = "admin_dashboard.html";
       } catch (err) {
         console.error("Save failed", err);
         showError(err.message || `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);

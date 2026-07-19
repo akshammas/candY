@@ -20,10 +20,12 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
-    .dash-section { padding: 50px 0 80px; }
+    .dash-section { padding: 44px 0 80px; }
+
+    /* ---------- Top toolbar: who's signed in + primary actions ---------- */
     .dash-toolbar {
       display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 16px; margin-bottom: 28px;
+      gap: 16px; margin-bottom: 20px;
     }
     .dash-toolbar .user-chip {
       display: flex; align-items: center; gap: 10px; color: #6c757d; font-size: .9rem;
@@ -31,35 +33,103 @@
     .dash-actions { display: flex; flex-wrap: wrap; gap: 10px; }
     .btn-dash {
       display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
-      padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: .9rem;
+      padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: .9rem; border: none;
       transition: transform .2s ease, box-shadow .2s ease;
     }
-    .btn-dash-primary { background: var(--accent-color, #0d6efd); color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+    .btn-dash-primary { background: var(--accent-color, #dc2626); color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,.15); }
     .btn-dash-primary:hover { transform: translateY(-2px); color: #fff; }
     .btn-dash-outline { background: #fff; color: #212529; border: 1.5px solid #dcdfe4; }
-    .btn-dash-outline:hover { border-color: var(--accent-color, #0d6efd); color: #212529; }
+    .btn-dash-outline:hover { border-color: var(--accent-color, #dc2626); color: #212529; }
 
-    .dash-table-wrap { background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.06); overflow: hidden; }
-    table.dash-table { width: 100%; border-collapse: collapse; }
+    /* ---------- Filter bar ---------- */
+    .dash-filterbar {
+      background: #fff; border-radius: 16px; box-shadow: 0 6px 18px rgba(0,0,0,.05);
+      padding: 16px 20px; margin-bottom: 20px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+    }
+    .dash-search {
+      position: relative; flex: 1 1 240px; min-width: 200px;
+    }
+    .dash-search i {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #adb5bd;
+    }
+    .dash-search input {
+      width: 100%; padding: 10px 14px 10px 38px; border-radius: 10px; border: 1.5px solid #dcdfe4;
+      font-size: .9rem;
+    }
+    .dash-search input:focus {
+      outline: none; border-color: var(--accent-color, #dc2626);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #dc2626) 15%, transparent);
+    }
+    .dash-filterbar select {
+      padding: 10px 14px; border-radius: 10px; border: 1.5px solid #dcdfe4; font-size: .9rem;
+      flex: 0 0 auto; min-width: 170px;
+    }
+    .dash-filterbar select:focus {
+      outline: none; border-color: var(--accent-color, #dc2626);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #dc2626) 15%, transparent);
+    }
+    .dash-results-count { color: #6c757d; font-size: .85rem; white-space: nowrap; }
+    .btn-clear-filters {
+      background: none; border: none; color: var(--accent-color, #dc2626); font-weight: 600;
+      font-size: .85rem; white-space: nowrap; display: none;
+    }
+    .btn-clear-filters:hover { text-decoration: underline; }
+
+    /* ---------- Table ---------- */
+    .dash-table-wrap { background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.06); overflow: hidden; overflow-x: auto; }
+    table.dash-table { width: 100%; border-collapse: collapse; min-width: 640px; }
     .dash-table th {
-      text-align: left; padding: 16px 20px; font-size: .78rem; text-transform: uppercase;
+      text-align: left; padding: 14px 20px; font-size: .76rem; text-transform: uppercase;
       letter-spacing: .05em; color: #6c757d; border-bottom: 1px solid #eceef1; background: #f8f9fb;
+      white-space: nowrap;
     }
-    .dash-table td { padding: 16px 20px; border-bottom: 1px solid #f1f3f6; font-size: .92rem; vertical-align: middle; }
+    .dash-table td { padding: 14px 20px; border-bottom: 1px solid #f1f3f6; font-size: .9rem; vertical-align: middle; }
     .dash-table tr:last-child td { border-bottom: none; }
-    .dash-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #f1f3f6; }
+    .dash-table td.dash-name-cell { max-width: 260px; }
+    .dash-table td.dash-summary-cell {
+      max-width: 320px; color: #6c757d; overflow: hidden; text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .dash-thumb { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; background: #f1f3f6; flex-shrink: 0; }
     .dash-thumb-empty {
-      width: 48px; height: 48px; border-radius: 8px; background: #f1f3f6;
-      display: flex; align-items: center; justify-content: center; color: #adb5bd; font-size: .7rem;
+      width: 44px; height: 44px; border-radius: 8px; background: #f1f3f6;
+      display: flex; align-items: center; justify-content: center; color: #adb5bd; font-size: .68rem; flex-shrink: 0;
     }
+    .dash-name-wrap { display: flex; align-items: center; gap: 12px; }
+    .dash-name-text { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .dash-category-pill {
-      display: inline-block; background: #f1f3f6; color: #495057; font-size: .78rem;
-      padding: 4px 12px; border-radius: 50px;
+      display: inline-block; background: #f1f3f6; color: #495057; font-size: .76rem;
+      padding: 4px 12px; border-radius: 50px; white-space: nowrap;
     }
-    .dash-row-actions a { font-size: .85rem; font-weight: 600; margin-right: 14px; text-decoration: none; }
-    .dash-row-actions a.edit-link { color: var(--accent-color, #0d6efd); }
-    .dash-row-actions a.delete-link { color: #b3261e; }
+    .dash-category-pill.none { color: #adb5bd; font-style: italic; }
+    .dash-row-actions { display: flex; gap: 16px; white-space: nowrap; }
+    .dash-row-actions a { font-size: .85rem; font-weight: 600; text-decoration: none; }
+    .dash-row-actions a.edit-link { color: var(--accent-color, #dc2626); }
+    .dash-row-actions a.delete-link { color: #6c757d; }
+    .dash-row-actions a.delete-link:hover { color: #b3261e; }
     .dash-status { text-align: center; padding: 60px 0; color: #6c757d; }
+    .dash-status i { font-size: 2rem; display: block; margin-bottom: 10px; color: #ced4da; }
+
+    /* ---------- Pagination ---------- */
+    .dash-pagination {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      flex-wrap: wrap; margin-top: 18px;
+    }
+    .dash-pagination .page-info { color: #6c757d; font-size: .85rem; }
+    .page-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+    .page-btns button {
+      min-width: 38px; height: 38px; border-radius: 10px; border: 1.5px solid #dcdfe4; background: #fff;
+      font-weight: 600; font-size: .85rem; color: #212529; transition: all .15s ease;
+    }
+    .page-btns button:hover:not(:disabled):not(.active) { border-color: var(--accent-color, #dc2626); color: var(--accent-color, #dc2626); }
+    .page-btns button.active { background: var(--accent-color, #dc2626); border-color: var(--accent-color, #dc2626); color: #fff; }
+    .page-btns button:disabled { opacity: .4; cursor: not-allowed; }
+
+    @media (max-width: 576px) {
+      .dash-filterbar select, .dash-search { flex: 1 1 100%; }
+      .dash-results-count, .btn-clear-filters { width: 100%; }
+    }
   </style>
 </head>
 
@@ -113,12 +183,23 @@
           </div>
         </div>
 
+        <div class="dash-filterbar">
+          <div class="dash-search">
+            <i class="bi bi-search"></i>
+            <input type="text" id="search-input" placeholder="Search products by name or summary…">
+          </div>
+          <select id="category-filter">
+            <option value="">All categories</option>
+          </select>
+          <span class="dash-results-count" id="results-count"></span>
+          <button type="button" class="btn-clear-filters" id="clear-filters-btn">Clear filters</button>
+        </div>
+
         <div class="dash-table-wrap">
           <table class="dash-table">
             <thead>
               <tr>
-                <th></th>
-                <th>Name</th>
+                <th>Product</th>
                 <th>Category</th>
                 <th>Summary</th>
                 <th></th>
@@ -126,6 +207,11 @@
             </thead>
             <tbody id="product-rows"></tbody>
           </table>
+        </div>
+
+        <div class="dash-pagination" id="pagination-wrap" style="display:none;">
+          <span class="page-info" id="page-info"></span>
+          <div class="page-btns" id="page-btns"></div>
         </div>
 
       </div>
@@ -153,26 +239,36 @@
   <script src="assets/js/main.js"></script>
 
   <!-- ============================================================
-       This page is fully static — no server-side templating. It:
-       1. Confirms there's a valid admin session via /api/user
-          (redirects to login.html if not — same guard the backend
-          itself enforces on /admin/*, this is just so the page
-          doesn't flash empty content first).
-       2. Lists products from the existing public /api/products
-          endpoint (no new backend route needed for that).
-       3. Add/Edit/Delete/Manage-ads/Manage-admins still go to the
-          backend's existing server-rendered /admin/* form pages —
-          those aren't JSON endpoints yet, so this links out to them
-          as normal same-origin navigations (the session cookie set
-          at login carries over automatically).
+       Still fully static / client-side (no server-side templating):
+       1. Confirms a valid admin session via /api/user.
+       2. Loads the full product list once from /api/products (that
+          endpoint already returns every product plus the distinct
+          category list — no separate /api/categories round trip
+          needed) and does search + category filtering + pagination
+          entirely client-side, since the API has no query params for
+          any of that yet.
+       3. Add/Edit/Delete/Manage-ads/Manage-admins link out to their
+          existing pages as normal same-origin navigations.
        ============================================================ -->
   <script>
-    // TODO: set this to wherever the FastAPI app is actually deployed.
     const API_BASE_URL = "http://127.0.0.1:8000";
+    const PAGE_SIZE = 8;
 
     const dashRoot = document.getElementById("dash-root");
     const statusEl = document.getElementById("dash-status");
     const rowsEl = document.getElementById("product-rows");
+    const searchInput = document.getElementById("search-input");
+    const categoryFilter = document.getElementById("category-filter");
+    const resultsCount = document.getElementById("results-count");
+    const clearFiltersBtn = document.getElementById("clear-filters-btn");
+    const paginationWrap = document.getElementById("pagination-wrap");
+    const pageInfo = document.getElementById("page-info");
+    const pageBtns = document.getElementById("page-btns");
+
+    let allProducts = [];
+    let filteredProducts = [];
+    let currentPage = 1;
+    let searchDebounceTimer = null;
 
     function escapeHtml(str) {
       if (!str) return "";
@@ -191,20 +287,25 @@
       await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
     }
 
+    /* ---------- Rendering ---------- */
     function productRowHTML(product) {
       const thumb = product.primary_image
         ? `<img class="dash-thumb" src="${product.primary_image.url}" alt="${escapeHtml(product.name)}">`
         : `<div class="dash-thumb-empty">—</div>`;
       const category = product.category
         ? `<span class="dash-category-pill">${escapeHtml(product.category.name)}</span>`
-        : "";
+        : `<span class="dash-category-pill none">Uncategorized</span>`;
 
       return `
         <tr>
-          <td>${thumb}</td>
-          <td>${escapeHtml(product.name)}</td>
+          <td class="dash-name-cell">
+            <div class="dash-name-wrap">
+              ${thumb}
+              <span class="dash-name-text" title="${escapeHtml(product.name)}">${escapeHtml(product.name)}</span>
+            </div>
+          </td>
           <td>${category}</td>
-          <td>${escapeHtml(product.summary || "")}</td>
+          <td class="dash-summary-cell" title="${escapeHtml(product.summary || "")}">${escapeHtml(product.summary || "—")}</td>
           <td class="dash-row-actions">
             <a class="edit-link" href="edit_product.html?id=${product.id}">Edit</a>
             <a class="delete-link" href="#" data-id="${product.id}" data-name="${escapeHtml(product.name)}">Delete</a>
@@ -212,46 +313,124 @@
         </tr>`;
     }
 
+    function attachDeleteHandlers() {
+      rowsEl.querySelectorAll(".delete-link").forEach((link) => {
+        link.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const { id, name } = link.dataset;
+          if (!confirm(`Delete "${name}"?`)) return;
+
+          try {
+            await ensureCsrfToken();
+            const csrf = readCookie("XSRF-TOKEN");
+            const res = await fetch(`${API_BASE_URL}/api/admin/products/${id}`, {
+              method: "DELETE",
+              credentials: "include",
+              headers: { "X-XSRF-TOKEN": csrf || "", "Accept": "application/json" },
+            });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            await loadProducts();
+          } catch (err) {
+            console.error("Delete failed", err);
+            alert("Couldn't delete that product.");
+          }
+        });
+      });
+    }
+
+    function renderPage() {
+      const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PAGE_SIZE));
+      currentPage = Math.min(currentPage, totalPages);
+
+      const start = (currentPage - 1) * PAGE_SIZE;
+      const pageItems = filteredProducts.slice(start, start + PAGE_SIZE);
+
+      rowsEl.innerHTML = pageItems.length
+        ? pageItems.map(productRowHTML).join("")
+        : `<tr><td colspan="4" class="dash-status"><i class="bi bi-inboxes"></i>No products match your filters.</td></tr>`;
+      attachDeleteHandlers();
+
+      // Results count + clear-filters visibility
+      const hasFilters = !!(searchInput.value.trim() || categoryFilter.value);
+      resultsCount.textContent = `${filteredProducts.length} product${filteredProducts.length === 1 ? "" : "s"}`;
+      clearFiltersBtn.style.display = hasFilters ? "inline-block" : "none";
+
+      // Pagination controls
+      if (filteredProducts.length <= PAGE_SIZE) {
+        paginationWrap.style.display = "none";
+        return;
+      }
+      paginationWrap.style.display = "flex";
+      const shownStart = filteredProducts.length ? start + 1 : 0;
+      const shownEnd = Math.min(start + PAGE_SIZE, filteredProducts.length);
+      pageInfo.textContent = `Showing ${shownStart}–${shownEnd} of ${filteredProducts.length}`;
+
+      let btns = `<button type="button" data-page="${currentPage - 1}" ${currentPage === 1 ? "disabled" : ""}><i class="bi bi-chevron-left"></i></button>`;
+      for (let p = 1; p <= totalPages; p++) {
+        btns += `<button type="button" data-page="${p}" class="${p === currentPage ? "active" : ""}">${p}</button>`;
+      }
+      btns += `<button type="button" data-page="${currentPage + 1}" ${currentPage === totalPages ? "disabled" : ""}><i class="bi bi-chevron-right"></i></button>`;
+      pageBtns.innerHTML = btns;
+
+      pageBtns.querySelectorAll("button").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          currentPage = Number(btn.dataset.page);
+          renderPage();
+          window.scrollTo({ top: dashRoot.offsetTop - 20, behavior: "smooth" });
+        });
+      });
+    }
+
+    function applyFilters() {
+      const term = searchInput.value.trim().toLowerCase();
+      const category = categoryFilter.value;
+
+      filteredProducts = allProducts.filter((p) => {
+        const matchesTerm = !term
+          || p.name.toLowerCase().includes(term)
+          || (p.summary || "").toLowerCase().includes(term);
+        const matchesCategory = !category || (p.category && p.category.name === category);
+        return matchesTerm && matchesCategory;
+      });
+
+      currentPage = 1;
+      renderPage();
+    }
+
+    function populateCategoryFilter(categories) {
+      const existing = new Set([...categoryFilter.options].map((o) => o.value));
+      categories.forEach((name) => {
+        if (existing.has(name)) return;
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        categoryFilter.appendChild(option);
+      });
+    }
+
     async function loadProducts() {
       try {
         const res = await fetch(`${API_BASE_URL}/api/products`);
         const data = await res.json();
-        const products = data.products || [];
-
-        rowsEl.innerHTML = products.length
-          ? products.map(productRowHTML).join("")
-          : `<tr><td colspan="5" class="text-center text-muted py-4">No products yet.</td></tr>`;
-
-        // Edit is now a plain link to edit_product.html?id=... (no JS needed
-        // here) — delete is the one that acts immediately in-place below.
-
-        rowsEl.querySelectorAll(".delete-link").forEach((link) => {
-          link.addEventListener("click", async (e) => {
-            e.preventDefault();
-            const { id, name } = link.dataset;
-            if (!confirm(`Delete "${name}"?`)) return;
-
-            try {
-              await ensureCsrfToken();
-              const csrf = readCookie("XSRF-TOKEN");
-              const res = await fetch(`${API_BASE_URL}/api/admin/products/${id}`, {
-                method: "DELETE",
-                credentials: "include",
-                headers: { "X-XSRF-TOKEN": csrf || "", "Accept": "application/json" },
-              });
-              if (!res.ok) throw new Error(`HTTP ${res.status}`);
-              await loadProducts();
-            } catch (err) {
-              console.error("Delete failed", err);
-              alert("Couldn't delete that product.");
-            }
-          });
-        });
+        allProducts = data.products || [];
+        populateCategoryFilter(data.categories || []);
+        applyFilters();
       } catch (err) {
         console.error("Failed to load products", err);
-        rowsEl.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">Couldn't load products.</td></tr>`;
+        rowsEl.innerHTML = `<tr><td colspan="4" class="dash-status">Couldn't load products.</td></tr>`;
       }
     }
+
+    searchInput.addEventListener("input", () => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(applyFilters, 200);
+    });
+    categoryFilter.addEventListener("change", applyFilters);
+    clearFiltersBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      categoryFilter.value = "";
+      applyFilters();
+    });
 
     async function init() {
       try {
@@ -266,13 +445,7 @@
 
         document.getElementById("add-product-link").href = "add_product.html";
         document.getElementById("manage-ads-link").href = "manage_ads.html";
-
-        // Manage admins still needs a dedicated form built against the
-        // ready-and-waiting POST /api/admin/users endpoint.
-        document.getElementById("manage-admins-link").addEventListener("click", (e) => {
-          e.preventDefault();
-          alert("This form isn't built yet — the backend endpoint is ready and waiting for it.");
-        });
+        document.getElementById("manage-admins-link").href = "manage_admins.html";
 
         statusEl.style.display = "none";
         dashRoot.style.display = "";

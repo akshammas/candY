@@ -86,6 +86,55 @@
       display: flex; align-items: center; justify-content: center; min-height: 320px;
       background: #f1f3f6; color: #6c757d; font-size: .9rem; border-radius: 16px;
     }
+
+    /* ========== AD BANNER (same design as products.html, height mismatch fixed) ========== */
+    .product-ad-banner {
+      position: relative;
+      height: 45vh;
+      max-height: 500px;            /* section itself is capped, so image/overlay never overshoot it */
+      min-height: 320px;
+      display: flex;
+      align-items: center;
+      margin: 10px 0 0 0;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+    }
+    @media (max-width: 992px) {
+      .product-ad-banner { height: 40vh; }
+    }
+    .ad-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;                  /* fills the section exactly, no more gap under a capped max-height */
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+    .ad-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(120deg, rgba(8,12,20,.92) 0%, rgba(8,12,20,.68) 48%, rgba(8,12,20,.3) 100%);
+    }
+    .ad-content {
+      position: relative; z-index: 2; max-width: 620px; width: 100%; color: #fff; padding: 2rem 1.5rem;
+    }
+    .ad-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28);
+      padding: 7px 18px; border-radius: 50px; font-size: .78rem; letter-spacing: .09em;
+      text-transform: uppercase; margin-bottom: 22px; backdrop-filter: blur(6px);
+    }
+    .ad-content h2 { font-size: clamp(1.5rem, 3.4vw, 2.2rem); font-weight: 700; margin-bottom: 16px; line-height: 1.15; }
+    .ad-content p { font-size: 0.92rem; color: rgba(255,255,255,.85); margin-bottom: 24px; line-height: 1.7; }
+    .ad-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--accent-color, #0d6efd); color: #fff;
+      padding: 13px 28px; border-radius: 50px; font-weight: 600; text-decoration: none;
+      transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 10px 26px rgba(0,0,0,.3);
+    }
+    .ad-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,.4); color: #fff; }
   </style>
 </head>
 
@@ -179,6 +228,11 @@
             <p class="text-muted" id="description-text" style="line-height:1.8;"></p>
           </div>
         </div><!-- End Full Description -->
+
+        <!-- Ad Banner (same design/data source as products.html) -->
+        <div class="row mt-5" id="ad-banner-row" style="display:none;" data-aos="fade">
+          <div class="col-12" id="ad-banner-root"></div>
+        </div><!-- End Ad Banner -->
 
       </div>
     </section><!-- /Product Detail Section -->
@@ -389,6 +443,49 @@
       });
     }
 
+    /* Ad banner – identical design to products.html. Falls back to a stock
+       image via onerror so a bad/missing image_url from the API never shows
+       a broken-image icon. */
+    const AD_FALLBACK_IMG = 'https://images.pexels.com/photos/815494/pexels-photo-815494.jpeg?auto=compress&cs=tinysrgb&w=1920';
+
+    function adBannerHTML(ad) {
+      const imgSrc = ad.image_url || AD_FALLBACK_IMG;
+      return `
+        <section class="product-ad-banner">
+          <img class="ad-bg-img" src="${imgSrc}" alt="${escapeHtml(ad.caption || 'Advertisement')}" loading="lazy"
+               onerror="this.onerror=null; this.src='${AD_FALLBACK_IMG}';">
+          <div class="ad-overlay"></div>
+          <div class="container ad-content" data-aos="fade-up" data-aos-delay="100">
+            <span class="ad-eyebrow"><i class="bi bi-patch-check-fill"></i> ${escapeHtml(ad.eyebrow || 'Featured Product')}</span>
+            <h2>${escapeHtml(ad.caption || 'Discover Our Audio Solutions')}</h2>
+            <p>${escapeHtml(ad.description || 'Engineered with precision in Shenzhen, our audio products deliver exceptional sound quality and innovative features for every lifestyle.')}</p>
+            <a href="product_detail.html?id=${ad.product_id}" class="ad-btn">
+              ${escapeHtml(ad.button_text || 'Learn More')}
+              <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        </section>`;
+    }
+
+    /* Fetch ads and render one that isn't advertising the product already
+       being viewed (falls back to the first ad if that's all there is). */
+    async function loadAdBanner(currentProductId) {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/ads`);
+        if (!res.ok) return;
+        const ads = await res.json();
+        if (!ads.length) return;
+
+        const ad = ads.find((a) => String(a.product_id) !== String(currentProductId)) || ads[0];
+
+        document.getElementById("ad-banner-root").innerHTML = adBannerHTML(ad);
+        document.getElementById("ad-banner-row").style.display = "";
+        if (window.AOS) AOS.refresh();
+      } catch (err) {
+        console.warn("Failed to load ad banner:", err);
+      }
+    }
+
     function relatedCardHTML(product) {
       const img = product.primary_image
         ? `<img src="${product.primary_image.url}" alt="${escapeHtml(product.primary_image.alt_text || product.name)}" class="img-fluid" loading="lazy">`
@@ -463,6 +560,7 @@
           .join("");
 
         renderGallery(product);
+        loadAdBanner(product.id);
 
         if (product.description) {
           document.getElementById("description-row").style.display = "";
