@@ -74,62 +74,99 @@
 
     .icon-circle { width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:22px; color: var(--accent-color); background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 14%, transparent), color-mix(in srgb, var(--accent-color) 4%, transparent)); border: 1px solid color-mix(in srgb, var(--accent-color) 20%, transparent); transition: transform .4s var(--ease-smooth), background .4s var(--ease-smooth), color .4s var(--ease-smooth); }
 
-    .tech-badge { display:inline-block; transition: transform .28s var(--ease-smooth), background .28s var(--ease-smooth), color .28s var(--ease-smooth), box-shadow .28s var(--ease-smooth); cursor: default; }
-    .tech-badge:hover { transform: translateY(-3px); background: var(--accent-color); color:#fff; box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--accent-color) 55%, transparent); }
+    .tech-badge { display:inline-flex; align-items:center; gap:8px; padding: 9px 18px; border-radius: 50px; background: color-mix(in srgb, var(--default-color) 6%, transparent); border: 1px solid color-mix(in srgb, var(--default-color) 12%, transparent); font-size: 14px; font-weight: 600; transition: transform .28s var(--ease-smooth), background .28s var(--ease-smooth), color .28s var(--ease-smooth), box-shadow .28s var(--ease-smooth); cursor: default; }
+    .tech-badge i { color: var(--accent-color); font-size: 15px; transition: color .28s var(--ease-smooth); }
+    @media (hover: hover) and (pointer: fine) {
+      .tech-badge:hover { transform: translateY(-3px); background: var(--accent-color); color:#fff; box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--accent-color) 55%, transparent); }
+      .tech-badge:hover i { color: #fff; }
+    }
     .capability-chip-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    #services-overview .tech-icons { display:flex; flex-wrap:wrap; gap: 12px; }
 
     /* ---------- Hero service banner ---------- */
-    .services-hero { position: relative; overflow: hidden; border-radius: 22px; padding: 56px 46px; background: radial-gradient(120% 160% at 100% 0%, color-mix(in srgb, var(--accent-color) 22%, #0b1220) 0%, #0b1220 55%); color:#fff; box-shadow: 0 30px 60px -25px rgba(0,0,0,.5); }
+    .services-hero { position: relative; overflow: hidden; border-radius: 22px; padding: 56px 46px; background: radial-gradient(120% 160% at 100% 0%, color-mix(in srgb, var(--accent-color) 22%, #0b1220) 0%, #0b1220 55%); color:#fff; box-shadow: 0 30px 60px -25px rgba(0,0,0,.5); display: flex; align-items: center; gap: 40px; }
     .services-hero::before { content:""; position:absolute; left:-70px; top:-70px; width:240px; height:240px; border-radius:50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 28%, transparent), transparent 70%); }
-    .services-hero .sh-eyebrow { position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px; color: color-mix(in srgb, #fff 85%, transparent); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight:600; }
+    .services-hero .sh-texture { position:absolute; inset:0; background-image: url('https://images.pexels.com/photos/6755059/pexels-photo-6755059.jpeg?auto=compress&cs=tinysrgb&w=1200'); background-size: cover; background-position: center; opacity: .13; mix-blend-mode: luminosity; }
+    .services-hero .sh-copy { position: relative; z-index: 1; flex: 1 1 auto; min-width: 0; }
+    .services-hero .sh-eyebrow { display:inline-flex; align-items:center; gap:8px; color: color-mix(in srgb, #fff 85%, transparent); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight:600; }
     .services-hero .sh-eyebrow .dot { width:8px; height:8px; border-radius:50%; background: var(--accent-color); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-color) 25%, transparent); }
-    .services-hero h2 { position:relative; z-index:1; color:#fff; margin: 14px 0 12px; }
-    .services-hero p { position:relative; z-index:1; color: color-mix(in srgb, #fff 82%, transparent); max-width: 680px; font-size: 16.5px; }
-    .services-hero .sh-stats { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap: 34px; margin-top: 26px; }
+    .services-hero h2 { color:#fff; margin: 14px 0 12px; }
+    .services-hero p { color: color-mix(in srgb, #fff 82%, transparent); max-width: 620px; font-size: 16.5px; }
+    .services-hero .sh-stats { display:flex; flex-wrap:wrap; gap: 34px; margin-top: 26px; }
     .services-hero .sh-stats .sh-stat b { display:block; font-size: 26px; color:#fff; }
     .services-hero .sh-stats .sh-stat span { color: color-mix(in srgb, #fff 75%, transparent); font-size: 13.5px; letter-spacing: .4px; }
+    .services-hero .sh-visual { position: relative; z-index: 1; flex: 0 0 auto; width: 200px; height: 200px; border-radius: 50%; overflow: hidden; border: 1px solid color-mix(in srgb, #fff 18%, transparent); box-shadow: 0 25px 60px -20px rgba(0,0,0,.6); animation: sh-float 5s ease-in-out infinite; }
+    .services-hero .sh-visual img { width:100%; height:100%; object-fit: cover; }
+    @keyframes sh-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    @media (max-width: 991px) { .services-hero { flex-direction: column; text-align: left; } .services-hero .sh-visual { display:none; } }
 
     /* ---------- Core service cards (OEM / ODM / Private Label) ---------- */
-    .service-core-card { position: relative; height: 100%; padding: 34px 28px; border-radius: 18px; background: var(--surface-color); border: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent); transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth), border-color .4s var(--ease-smooth); overflow: hidden; }
-    .service-core-card::before { content:""; position:absolute; top:0; left:0; width:100%; height:4px; background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 20%, transparent)); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease-smooth); }
-    .service-core-card:hover { transform: translateY(-8px); box-shadow: 0 26px 50px -20px color-mix(in srgb, var(--accent-color) 30%, transparent); border-color: color-mix(in srgb, var(--accent-color) 30%, transparent); }
-    .service-core-card:hover::before { transform: scaleX(1); }
-    .service-core-card:hover .icon-circle { transform: scale(1.08) rotate(-4deg); background: var(--accent-color); color:#fff; }
-    .service-core-card .sc-index { position:absolute; top:26px; right:28px; font-size: 44px; font-weight:800; color: color-mix(in srgb, var(--default-color) 6%, transparent); line-height:1; }
-    .service-core-card h4 { margin: 18px 0 10px; }
+    .service-core-card { position: relative; height: 100%; border-radius: 18px; background: var(--surface-color); border: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent); transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth), border-color .4s var(--ease-smooth); overflow: hidden; }
+    .service-core-card::before { content:""; position:absolute; top:0; left:0; width:100%; height:4px; background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 20%, transparent)); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease-smooth); z-index: 3; }
+    .service-core-card .sc-body { padding: 40px 28px 34px; position: relative; }
+    .service-core-card .sc-media { position: relative; height: 190px; overflow: hidden; }
+    .service-core-card .sc-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease-smooth); }
+    .service-core-card .sc-media::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, color-mix(in srgb, #0b1220 8%, transparent) 0%, color-mix(in srgb, #0b1220 55%, transparent) 100%); }
+    .service-core-card .sc-index { position:absolute; top:16px; right:18px; z-index: 2; font-size: 13px; font-weight:700; letter-spacing: .08em; color: rgba(255,255,255,.85); background: rgba(8,12,20,.42); backdrop-filter: blur(4px); padding: 5px 12px; border-radius: 50px; }
+    .service-core-card .icon-circle { position: absolute; left: 28px; bottom: -28px; z-index: 2; background: var(--surface-color); box-shadow: 0 10px 24px -10px rgba(0,0,0,.35); }
+    .service-core-card h4 { margin: 16px 0 10px; }
     .service-core-card ul { list-style:none; padding:0; margin: 16px 0 0; }
     .service-core-card ul li { padding: 6px 0 6px 22px; position: relative; font-size: 14.5px; color: color-mix(in srgb, var(--default-color) 85%, transparent); transition: color .25s var(--ease-smooth), padding-left .25s var(--ease-smooth); }
     .service-core-card ul li::before { content: "\F26B"; font-family: "bootstrap-icons"; position: absolute; left: 0; top: 6px; color: var(--accent-color); font-size: 13px; }
-    .service-core-card ul li:hover { padding-left: 27px; color: var(--heading-color); }
+    @media (hover: hover) and (pointer: fine) {
+      .service-core-card:hover { transform: translateY(-8px); box-shadow: 0 26px 50px -20px color-mix(in srgb, var(--accent-color) 30%, transparent); border-color: color-mix(in srgb, var(--accent-color) 30%, transparent); }
+      .service-core-card:hover::before { transform: scaleX(1); }
+      .service-core-card:hover .sc-media img { transform: scale(1.09); }
+      .service-core-card:hover .icon-circle { transform: scale(1.08) rotate(-4deg); background: var(--accent-color); color:#fff; }
+      .service-core-card ul li:hover { padding-left: 27px; color: var(--heading-color); }
+    }
 
     /* ---------- Supporting service pillars (Design/Packaging/QA/Logistics) ---------- */
-    .offer-pillar { position: relative; height: 100%; padding: 30px 24px; border-radius: 16px; background: color-mix(in srgb, var(--accent-color) 4%, var(--surface-color)); border: 1px solid color-mix(in srgb, var(--accent-color) 14%, transparent); transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth), border-color .4s var(--ease-smooth); overflow:hidden; }
-    .offer-pillar::after { content:""; position:absolute; right:-30px; top:-30px; width:110px; height:110px; border-radius:50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 16%, transparent), transparent 70%); opacity:0; transition: opacity .4s var(--ease-smooth); }
-    .offer-pillar:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -18px color-mix(in srgb, var(--accent-color) 25%, transparent); border-color: color-mix(in srgb, var(--accent-color) 40%, transparent); }
-    .offer-pillar:hover::after { opacity: 1; }
-    .offer-pillar .op-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background: color-mix(in srgb, var(--accent-color) 14%, transparent); color: var(--accent-color); font-size:18px; margin-bottom:14px; transition: all .35s var(--ease-smooth); position:relative; z-index:1; }
-    .offer-pillar:hover .op-icon { background: var(--accent-color); color:#fff; }
-    .offer-pillar h4 { margin-bottom: 10px; position:relative; z-index:1; }
+    .offer-pillar { position: relative; height: 100%; border-radius: 16px; background: color-mix(in srgb, var(--accent-color) 4%, var(--surface-color)); border: 1px solid color-mix(in srgb, var(--accent-color) 14%, transparent); transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth), border-color .4s var(--ease-smooth); overflow:hidden; }
+    .offer-pillar .op-media { position: relative; height: 120px; overflow: hidden; }
+    .offer-pillar .op-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease-smooth); }
+    .offer-pillar .op-media::after { content:""; position:absolute; inset:0; background: linear-gradient(180deg, transparent 40%, color-mix(in srgb, var(--accent-color) 4%, var(--surface-color)) 100%); }
+    .offer-pillar .op-body { padding: 22px 24px 26px; position: relative; }
+    .offer-pillar .op-icon { position: absolute; left: 24px; top: -22px; z-index: 2; width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background: var(--surface-color); color: var(--accent-color); font-size:18px; box-shadow: 0 8px 18px -8px rgba(0,0,0,.3); transition: all .35s var(--ease-smooth); }
+    .offer-pillar h4 { margin: 20px 0 10px; position:relative; z-index:1; }
     .offer-pillar ul { list-style: none; padding: 0; margin: 14px 0 0; position:relative; z-index:1; }
     .offer-pillar ul li { padding: 6px 0 6px 22px; position: relative; color: var(--default-color); font-size: 15px; transition: color .25s var(--ease-smooth), padding-left .25s var(--ease-smooth); }
     .offer-pillar ul li::before { content: "\F26B"; font-family: "bootstrap-icons"; position: absolute; left: 0; top: 6px; color: var(--accent-color); font-size: 13px; }
-    .offer-pillar ul li:hover { padding-left: 26px; color: var(--heading-color); }
+    @media (hover: hover) and (pointer: fine) {
+      .offer-pillar:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -18px color-mix(in srgb, var(--accent-color) 25%, transparent); border-color: color-mix(in srgb, var(--accent-color) 40%, transparent); }
+      .offer-pillar:hover .op-media img { transform: scale(1.1); }
+      .offer-pillar:hover .op-icon { background: var(--accent-color); color:#fff; transform: scale(1.08) rotate(-4deg); }
+      .offer-pillar ul li:hover { padding-left: 26px; color: var(--heading-color); }
+    }
 
     /* ---------- Process steps ---------- */
     .process-track { position: relative; display:flex; flex-wrap:wrap; gap: 24px; counter-reset: step; }
     .process-step { position: relative; flex: 1 1 190px; padding: 28px 20px 22px; border-radius: 16px; background: var(--surface-color); border: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent); text-align:center; transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth); }
-    .process-step:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -18px color-mix(in srgb, var(--accent-color) 25%, transparent); }
-    .process-step .ps-num { width:38px; height:38px; margin: 0 auto 14px; border-radius: 50%; background: var(--accent-color); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size: 14px; }
+    .process-step .ps-num { width:38px; height:38px; margin: 0 auto 14px; border-radius: 50%; background: var(--accent-color); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size: 14px; transition: box-shadow .3s var(--ease-smooth); }
     .process-step h5 { margin-bottom: 8px; }
     .process-step p { font-size: 14px; color: color-mix(in srgb, var(--default-color) 80%, transparent); margin:0; }
     .process-arrow { display:flex; align-items:center; color: color-mix(in srgb, var(--accent-color) 60%, transparent); font-size: 20px; }
     @media (max-width: 991px) { .process-arrow { display:none; } }
+    @media (hover: hover) and (pointer: fine) {
+      .process-step:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -18px color-mix(in srgb, var(--accent-color) 25%, transparent); }
+      .process-step:hover .ps-num { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent-color) 18%, transparent); }
+    }
 
     /* ---------- Testing capability cards ---------- */
+    .capability-grid-wrap { position: relative; border-radius: 20px; overflow: hidden; }
+    .capability-grid-wrap::before {
+      content:""; position:absolute; inset:0; z-index:0;
+      background-image: linear-gradient(color-mix(in srgb, var(--background-color) 92%, transparent), color-mix(in srgb, var(--background-color) 92%, transparent)), url('https://images.pexels.com/photos/6755059/pexels-photo-6755059.jpeg?auto=compress&cs=tinysrgb&w=1200');
+      background-size: cover; background-position: center;
+    }
+    .capability-grid-wrap .row { position: relative; z-index: 1; padding: 6px; }
     .capability-card { height:100%; padding: 22px 20px; border-radius: 14px; background: var(--surface-color); border: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent); display:flex; align-items:center; gap: 14px; transition: transform .35s var(--ease-smooth), box-shadow .35s var(--ease-smooth), border-color .35s var(--ease-smooth); }
-    .capability-card:hover { transform: translateY(-5px); box-shadow: 0 16px 32px -16px color-mix(in srgb, var(--accent-color) 25%, transparent); border-color: color-mix(in srgb, var(--accent-color) 30%, transparent); }
-    .capability-card .cc-icon { flex: none; width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; background: color-mix(in srgb, var(--accent-color) 12%, transparent); color: var(--accent-color); font-size:17px; }
+    .capability-card .cc-icon { flex: none; width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; background: color-mix(in srgb, var(--accent-color) 12%, transparent); color: var(--accent-color); font-size:17px; transition: transform .35s var(--ease-smooth), background .35s var(--ease-smooth), color .35s var(--ease-smooth); }
     .capability-card span.cc-label { font-size: 14.5px; font-weight: 600; }
+    @media (hover: hover) and (pointer: fine) {
+      .capability-card:hover { transform: translateY(-5px); box-shadow: 0 16px 32px -16px color-mix(in srgb, var(--accent-color) 25%, transparent); border-color: color-mix(in srgb, var(--accent-color) 30%, transparent); }
+      .capability-card:hover .cc-icon { transform: scale(1.1) rotate(-6deg); background: var(--accent-color); color: #fff; }
+    }
 
     /* ---------- Closing CTA ---------- */
     .cta-banner { position: relative; overflow: hidden; border-radius: 20px; padding: 46px; background: radial-gradient(120% 160% at 0% 0%, color-mix(in srgb, var(--accent-color) 25%, #0b1220) 0%, #0b1220 55%); color:#fff; box-shadow: 0 30px 60px -25px rgba(0,0,0,.5); }
@@ -145,6 +182,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       .service-core-card, .offer-pillar, .process-step, .capability-card { transition: none !important; transform: none !important; }
+      .services-hero .sh-visual { animation: none !important; }
+      .service-core-card .sc-media img, .offer-pillar .op-media img { transition: none !important; }
     }
   </style>
 
@@ -208,14 +247,20 @@
 
         <!-- Hero Service Banner -->
         <div class="services-hero" data-aos="fade-up">
-          <span class="sh-eyebrow"><span class="dot"></span> <span data-en="What We Offer" data-zh="我们提供的服务">What We Offer</span></span>
-          <h2 data-en="Your Trusted Manufacturing Partner — From R&amp;D to Global Delivery" data-zh="您值得信赖的制造合作伙伴——从研发到全球交付">Your Trusted Manufacturing Partner — From R&amp;D to Global Delivery</h2>
-          <p data-en="C&Y Material Limited delivers end-to-end manufacturing solutions for audio devices, wireless accessories, charging solutions and customized electronics — supporting brands, distributors and private-label businesses at every stage of the product journey." data-zh="C&Y材料有限公司为音频设备、无线配件、充电方案及定制电子产品提供端到端制造解决方案——在产品开发的每一个阶段为品牌商、经销商及贴牌企业提供支持。">C&Y Material Limited delivers end-to-end manufacturing solutions for audio devices, wireless accessories, charging solutions and customized electronics — supporting brands, distributors and private-label businesses at every stage of the product journey.</p>
-          <div class="sh-stats">
-            <div class="sh-stat"><b>OEM / ODM</b><span data-en="Core Services" data-zh="核心业务">Core Services</span></div>
-            <div class="sh-stat"><b>10+</b><span data-en="Testing Systems" data-zh="检测系统">Testing Systems</span></div>
-            <div class="sh-stat"><b>4</b><span data-en="Support Pillars" data-zh="支持模块">Support Pillars</span></div>
-            <div class="sh-stat"><b data-en="Global" data-zh="全球">Global</b><span data-en="Shipping &amp; Sourcing" data-zh="运输与采购">Shipping &amp; Sourcing</span></div>
+          <div class="sh-texture"></div>
+          <div class="sh-copy">
+            <span class="sh-eyebrow"><span class="dot"></span> <span data-en="What We Offer" data-zh="我们提供的服务">What We Offer</span></span>
+            <h2 data-en="Your Trusted Manufacturing Partner — From R&amp;D to Global Delivery" data-zh="您值得信赖的制造合作伙伴——从研发到全球交付">Your Trusted Manufacturing Partner — From R&amp;D to Global Delivery</h2>
+            <p data-en="C&Y Material Limited delivers end-to-end manufacturing solutions for audio devices, wireless accessories, charging solutions and customized electronics — supporting brands, distributors and private-label businesses at every stage of the product journey." data-zh="C&Y材料有限公司为音频设备、无线配件、充电方案及定制电子产品提供端到端制造解决方案——在产品开发的每一个阶段为品牌商、经销商及贴牌企业提供支持。">C&Y Material Limited delivers end-to-end manufacturing solutions for audio devices, wireless accessories, charging solutions and customized electronics — supporting brands, distributors and private-label businesses at every stage of the product journey.</p>
+            <div class="sh-stats">
+              <div class="sh-stat"><b>OEM / ODM</b><span data-en="Core Services" data-zh="核心业务">Core Services</span></div>
+              <div class="sh-stat"><b>10+</b><span data-en="Testing Systems" data-zh="检测系统">Testing Systems</span></div>
+              <div class="sh-stat"><b>4</b><span data-en="Support Pillars" data-zh="支持模块">Support Pillars</span></div>
+              <div class="sh-stat"><b data-en="Global" data-zh="全球">Global</b><span data-en="Shipping &amp; Sourcing" data-zh="运输与采购">Shipping &amp; Sourcing</span></div>
+            </div>
+          </div>
+          <div class="sh-visual">
+            <img src="https://images.pexels.com/photos/8380433/pexels-photo-8380433.jpeg?auto=compress&cs=tinysrgb&w=500" alt="Wireless earbuds and charging case, representative of C&amp;Y's audio product line" loading="lazy">
           </div>
         </div>
 
@@ -229,41 +274,56 @@
           <div class="row g-4">
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
               <div class="service-core-card">
-                <span class="sc-index">01</span>
-                <div class="icon-circle"><i class="bi bi-gear-wide-connected"></i></div>
-                <h4 data-en="OEM Manufacturing" data-zh="OEM 制造">OEM Manufacturing</h4>
-                <p data-en="We manufacture products according to your exact specifications while maintaining strict quality standards." data-zh="我们严格按照您的规格要求进行生产，并始终坚持严格的质量标准。">We manufacture products according to your exact specifications while maintaining strict quality standards.</p>
-                <ul>
-                  <li data-en="Built to your technical specifications" data-zh="按您的技术规格生产">Built to your technical specifications</li>
-                  <li data-en="Dedicated production lines" data-zh="专属生产线">Dedicated production lines</li>
-                  <li data-en="Consistent, audited quality standards" data-zh="稳定且经审核的质量标准">Consistent, audited quality standards</li>
-                </ul>
+                <div class="sc-media">
+                  <img src="https://images.pexels.com/photos/9241765/pexels-photo-9241765.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Engineer assembling and soldering an audio product on the production line" loading="lazy">
+                  <span class="sc-index">01</span>
+                </div>
+                <div class="sc-body">
+                  <div class="icon-circle"><i class="bi bi-gear-wide-connected"></i></div>
+                  <h4 data-en="OEM Manufacturing" data-zh="OEM 制造">OEM Manufacturing</h4>
+                  <p data-en="We manufacture products according to your exact specifications while maintaining strict quality standards." data-zh="我们严格按照您的规格要求进行生产，并始终坚持严格的质量标准。">We manufacture products according to your exact specifications while maintaining strict quality standards.</p>
+                  <ul>
+                    <li data-en="Built to your technical specifications" data-zh="按您的技术规格生产">Built to your technical specifications</li>
+                    <li data-en="Dedicated production lines" data-zh="专属生产线">Dedicated production lines</li>
+                    <li data-en="Consistent, audited quality standards" data-zh="稳定且经审核的质量标准">Consistent, audited quality standards</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
               <div class="service-core-card">
-                <span class="sc-index">02</span>
-                <div class="icon-circle"><i class="bi bi-cpu"></i></div>
-                <h4 data-en="ODM Product Development" data-zh="ODM 产品开发">ODM Product Development</h4>
-                <p data-en="Our engineering and R&D teams help transform your ideas into market-ready products." data-zh="我们的工程与研发团队协助您将创意转化为可上市的产品。">Our engineering and R&D teams help transform your ideas into market-ready products.</p>
-                <ul>
-                  <li data-en="Concept-to-prototype engineering" data-zh="从概念到原型的工程开发">Concept-to-prototype engineering</li>
-                  <li data-en="In-house R&amp;D and firmware support" data-zh="内部研发与固件支持">In-house R&amp;D and firmware support</li>
-                  <li data-en="Faster time-to-market" data-zh="更快的上市速度">Faster time-to-market</li>
-                </ul>
+                <div class="sc-media">
+                  <img src="https://images.pexels.com/photos/6755059/pexels-photo-6755059.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Close-up of a printed circuit board, representing in-house engineering and R&amp;D" loading="lazy">
+                  <span class="sc-index">02</span>
+                </div>
+                <div class="sc-body">
+                  <div class="icon-circle"><i class="bi bi-cpu"></i></div>
+                  <h4 data-en="ODM Product Development" data-zh="ODM 产品开发">ODM Product Development</h4>
+                  <p data-en="Our engineering and R&D teams help transform your ideas into market-ready products." data-zh="我们的工程与研发团队协助您将创意转化为可上市的产品。">Our engineering and R&D teams help transform your ideas into market-ready products.</p>
+                  <ul>
+                    <li data-en="Concept-to-prototype engineering" data-zh="从概念到原型的工程开发">Concept-to-prototype engineering</li>
+                    <li data-en="In-house R&amp;D and firmware support" data-zh="内部研发与固件支持">In-house R&amp;D and firmware support</li>
+                    <li data-en="Faster time-to-market" data-zh="更快的上市速度">Faster time-to-market</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
               <div class="service-core-card">
-                <span class="sc-index">03</span>
-                <div class="icon-circle"><i class="bi bi-tags-fill"></i></div>
-                <h4 data-en="Private Label Manufacturing" data-zh="贴牌代工制造">Private Label Manufacturing</h4>
-                <p data-en="Launch your own brand with customized products designed specifically for your market." data-zh="通过专为您的市场设计的定制产品，打造属于您自己的品牌。">Launch your own brand with customized products designed specifically for your market.</p>
-                <ul>
-                  <li data-en="Custom branding and logo application" data-zh="定制品牌与标志应用">Custom branding and logo application</li>
-                  <li data-en="Market-specific product configuration" data-zh="面向特定市场的产品配置">Market-specific product configuration</li>
-                  <li data-en="Full packaging and retail-ready output" data-zh="完整包装与零售就绪交付">Full packaging and retail-ready output</li>
-                </ul>
+                <div class="sc-media">
+                  <img src="https://images.pexels.com/photos/12266868/pexels-photo-12266868.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Finished headphones ready for private label branding" loading="lazy">
+                  <span class="sc-index">03</span>
+                </div>
+                <div class="sc-body">
+                  <div class="icon-circle"><i class="bi bi-tags-fill"></i></div>
+                  <h4 data-en="Private Label Manufacturing" data-zh="贴牌代工制造">Private Label Manufacturing</h4>
+                  <p data-en="Launch your own brand with customized products designed specifically for your market." data-zh="通过专为您的市场设计的定制产品，打造属于您自己的品牌。">Launch your own brand with customized products designed specifically for your market.</p>
+                  <ul>
+                    <li data-en="Custom branding and logo application" data-zh="定制品牌与标志应用">Custom branding and logo application</li>
+                    <li data-en="Market-specific product configuration" data-zh="面向特定市场的产品配置">Market-specific product configuration</li>
+                    <li data-en="Full packaging and retail-ready output" data-zh="完整包装与零售就绪交付">Full packaging and retail-ready output</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -280,53 +340,73 @@
           <div class="row g-4">
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
               <div class="offer-pillar">
-                <div class="op-icon"><i class="bi bi-palette-fill"></i></div>
-                <h4 data-en="Design &amp; Branding" data-zh="设计与品牌">Design &amp; Branding</h4>
-                <ul>
-                  <li data-en="Industrial Design" data-zh="工业设计">Industrial Design</li>
-                  <li data-en="Product Engineering" data-zh="产品工程">Product Engineering</li>
-                  <li data-en="Prototype Development" data-zh="原型开发">Prototype Development</li>
-                  <li data-en="Performance Optimization" data-zh="性能优化">Performance Optimization</li>
-                </ul>
+                <div class="op-media">
+                  <img src="https://images.pexels.com/photos/8380433/pexels-photo-8380433.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Finished wireless earbuds and case, representing design output" loading="lazy">
+                </div>
+                <div class="op-body">
+                  <div class="op-icon"><i class="bi bi-palette-fill"></i></div>
+                  <h4 data-en="Design &amp; Branding" data-zh="设计与品牌">Design &amp; Branding</h4>
+                  <ul>
+                    <li data-en="Industrial Design" data-zh="工业设计">Industrial Design</li>
+                    <li data-en="Product Engineering" data-zh="产品工程">Product Engineering</li>
+                    <li data-en="Prototype Development" data-zh="原型开发">Prototype Development</li>
+                    <li data-en="Performance Optimization" data-zh="性能优化">Performance Optimization</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="150">
               <div class="offer-pillar">
-                <div class="op-icon"><i class="bi bi-box-seam-fill"></i></div>
-                <h4 data-en="Packaging" data-zh="包装">Packaging</h4>
-                <ul>
-                  <li data-en="Logo Printing" data-zh="标志印刷">Logo Printing</li>
-                  <li data-en="Product Branding" data-zh="产品品牌打造">Product Branding</li>
-                  <li data-en="Brand Identity Support" data-zh="品牌形象支持">Brand Identity Support</li>
-                  <li data-en="Marketing Materials" data-zh="营销物料">Marketing Materials</li>
-                  <li data-en="Retail &amp; Luxury Packaging Design" data-zh="零售与高端包装设计">Retail &amp; Luxury Packaging Design</li>
-                </ul>
+                <div class="op-media">
+                  <img src="https://images.pexels.com/photos/7857523/pexels-photo-7857523.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Packing a finished product into a branded box" loading="lazy">
+                </div>
+                <div class="op-body">
+                  <div class="op-icon"><i class="bi bi-box-seam-fill"></i></div>
+                  <h4 data-en="Packaging" data-zh="包装">Packaging</h4>
+                  <ul>
+                    <li data-en="Logo Printing" data-zh="标志印刷">Logo Printing</li>
+                    <li data-en="Product Branding" data-zh="产品品牌打造">Product Branding</li>
+                    <li data-en="Brand Identity Support" data-zh="品牌形象支持">Brand Identity Support</li>
+                    <li data-en="Marketing Materials" data-zh="营销物料">Marketing Materials</li>
+                    <li data-en="Retail &amp; Luxury Packaging Design" data-zh="零售与高端包装设计">Retail &amp; Luxury Packaging Design</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
               <div class="offer-pillar">
-                <div class="op-icon"><i class="bi bi-patch-check-fill"></i></div>
-                <h4 data-en="Quality Assurance" data-zh="质量保证">Quality Assurance</h4>
-                <ul>
-                  <li data-en="Customized &amp; Private Label Packaging" data-zh="定制与贴牌包装">Customized &amp; Private Label Packaging</li>
-                  <li data-en="Product Testing" data-zh="产品检测">Product Testing</li>
-                  <li data-en="Compliance Verification" data-zh="合规验证">Compliance Verification</li>
-                  <li data-en="Performance Testing" data-zh="性能测试">Performance Testing</li>
-                  <li data-en="Quality Inspections" data-zh="质量检验">Quality Inspections</li>
-                </ul>
+                <div class="op-media">
+                  <img src="https://images.pexels.com/photos/9242885/pexels-photo-9242885.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Close inspection of a circuit board during quality control" loading="lazy">
+                </div>
+                <div class="op-body">
+                  <div class="op-icon"><i class="bi bi-patch-check-fill"></i></div>
+                  <h4 data-en="Quality Assurance" data-zh="质量保证">Quality Assurance</h4>
+                  <ul>
+                    <li data-en="Customized &amp; Private Label Packaging" data-zh="定制与贴牌包装">Customized &amp; Private Label Packaging</li>
+                    <li data-en="Product Testing" data-zh="产品检测">Product Testing</li>
+                    <li data-en="Compliance Verification" data-zh="合规验证">Compliance Verification</li>
+                    <li data-en="Performance Testing" data-zh="性能测试">Performance Testing</li>
+                    <li data-en="Quality Inspections" data-zh="质量检验">Quality Inspections</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="250">
               <div class="offer-pillar">
-                <div class="op-icon"><i class="bi bi-truck"></i></div>
-                <h4 data-en="Logistics &amp; Sourcing" data-zh="物流与采购">Logistics &amp; Sourcing</h4>
-                <ul>
-                  <li data-en="Global Shipping" data-zh="全球运输">Global Shipping</li>
-                  <li data-en="Export Documentation" data-zh="出口单证">Export Documentation</li>
-                  <li data-en="Supply Chain Management" data-zh="供应链管理">Supply Chain Management</li>
-                  <li data-en="Warehousing Support" data-zh="仓储支持">Warehousing Support</li>
-                  <li data-en="Worldwide Distribution &amp; Sourcing" data-zh="全球分销与采购">Worldwide Distribution &amp; Sourcing</li>
-                </ul>
+                <div class="op-media">
+                  <img src="https://images.pexels.com/photos/4487361/pexels-photo-4487361.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Warehouse workers moving boxes for global shipping" loading="lazy">
+                </div>
+                <div class="op-body">
+                  <div class="op-icon"><i class="bi bi-truck"></i></div>
+                  <h4 data-en="Logistics &amp; Sourcing" data-zh="物流与采购">Logistics &amp; Sourcing</h4>
+                  <ul>
+                    <li data-en="Global Shipping" data-zh="全球运输">Global Shipping</li>
+                    <li data-en="Export Documentation" data-zh="出口单证">Export Documentation</li>
+                    <li data-en="Supply Chain Management" data-zh="供应链管理">Supply Chain Management</li>
+                    <li data-en="Warehousing Support" data-zh="仓储支持">Warehousing Support</li>
+                    <li data-en="Worldwide Distribution &amp; Sourcing" data-zh="全球分销与采购">Worldwide Distribution &amp; Sourcing</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -380,6 +460,7 @@
             <h3 data-en="Manufacturing &amp; Testing Capabilities" data-zh="制造与检测能力">Manufacturing &amp; Testing Capabilities</h3>
           </div>
           <p class="lead-text mb-4" data-en="Every product that leaves our facility passes through a dedicated lab program before it ever reaches a customer." data-zh="每一件产品在出厂前都需通过我们专属实验室的全套检测流程。">Every product that leaves our facility passes through a dedicated lab program before it ever reaches a customer.</p>
+          <div class="capability-grid-wrap p-3 p-md-4">
           <div class="row g-3">
             <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
               <div class="capability-card"><span class="cc-icon"><i class="bi bi-soundwave"></i></span><span class="cc-label" data-en="Audio Performance Testing" data-zh="音频性能检测">Audio Performance Testing</span></div>
@@ -412,6 +493,7 @@
               <div class="capability-card"><span class="cc-icon"><i class="bi bi-clipboard-check"></i></span><span class="cc-label" data-en="Quality Inspection Systems" data-zh="质量检验系统">Quality Inspection Systems</span></div>
             </div>
           </div>
+          </div>
         </div>
 
         <!-- Who We Work With -->
@@ -423,12 +505,12 @@
           </div>
           <p data-en="We support distributors, importers, wholesalers, retailers, e-commerce brands, and private-label businesses worldwide with reliable manufacturing and supply solutions." data-zh="我们为全球的经销商、进口商、批发商、零售商、电商品牌及贴牌企业提供可靠的制造与供应解决方案。">We support distributors, importers, wholesalers, retailers, e-commerce brands, and private-label businesses worldwide with reliable manufacturing and supply solutions.</p>
           <div class="tech-icons mt-3">
-            <span class="tech-badge" data-en="Distributors" data-zh="经销商">Distributors</span>
-            <span class="tech-badge" data-en="Importers" data-zh="进口商">Importers</span>
-            <span class="tech-badge" data-en="Wholesalers" data-zh="批发商">Wholesalers</span>
-            <span class="tech-badge" data-en="Retailers" data-zh="零售商">Retailers</span>
-            <span class="tech-badge" data-en="E-commerce Brands" data-zh="电商品牌">E-commerce Brands</span>
-            <span class="tech-badge" data-en="Private-Label Businesses" data-zh="贴牌企业">Private-Label Businesses</span>
+            <span class="tech-badge"><i class="bi bi-building"></i> <span data-en="Distributors" data-zh="经销商">Distributors</span></span>
+            <span class="tech-badge"><i class="bi bi-box-arrow-in-down"></i> <span data-en="Importers" data-zh="进口商">Importers</span></span>
+            <span class="tech-badge"><i class="bi bi-shop"></i> <span data-en="Wholesalers" data-zh="批发商">Wholesalers</span></span>
+            <span class="tech-badge"><i class="bi bi-bag-check-fill"></i> <span data-en="Retailers" data-zh="零售商">Retailers</span></span>
+            <span class="tech-badge"><i class="bi bi-cart3"></i> <span data-en="E-commerce Brands" data-zh="电商品牌">E-commerce Brands</span></span>
+            <span class="tech-badge"><i class="bi bi-award-fill"></i> <span data-en="Private-Label Businesses" data-zh="贴牌企业">Private-Label Businesses</span></span>
           </div>
         </div>
 
