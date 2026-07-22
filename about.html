@@ -643,7 +643,7 @@
       height: 100%;
       padding: 30px 24px;
       border-radius: 16px;
-      background: var(--surface-color);
+      background: var(--accent-color);
       border: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent);
       transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth), border-color .4s var(--ease-smooth);
       overflow: hidden;
@@ -656,7 +656,7 @@
       left: 0;
       width: 100%;
       height: 4px;
-      background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 20%, transparent));
+      background: linear-gradient(90deg, var(--surface-color), color-mix(in srgb, var(--surface-color) 20%, transparent));
       transform: scaleX(0);
       transform-origin: left;
       transition: transform .45s var(--ease-smooth);
@@ -664,8 +664,8 @@
 
     .product-line-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 24px 48px -20px color-mix(in srgb, var(--accent-color) 30%, transparent);
-      border-color: color-mix(in srgb, var(--accent-color) 30%, transparent);
+      box-shadow: 0 24px 48px -20px color-mix(in srgb, var(--surface-color) 30%, transparent);
+      border-color: color-mix(in srgb, var(--surface-color) 30%, transparent);
     }
 
     .product-line-card:hover::before {
@@ -679,23 +679,32 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: color-mix(in srgb, var(--accent-color) 12%, transparent);
-      color: var(--accent-color);
+      background: color-mix(in srgb, var(--surface-color) 12%, transparent);
+      color: var(--surface-color);
       font-size: 19px;
       margin-bottom: 14px;
       transition: transform .4s var(--ease-smooth), background .4s var(--ease-smooth), color .4s var(--ease-smooth);
     }
 
     .product-line-card:hover .pl-icon {
-      background: var(--accent-color);
-      color: #fff;
+      background: var(--surface-color);
+      color: var(--accent-color);
       transform: scale(1.15);
     }
+
+    .product-line-card,
+    .product-line-card h4,
+    .product-line-card p,
+    .product-line-card li,
+    .product-line-card .pl-index {
+      color: #fff;
+    }
+
 
     .product-line-card .pl-index {
       font-size: 12px;
       letter-spacing: 2px;
-      color: var(--accent-color);
+      color: var(--surface-color);
       font-weight: 700;
     }
 
@@ -713,7 +722,7 @@
       padding: 6px 0 6px 20px;
       position: relative;
       font-size: 14.5px;
-      color: color-mix(in srgb, var(--default-color) 85%, transparent);
+      color: #fff;
       transition: color .25s var(--ease-smooth), padding-left .25s var(--ease-smooth);
     }
 
@@ -721,7 +730,7 @@
       content: "•";
       position: absolute;
       left: 0;
-      color: var(--accent-color);
+      color: var(--default-color);
       transition: transform .25s var(--ease-smooth);
     }
 
@@ -1179,7 +1188,7 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html"  class="active">About</a></li>
+          <li><a href="about.html" class="active">About</a></li>
           <li><a href="service.html">Services</a></li>
           <li><a href="products.html">Products</a></li>
           <li><a href="blogs.html">Blogs</a></li>
@@ -1208,7 +1217,8 @@
 
       <div class="title-wrapper">
         <h1>About C&amp;Y Material Limited</h1>
-        <p>Audio innovation for every life scenario — OEM, ODM and private label manufacturing from Shenzhen, China since 2017.</p>
+        <p>Audio innovation for every life scenario — OEM, ODM and private label manufacturing from Shenzhen, China
+          since 2017.</p>
       </div>
     </div><!-- End Page Title -->
 
@@ -1286,7 +1296,9 @@
                 <span>Audio Manufacturer · OEM / ODM / Private Label</span>
               </div>
               <h1 class="project-title">C&amp;Y Material Limited</h1>
-              <p class="project-excerpt">A leading manufacturer and global supplier of innovative audio devices, wireless accessories, charging solutions, and customized electronic products — engineered for sleep, gaming, and everyday connectivity.</p>
+              <p class="project-excerpt">A leading manufacturer and global supplier of innovative audio devices,
+                wireless accessories, charging solutions, and customized electronic products — engineered for sleep,
+                gaming, and everyday connectivity.</p>
 
               <div class="meta-grid">
                 <div class="meta-item">
@@ -1348,9 +1360,14 @@
                 <div class="block-header">
                   <h3>Company Overview</h3>
                 </div>
-                <p class="lead-text">Founded in 2017, C&Y Material Limited began as an OEM manufacturing partner for internationally recognized brands.</p>
-                <p>Today, we have evolved into a trusted global manufacturer specializing in innovative audio products, charging accessories, and customized private-label solutions — spanning research and development, manufacturing, branding, packaging, and worldwide logistics support.</p>
-                <p>With advanced production facilities, strict quality control systems, and continuous innovation, we create products designed for real-world scenarios — from better sleep experiences to immersive gaming and everyday connectivity.</p>
+                <p class="lead-text">Founded in 2017, C&Y Material Limited began as an OEM manufacturing partner for
+                  internationally recognized brands.</p>
+                <p>Today, we have evolved into a trusted global manufacturer specializing in innovative audio products,
+                  charging accessories, and customized private-label solutions — spanning research and development,
+                  manufacturing, branding, packaging, and worldwide logistics support.</p>
+                <p>With advanced production facilities, strict quality control systems, and continuous innovation, we
+                  create products designed for real-world scenarios — from better sleep experiences to immersive gaming
+                  and everyday connectivity.</p>
               </div>
 
               <div class="challenge-solution" data-aos="fade-up" data-aos-delay="200">
@@ -1361,7 +1378,9 @@
                         <i class="bi bi-stars"></i>
                       </div>
                       <h4>Our Vision</h4>
-                      <p>To become one of the world's most trusted and innovative manufacturers of audio and smart electronic products by delivering exceptional quality, advanced technology, and sustainable business partnerships.</p>
+                      <p>To become one of the world's most trusted and innovative manufacturers of audio and smart
+                        electronic products by delivering exceptional quality, advanced technology, and sustainable
+                        business partnerships.</p>
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -1370,7 +1389,8 @@
                         <i class="bi bi-flag-fill"></i>
                       </div>
                       <h4>Our Mission</h4>
-                      <p>Create innovative products that improve everyday life, provide world-class OEM and ODM manufacturing, and build long-term partnerships based on trust and mutual growth.</p>
+                      <p>Create innovative products that improve everyday life, provide world-class OEM and ODM
+                        manufacturing, and build long-term partnerships based on trust and mutual growth.</p>
                     </div>
                   </div>
                 </div>
@@ -1442,48 +1462,75 @@
         </div>
     </section>
 
-    <!-- Mission: Five Commitments -->
+    <!-- Mission: Six Commitments -->
     <section class="about-subsection section">
       <div class="container">
         <div class="block-header mb-4">
-          <h3>Our Mission — Built On Five Commitments</h3>
+          <h3>Our Mission — Built On Six Commitments</h3>
         </div>
+
         <div class="row g-4">
+
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="cs-card challenge h-100">
-              <div class="cs-icon icon-circle"><i class="bi bi-lightbulb"></i></div>
+            <div class="cs-card challenge h-100 bg-white">
+              <div class="cs-icon icon-circle">
+                <i class="bi bi-lightbulb"></i>
+              </div>
               <h4>01 · Innovation</h4>
               <p>Continuously developing advanced technologies and creative solutions.</p>
             </div>
           </div>
+
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
-            <div class="cs-card solution h-100">
-              <div class="cs-icon icon-circle"><i class="bi bi-shield-check"></i></div>
+            <div class="cs-card solution h-100 bg-white">
+              <div class="cs-icon icon-circle">
+                <i class="bi bi-shield-check"></i>
+              </div>
               <h4>02 · Quality</h4>
               <p>Maintaining the highest manufacturing and testing standards.</p>
             </div>
           </div>
+
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="cs-card challenge h-100">
-              <div class="cs-icon icon-circle"><i class="bi bi-people-fill"></i></div>
+            <div class="cs-card challenge h-100 bg-white">
+              <div class="cs-icon icon-circle">
+                <i class="bi bi-people-fill"></i>
+              </div>
               <h4>03 · Partnership</h4>
               <p>Building long-term relationships with customers worldwide.</p>
             </div>
           </div>
+
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
-            <div class="cs-card solution h-100">
-              <div class="cs-icon icon-circle"><i class="bi bi-award-fill"></i></div>
+            <div class="cs-card solution h-100 bg-white">
+              <div class="cs-icon icon-circle">
+                <i class="bi bi-award-fill"></i>
+              </div>
               <h4>04 · Reliability</h4>
               <p>Delivering products and services with consistency and professionalism.</p>
             </div>
           </div>
+
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="cs-card challenge h-100">
-              <div class="cs-icon icon-circle"><i class="bi bi-heart-fill"></i></div>
+            <div class="cs-card challenge h-100 bg-white">
+              <div class="cs-icon icon-circle">
+                <i class="bi bi-heart-fill"></i>
+              </div>
               <h4>05 · Customer Success</h4>
               <p>Supporting our partners through every stage of the business journey.</p>
             </div>
           </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="350">
+            <div class="cs-card solution h-100 bg-white">
+              <div class="cs-icon icon-circle">
+                <i class="bi bi-globe2"></i>
+              </div>
+              <h4>06 · Sustainability</h4>
+              <p>Promoting responsible manufacturing, environmental stewardship, and sustainable business practices.</p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -1510,7 +1557,8 @@
             <div class="block-header mb-3">
               <h3>Built For Real-World Performance</h3>
             </div>
-            <p>Every product moves through the same disciplined path — from an engineering idea to a fully tested, market-ready device — inside facilities designed for consistency at scale.</p>
+            <p>Every product moves through the same disciplined path — from an engineering idea to a fully tested,
+              market-ready device — inside facilities designed for consistency at scale.</p>
             <ul class="facility-highlight-list">
               <li>
                 <span class="fh-icon"><i class="bi bi-cpu"></i></span>
@@ -1552,7 +1600,8 @@
         <div class="block-header mb-3">
           <h3>Manufacturing &amp; Testing Capabilities</h3>
         </div>
-        <p class="lead-text mb-3">Your trusted manufacturing partner — from R&D to global delivery. Every product that leaves our facility passes through a dedicated lab program before it ever reaches a customer.</p>
+        <p class="lead-text mb-3">Your trusted manufacturing partner — from R&D to global delivery. Every product that
+          leaves our facility passes through a dedicated lab program before it ever reaches a customer.</p>
         <div class="capability-chip-grid">
           <span class="tech-badge">Audio Performance Testing</span>
           <span class="tech-badge">ANC &amp; ENC Testing Systems</span>
@@ -1649,6 +1698,24 @@
               </ul>
             </div>
           </div>
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="product-line-card">
+              <div class="pl-icon">
+                <i class="bi bi-box-seam-fill"></i>
+              </div>
+              <span class="pl-index">06 / OEM & ODM</span>
+              <h4>Private Label Solutions</h4>
+              <p>End-to-end OEM and ODM manufacturing services tailored to your brand, from concept to global delivery.
+              </p>
+              <ul>
+                <li>Custom Product Development</li>
+                <li>Private Label Manufacturing</li>
+                <li>Product Branding & Packaging</li>
+                <li>Customized Accessories</li>
+                <li>Global Logistics Support</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1661,21 +1728,22 @@
         </div>
         <div class="row g-4 mb-4">
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-            <div class="cs-card challenge h-100">
+            <div class="cs-card challenge h-100 bg-white">
               <div class="cs-icon icon-circle"><i class="bi bi-gear-wide-connected"></i></div>
               <h4>OEM Manufacturing</h4>
-              <p>We manufacture products according to your exact specifications while maintaining strict quality standards.</p>
+              <p>We manufacture products according to your exact specifications while maintaining strict quality
+                standards.</p>
             </div>
           </div>
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="150">
-            <div class="cs-card solution h-100">
+            <div class="cs-card solution h-100 bg-white">
               <div class="cs-icon icon-circle"><i class="bi bi-cpu"></i></div>
               <h4>ODM Product Development</h4>
               <p>Our engineering and R&D teams help transform your ideas into market-ready products.</p>
             </div>
           </div>
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-            <div class="cs-card challenge h-100">
+            <div class="cs-card challenge h-100 bg-white">
               <div class="cs-icon icon-circle"><i class="bi bi-tags-fill"></i></div>
               <h4>Private Label Manufacturing</h4>
               <p>Launch your own brand with customized products designed specifically for your market.</p>
@@ -1685,7 +1753,7 @@
 
         <div class="row g-4">
           <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="offer-pillar">
+            <div class="offer-pillar bg-white">
               <div class="op-icon"><i class="bi bi-palette-fill"></i></div>
               <h4>Design &amp; Branding</h4>
               <ul>
@@ -1697,7 +1765,7 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="150">
-            <div class="offer-pillar">
+            <div class="offer-pillar bg-white">
               <div class="op-icon"><i class="bi bi-box-seam-fill"></i></div>
               <h4>Packaging</h4>
               <ul>
@@ -1711,7 +1779,7 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="offer-pillar">
+            <div class="offer-pillar bg-white">
               <div class="op-icon"><i class="bi bi-patch-check-fill"></i></div>
               <h4>Quality Assurance</h4>
               <ul>
@@ -1725,7 +1793,7 @@
             </div>
           </div>
           <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="250">
-            <div class="offer-pillar">
+            <div class="offer-pillar bg-white">
               <div class="op-icon"><i class="bi bi-truck"></i></div>
               <h4>Logistics &amp; Sourcing</h4>
               <ul>
@@ -1826,7 +1894,8 @@
         <div class="block-header mb-4">
           <h3>Who We Work With</h3>
         </div>
-        <p>We support distributors, importers, wholesalers, retailers, e-commerce brands, and private-label businesses worldwide with reliable manufacturing and supply solutions.</p>
+        <p>We support distributors, importers, wholesalers, retailers, e-commerce brands, and private-label businesses
+          worldwide with reliable manufacturing and supply solutions.</p>
         <div class="tech-icons mt-3">
           <span class="tech-badge">Distributors</span>
           <span class="tech-badge">Importers</span>
@@ -1843,7 +1912,8 @@
       <div class="container">
         <div class="cta-banner">
           <span class="cta-eyebrow"><span class="dot"></span> <span>Let's Build Your Next Product</span></span>
-          <h4>Whether it's OEM manufacturing, ODM development, private label solutions, or global distribution — our team is ready to help.</h4>
+          <h4>Whether it's OEM manufacturing, ODM development, private label solutions, or global distribution — our
+            team is ready to help.</h4>
           <div class="cta-contacts">
             <span><i class="bi bi-envelope-fill"></i>candy@cymtr.com</span>
             <span><i class="bi bi-envelope-fill"></i>info@cymtr.com</span>
@@ -1864,7 +1934,8 @@
           <a href="index.html" class="logo d-flex align-items-center mb-4">
             <span class="sitename">C&amp;Y Material Limited</span>
           </a>
-          <p>A leading manufacturer and global supplier of innovative audio devices, wireless accessories, charging solutions, and customized electronic products since 2017.</p>
+          <p>A leading manufacturer and global supplier of innovative audio devices, wireless accessories, charging
+            solutions, and customized electronic products since 2017.</p>
 
           <div class="social-links d-flex mt-4">
             <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
@@ -1928,7 +1999,8 @@
       <div class="row gy-3">
         <div class="col-md-6 order-2 order-md-1">
           <div class="copyright">
-            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. <span>All Rights Reserved.</span></p>
+            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. <span>All Rights
+                Reserved.</span></p>
           </div>
           <div class="credits">
             Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | <a
