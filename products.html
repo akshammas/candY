@@ -38,56 +38,167 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <style>
-    /* ========== AD BANNER ========== */
     .product-ad-banner {
       position: relative;
-      height: 45vh;                 /* capped section height, so the image below never leaves a gap */
-      max-height: 500px;
-      min-height: 320px;
       display: flex;
-      align-items: center;
-      margin: 24px 0 40px 0;
+      align-items: stretch;
+      max-height: 300px;
+      margin: 28px 0 36px 0;
+      border-radius: 1.25rem;
       overflow: hidden;
-      border-radius: 1.5rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, .1);
+      background: #fff;
     }
-    @media (max-width: 992px) {
-      .product-ad-banner { height: 40vh; }
+
+    .ad-banner-content {
+      position: relative;
+      z-index: 2;
+      flex: 1 1 46%;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 28px 32px;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--accent-color, #0d6efd) 94%, #000) 0%, var(--accent-color, #0d6efd) 100%);
+      color: #fff;
     }
-    .ad-bg-img {
-      position: absolute;
-      inset: 0;
+
+    .ad-banner-image {
+      position: relative;
+      flex: 1 1 54%;
+      min-width: 0;
+      min-height: 160px;
+      overflow: hidden;
+    }
+
+    .ad-banner-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-start;
+      background: rgba(255, 255, 255, .16);
+      border: 1px solid rgba(255, 255, 255, .3);
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      backdrop-filter: blur(6px);
+    }
+
+    .ad-banner-title {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .ad-banner-desc {
+      font-size: .82rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, .85);
+      margin-bottom: 16px;
+      max-width: 90%;
+    }
+
+    .ad-banner-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      background: #fff;
+      color: var(--accent-color, #0d6efd);
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: .85rem;
+      text-decoration: none;
+      transition: transform .25s ease, box-shadow .25s ease;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .16);
+    }
+
+    .ad-banner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, .22);
+      color: var(--accent-color, #0d6efd);
+    }
+
+    .ad-banner-image img {
       width: 100%;
-      height: 100%;                 /* fills the section exactly, matches the overlay */
+      height: 100%;
       object-fit: cover;
       object-position: center;
-      z-index: 0;
+      display: block;
+      transition: transform .5s ease;
     }
-    .ad-overlay {
-      position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(120deg, rgba(8,12,20,.92) 0%, rgba(8,12,20,.68) 48%, rgba(8,12,20,.3) 100%);
-    }
-    .ad-content {
-      position: relative; z-index: 2; max-width: 620px; color: #fff; padding: 2rem 0;
-    }
-    .ad-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28);
-      padding: 7px 18px; border-radius: 50px; font-size: .78rem; letter-spacing: .09em;
-      text-transform: uppercase; margin-bottom: 22px; backdrop-filter: blur(6px);
-    }
-    .ad-content h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 18px; line-height: 1.15; }
-    .ad-content p { font-size: 0.95rem; color: rgba(255,255,255,.85); margin-bottom: 28px; line-height: 1.7; }
-    .ad-btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      background: var(--accent-color, #0d6efd); color: #fff;
-      padding: 14px 30px; border-radius: 50px; font-weight: 600; text-decoration: none;
-      transition: transform .25s ease, box-shadow .25s ease;
-      box-shadow: 0 10px 26px rgba(0,0,0,.3);
-    }
-    .ad-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,.4); color: #fff; }
 
-    /* ========== PRODUCT CARD HOVER (slightly darker theme color overlay) ========== */
+    .product-ad-banner:hover .ad-banner-image img {
+      transform: scale(1.04);
+    }
+
+    .ad-banner-image::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 70px;
+      background: linear-gradient(90deg, var(--accent-color, #0d6efd) 0%, transparent 100%);
+      opacity: .18;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .product-ad-banner {
+        max-height: 220px;
+        margin: 18px 0 24px 0;
+        border-radius: .9rem;
+      }
+      .ad-banner-content {
+        padding: 12px 14px;
+      }
+      .ad-banner-content p {
+        font-size: 12px;
+      }
+      .ad-banner-eyebrow {
+        font-size: .58rem;
+        padding: 3px 9px;
+        margin-bottom: 6px;
+        gap: 4px;
+      }
+      .ad-banner-title {
+        font-size: .78rem;
+        margin-bottom: 4px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .ad-banner-desc {
+        font-size: .68rem;
+        line-height: 1.35;
+        max-width: 100%;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .ad-banner-btn {
+        padding: 6px 14px;
+        font-size: .68rem;
+        gap: 5px;
+      }
+      .ad-banner-image {
+        min-height: auto;
+      }
+      .ad-banner-image::before {
+        width: 40px;
+      }
+    }
+
+    /* Product card hover tint */
     .portfolio .project-card .image-wrapper {
       position: relative;
       overflow: hidden;
@@ -114,13 +225,8 @@
     .image-wrapper .category-badge {
       z-index: 3;
     }
-    .no-image {
-      display: flex; align-items: center; justify-content: center; min-height: 200px;
-      background: #f1f3f6; color: #6c757d; font-size: .9rem;
-    }
     .grid-status { text-align: center; padding: 60px 0; color: #6c757d; }
 
-    /* Category filter active state */
     .portfolio-filters li {
       cursor: pointer;
       transition: all 0.3s ease;
@@ -131,7 +237,6 @@
       border-radius: 50px;
     }
 
-    /* Force proper row clearing for Bootstrap grid */
     .row.g-4 {
       display: flex;
       flex-wrap: wrap;
@@ -158,7 +263,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="service.html">Services</a></li>
-          <li class="active"><a href="products.html">Products</a></li>
+          <li><a href="products.html" class="active">Products</a></li>
           <li><a href="blogs.html">Blogs</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -193,17 +298,21 @@
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <!-- Category filters on top of portfolio - connected to API categories -->
+        <!-- Category filters (static demo — not wired to any API) -->
         <div class="filters-wrapper" data-aos="fade-up" data-aos-delay="100">
           <ul class="portfolio-filters" id="category-filters">
             <li class="filter-active" data-category="">All Products</li>
-            <!-- Category buttons injected by JS from /api/categories -->
+            <li data-category="Sleep Audio">Sleep Audio</li>
+            <li data-category="Everyday Audio">Everyday Audio</li>
+            <li data-category="Gaming Audio">Gaming Audio</li>
+            <li data-category="Innovation Series">Innovation Series</li>
+            <li data-category="Charging Solutions">Charging Solutions</li>
           </ul>
         </div>
 
-        <!-- Products grid with ads inserted after complete rows (responsive) -->
+        <!-- Products grid: hardcoded 10 products, ad banner inserted after each complete row -->
         <div class="row g-4" id="product-grid" data-aos="fade-up" data-aos-delay="200">
-          <div class="grid-status">Loading products…</div>
+          <!-- Static content injected below by JS (no API calls) -->
         </div>
 
         <div class="cta-section" data-aos="zoom-in" data-aos-delay="300">
@@ -336,9 +445,17 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <!-- ============================================================
+       STATIC DEMO VERSION — no API/backend calls.
+       10 hardcoded products + 2 hardcoded ad banners, inserted after
+       every complete row of cards. Replace the placeholder image
+       URLs and text below with real product photos/copy when ready.
+       Category filter buttons are visual only in this demo (they
+       just re-render from the same hardcoded array by category).
+       ============================================================ -->
   <script>
-    const API_BASE_URL = "http://127.0.0.1:8000";
-    // Responsive: on large screens (≥992px) 3 cards per row, otherwise 2 cards
+    const DEFAULT_IMAGE = "assets/img/default.jpg";
+
     function getItemsPerRow() {
       return window.innerWidth >= 992 ? 3 : 2;
     }
@@ -346,9 +463,99 @@
 
     const grid = document.getElementById("product-grid");
     const filtersList = document.getElementById("category-filters");
-    let currentCategory = "";
-    let allProducts = [];
-    let allAds = [];
+
+    // ---- HARDCODED PRODUCTS (10) ----
+    // Swap "image" URLs for real product photos, and edit name/summary/category as needed.
+    const PRODUCTS = [
+      {
+        id: 1,
+        name: "DreamWave Pillow Speaker",
+        category: "Sleep Audio",
+        summary: "Ultra-thin flat speaker designed to slide inside a pillowcase for private nighttime listening.",
+        image: "https://placehold.co/600x450/0d6efd/ffffff?text=Pillow+Speaker"
+      },
+      {
+        id: 2,
+        name: "NightBand Sleep Headphones",
+        category: "Sleep Audio",
+        summary: "Soft stretch headband with embedded flat drivers, built for side-sleepers.",
+        image: "https://placehold.co/600x450/0d6efd/ffffff?text=Sleep+Headband"
+      },
+      {
+        id: 3,
+        name: "AirBuds Pro TWS Earbuds",
+        category: "Everyday Audio",
+        summary: "True wireless earbuds with ENC calling and 30-hour case battery life.",
+        image: "https://placehold.co/600x450/198754/ffffff?text=TWS+Earbuds"
+      },
+      {
+        id: 4,
+        name: "UrbanClip Bone Conduction",
+        category: "Everyday Audio",
+        summary: "Open-ear bone conduction design for safe listening on runs and commutes.",
+        image: "https://placehold.co/600x450/198754/ffffff?text=Bone+Conduction"
+      },
+      {
+        id: 5,
+        name: "FlexBeat Neckband",
+        category: "Everyday Audio",
+        summary: "Lightweight Bluetooth 5.3 neckband with magnetic earbuds and 20-hour playtime.",
+        image: "https://placehold.co/600x450/198754/ffffff?text=Neckband"
+      },
+      {
+        id: 6,
+        name: "StormCore Gaming Headset",
+        category: "Gaming Audio",
+        summary: "7.1 surround gaming headset with detachable noise-cancelling boom mic.",
+        image: "https://placehold.co/600x450/dc3545/ffffff?text=Gaming+Headset"
+      },
+      {
+        id: 7,
+        name: "PulseFire Wireless Gaming Earbuds",
+        category: "Gaming Audio",
+        summary: "Sub-40ms low-latency wireless earbuds tuned for mobile and console gaming.",
+        image: "https://placehold.co/600x450/dc3545/ffffff?text=Gaming+Earbuds"
+      },
+      {
+        id: 8,
+        name: "EchoLoop Smart Ring Speaker",
+        category: "Innovation Series",
+        summary: "Patented ring-form wearable speaker with gesture controls, C&Y's proprietary design.",
+        image: "https://placehold.co/600x450/6f42c1/ffffff?text=Innovation+Series"
+      },
+      {
+        id: 9,
+        name: "SolarPeak Portable Charger",
+        category: "Charging Solutions",
+        summary: "20,000mAh solar-assisted power bank with fast-charge USB-C output.",
+        image: "https://placehold.co/600x450/fd7e14/ffffff?text=Power+Bank"
+      },
+      {
+        id: 10,
+        name: "GaN90 Compact Wall Charger",
+        category: "Charging Solutions",
+        summary: "90W GaN multi-port wall charger, compact enough for travel kits and retail bundles.",
+        image: "https://placehold.co/600x450/fd7e14/ffffff?text=GaN+Charger"
+      }
+    ];
+
+    // ---- HARDCODED AD BANNERS (2) ----
+    const ADS = [
+      {
+        eyebrow: "Featured Product",
+        caption: "AirBuds Pro — engineered for all-day calls and music, ready for OEM branding.",
+        button_text: "Order Now",
+        product_id: 3,
+        image: "https://placehold.co/900x500/0d6efd/ffffff?text=Ad+Banner+1"
+      },
+      {
+        eyebrow: "New Arrival",
+        caption: "StormCore Gaming Headset — immersive 7.1 surround sound, available for private label.",
+        button_text: "Order Now",
+        product_id: 6,
+        image: "https://placehold.co/900x500/dc3545/ffffff?text=Ad+Banner+2"
+      }
+    ];
 
     function escapeHtml(str) {
       if (!str) return "";
@@ -357,19 +564,16 @@
       }[c]));
     }
 
-    /* Product card – responsive columns: 2 per row on mobile, 3 on large */
-    function productCardHTML(product) {
-      const img = product.primary_image
-        ? `<img src="${product.primary_image.url}" alt="${escapeHtml(product.primary_image.alt_text || product.name)}" class="img-fluid" loading="lazy">`
-        : `<div class="no-image">No image</div>`;
-      const badge = product.category ? `<span class="category-badge">${escapeHtml(product.category.name)}</span>` : "";
+    function productCardHTML(product, featured) {
+      const badge = product.category ? `<span class="category-badge">${escapeHtml(product.category)}</span>` : "";
       const summary = product.summary ? `<p>${escapeHtml(product.summary)}</p>` : "";
 
       return `
-        <div class="col-6 col-lg-4 portfolio-item">   <!-- always 2 per row until lg -->
-          <a class="project-card" href="product_detail.html?id=${product.id}" style="text-decoration:none; display:block;">
+        <div class="col-6 col-lg-4 portfolio-item">
+          <a class="project-card ${featured ? "featured" : ""}" href="product_detail.html?id=${product.id}" style="text-decoration:none; display:block;">
             <div class="image-wrapper">
-              ${img}
+              <img src="${product.image}" alt="${escapeHtml(product.name)}" class="img-fluid" loading="lazy"
+                   onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}';">
               <div class="hover-tint"></div>
               ${badge}
             </div>
@@ -384,68 +588,26 @@
         </div>`;
     }
 
-    /* Ad banner – full width, same design */
-    
-
     function adBannerHTML(ad) {
       return `
-        <div class="col-12" data-aos="fade">
-          <section class="product-ad-banner">
-            <img class="ad-bg-img" src="${ad.image_url}" alt="${escapeHtml(ad.caption || 'Advertisement')}" loading="lazy"
-                 onerror="this.onerror=null;';">
-            <div class="ad-overlay"></div>
-            <div class="container ad-content" data-aos="fade-up" data-aos-delay="100">
-              <span class="ad-eyebrow"><i class="bi bi-patch-check-fill"></i> ${escapeHtml(ad.eyebrow || 'Featured Product')}</span>
-              <h2>${escapeHtml(ad.caption || 'Discover Our Audio Solutions')}</h2>
-              <p>${escapeHtml(ad.description || 'Engineered with precision in Shenzhen, our audio products deliver exceptional sound quality and innovative features for every lifestyle.')}</p>
-              <a href="product_detail.html?id=${ad.product_id}" class="ad-btn">
-                ${escapeHtml(ad.button_text || 'Learn More')}
+        <div class="col-12" data-aos="fade-up">
+          <section class="product-ad-banner p-0">
+            <div class="ad-banner-content">
+              <span class="ad-banner-eyebrow"><i class="bi bi-patch-check-fill"></i> ${escapeHtml(ad.eyebrow)}</span>
+              <p>${escapeHtml(ad.caption)}</p>
+              <a href="product_detail.html?id=${ad.product_id}" class="ad-banner-btn">
+                ${escapeHtml(ad.button_text)}
                 <i class="bi bi-arrow-right"></i>
               </a>
+            </div>
+            <div class="ad-banner-image">
+              <img src="${ad.image}" alt="${escapeHtml(ad.caption)}" loading="lazy"
+                  onerror="this.onerror=null; this.src='${DEFAULT_IMAGE}';">
             </div>
           </section>
         </div>`;
     }
 
-    /* Fetch categories from API */
-    async function loadCategories() {
-      try {
-        const res = await fetch(`${API_BASE_URL}/api/categories`);
-        if (!res.ok) throw new Error("Failed to fetch categories");
-        const categories = await res.json();
-        
-        const existingDynamic = filtersList.querySelectorAll('[data-category]:not([data-category=""])');
-        existingDynamic.forEach(el => el.remove());
-
-        categories.forEach((cat) => {
-          const li = document.createElement("li");
-          li.textContent = cat;
-          li.dataset.category = cat;
-          li.addEventListener("click", () => selectCategory(cat));
-          filtersList.appendChild(li);
-        });
-
-        const allBtn = filtersList.querySelector('[data-category=""]');
-        if (allBtn) {
-          allBtn.addEventListener("click", () => selectCategory(""));
-        }
-      } catch (err) {
-        console.error("Failed to load categories:", err);
-      }
-    }
-
-    function selectCategory(category) {
-      currentCategory = category;
-      [...filtersList.children].forEach((li) => {
-        li.classList.toggle("filter-active", li.dataset.category === category);
-      });
-      const filtered = category 
-        ? allProducts.filter(p => p.category && p.category.name === category)
-        : allProducts;
-      renderGrid(filtered);
-    }
-
-    /* Render grid: ad after every itemsPerRow products */
     function renderGrid(products) {
       if (!products.length) {
         grid.innerHTML = `<div class="grid-status">No products in this category yet.</div>`;
@@ -456,10 +618,10 @@
       let adIndex = 0;
 
       products.forEach((product, index) => {
-        html += productCardHTML(product);
-        // After a complete row, insert the next ad
-        if ((index + 1) % itemsPerRow === 0 && adIndex < allAds.length) {
-          html += adBannerHTML(allAds[adIndex]);
+        html += productCardHTML(product, index === 0);
+
+        if ((index + 1) % itemsPerRow === 0 && adIndex < ADS.length) {
+          html += adBannerHTML(ADS[adIndex]);
           adIndex++;
         }
       });
@@ -468,57 +630,32 @@
       if (window.AOS) AOS.refresh();
     }
 
-    /* Load products & ads from API */
-    async function loadProducts(category) {
-      grid.innerHTML = `<div class="grid-status">Loading products…</div>`;
-      try {
-        const url = new URL(`${API_BASE_URL}/api/products`);
-        if (category) url.searchParams.set("category", category);
-
-        const [productsRes, adsRes] = await Promise.all([
-          fetch(url),
-          fetch(`${API_BASE_URL}/api/ads`),
-        ]);
-
-        if (!productsRes.ok) throw new Error("Failed to fetch products");
-        const data = await productsRes.json();
-        allProducts = data.products || [];
-
-        if (adsRes.ok) {
-          allAds = await adsRes.json();
-        } else {
-          console.warn("Failed to fetch ads");
-          allAds = [];
-        }
-
-        renderGrid(allProducts);
-      } catch (err) {
-        console.error(err);
-        grid.innerHTML = `<div class="grid-status">Couldn't load products. Is the API running at ${API_BASE_URL}?</div>`;
-      }
+    function selectCategory(category) {
+      [...filtersList.children].forEach((li) => {
+        li.classList.toggle("filter-active", li.dataset.category === category);
+      });
+      const filtered = category ? PRODUCTS.filter((p) => p.category === category) : PRODUCTS;
+      renderGrid(filtered);
     }
 
-    /* Recalculate items per row on resize and re-render if needed */
+    filtersList.querySelectorAll("[data-category]").forEach((li) => {
+      li.addEventListener("click", () => selectCategory(li.dataset.category));
+    });
+
     function handleResize() {
       const newItemsPerRow = getItemsPerRow();
       if (newItemsPerRow !== itemsPerRow) {
         itemsPerRow = newItemsPerRow;
-        // Re-render with the same product set
-        const currentProducts = currentCategory 
-          ? allProducts.filter(p => p.category && p.category.name === currentCategory)
-          : allProducts;
-        renderGrid(currentProducts);
+        const activeLi = filtersList.querySelector(".filter-active");
+        const category = activeLi ? activeLi.dataset.category : "";
+        const filtered = category ? PRODUCTS.filter((p) => p.category === category) : PRODUCTS;
+        renderGrid(filtered);
       }
     }
+    window.addEventListener("resize", handleResize);
 
-    window.addEventListener('resize', handleResize);
-
-    async function init() {
-      await loadCategories();
-      await loadProducts("");
-    }
-
-    init();
+    // Initial render
+    renderGrid(PRODUCTS);
   </script>
 
 </body>

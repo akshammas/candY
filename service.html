@@ -7,8 +7,10 @@
 
   <!-- Primary SEO -->
   <title>Our Services | C&amp;Y Material Limited - OEM · ODM · Private Label Manufacturing, Shenzhen</title>
-  <meta name="description" content="C&Y Material Limited offers OEM manufacturing, ODM product development and private label solutions for audio, charging and connectivity products, backed by full design, packaging, quality assurance and logistics services.">
-  <meta name="keywords" content="C&Y Material Limited services, OEM manufacturing Shenzhen, ODM audio development, private label manufacturing, audio product testing, packaging and logistics services">
+  <meta name="description"
+    content="C&Y Material Limited offers OEM manufacturing, ODM product development and private label solutions for audio, charging and connectivity products, backed by full design, packaging, quality assurance and logistics services.">
+  <meta name="keywords"
+    content="C&Y Material Limited services, OEM manufacturing Shenzhen, ODM audio development, private label manufacturing, audio product testing, packaging and logistics services">
   <meta name="robots" content="index, follow">
   <meta name="author" content="C&Y Material Limited">
   <link rel="canonical" href="https://www.cymtr.com/services.html">
@@ -17,7 +19,8 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="C&Y Material Limited">
   <meta property="og:title" content="Our Services | C&Y Material Limited">
-  <meta property="og:description" content="OEM manufacturing, ODM product development and private label solutions — with design, packaging, quality assurance and global logistics all under one roof.">
+  <meta property="og:description"
+    content="OEM manufacturing, ODM product development and private label solutions — with design, packaging, quality assurance and global logistics all under one roof.">
   <meta property="og:image" content="assets/img/about/about-main.jpg">
   <meta property="og:url" content="https://www.cymtr.com/services.html">
   <meta property="og:locale" content="en_US">
@@ -51,7 +54,9 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -65,112 +70,817 @@
 
   <!-- Premium page-level styling: matches about.html, scoped to this page only -->
   <style>
-    :root { --ease-smooth: cubic-bezier(.22,.9,.3,1); }
+    /* =========================================================
+       DESIGN TOKENS — every repeated color-mix() on this page
+       is defined once here. Change a value in one place and it
+       propagates through hero, cards, dividers, gallery, CTA.
+       ========================================================= */
+    :root {
+      --ease-smooth: cubic-bezier(.22, .9, .3, 1);
 
-    .section-divider { display:flex; align-items:center; gap:14px; margin: 64px 0 40px; }
-    .section-divider::before, .section-divider::after { content:""; flex:1; height:1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent-color) 35%, transparent), transparent); }
-    .section-divider .sd-dot { width:8px; height:8px; border-radius:50%; background: var(--accent-color); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-color) 18%, transparent); }
+      /* surfaces & borders */
+      --sv-border: color-mix(in srgb, var(--default-color) 10%, transparent);
+      --sv-border-hover: color-mix(in srgb, var(--accent-color) 32%, transparent);
+      --sv-surface-tint: color-mix(in srgb, var(--accent-color) 4%, var(--surface-color));
 
-    .icon-circle { width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:22px; color: var(--accent-color); background: linear-gradient(145deg, color-mix(in srgb, var(--accent-color) 14%, transparent), color-mix(in srgb, var(--accent-color) 4%, transparent)); border: 1px solid color-mix(in srgb, var(--accent-color) 20%, transparent); transition: transform .4s var(--ease-smooth), background .4s var(--ease-smooth), color .4s var(--ease-smooth); }
+      /* text */
+      --sv-text-muted: color-mix(in srgb, var(--default-color) 82%, transparent);
+      --sv-text-faint: color-mix(in srgb, var(--default-color) 6%, transparent);
 
-    .tech-badge { display:inline-block; transition: transform .28s var(--ease-smooth), background .28s var(--ease-smooth), color .28s var(--ease-smooth), box-shadow .28s var(--ease-smooth); cursor: default; }
-    .tech-badge:hover { transform: translateY(-3px); background: var(--accent-color); color:#fff; box-shadow: 0 10px 22px -8px color-mix(in srgb, var(--accent-color) 55%, transparent); }
-    .capability-chip-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+      /* accent glows / shadows */
+      --sv-glow-soft: color-mix(in srgb, var(--accent-color) 16%, transparent);
+      --sv-glow-strong: color-mix(in srgb, var(--accent-color) 30%, transparent);
+      --sv-shadow: 0 20px 40px -20px var(--sv-glow-strong);
+      --sv-shadow-lift: 0 26px 50px -20px var(--sv-glow-strong);
 
-    /* ---------- Hero service banner ---------- */
-    .services-hero { position: relative; overflow: hidden; border-radius: 22px; padding: 56px 46px; background: radial-gradient(120% 160% at 100% 0%, color-mix(in srgb, var(--accent-color) 22%, #0b1220) 0%, #0b1220 55%); color:#fff; box-shadow: 0 30px 60px -25px rgba(0,0,0,.5); }
-    .services-hero::before { content:""; position:absolute; left:-70px; top:-70px; width:240px; height:240px; border-radius:50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 28%, transparent), transparent 70%); }
-    .services-hero .sh-eyebrow { position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px; color: color-mix(in srgb, #fff 85%, transparent); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight:600; }
-    .services-hero .sh-eyebrow .dot { width:8px; height:8px; border-radius:50%; background: var(--accent-color); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-color) 25%, transparent); }
-    .services-hero h2 { position:relative; z-index:1; color:#fff; margin: 14px 0 12px; }
-    .services-hero p { position:relative; z-index:1; color: color-mix(in srgb, #fff 82%, transparent); max-width: 680px; font-size: 16.5px; }
-    .services-hero .sh-stats { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap: 34px; margin-top: 26px; }
-    .services-hero .sh-stats .sh-stat b { display:block; font-size: 26px; color:#fff; }
-    .services-hero .sh-stats .sh-stat span { color: color-mix(in srgb, #fff 75%, transparent); font-size: 13.5px; letter-spacing: .4px; }
+      /* icon chips */
+      --sv-icon-bg: color-mix(in srgb, var(--accent-color) 12%, transparent);
+      --sv-icon-bg-strong: color-mix(in srgb, var(--accent-color) 20%, transparent);
 
-    /* ---------- Core service cards (OEM / ODM / Private Label) ---------- */
-    .service-core-card { position: relative; height: 100%; padding: 34px 28px; border-radius: 18px; background: var(--surface-color); border: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent); transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth), border-color .4s var(--ease-smooth); overflow: hidden; }
-    .service-core-card::before { content:""; position:absolute; top:0; left:0; width:100%; height:4px; background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 20%, transparent)); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease-smooth); }
-    .service-core-card:hover { transform: translateY(-8px); box-shadow: 0 26px 50px -20px color-mix(in srgb, var(--accent-color) 30%, transparent); border-color: color-mix(in srgb, var(--accent-color) 30%, transparent); }
-    .service-core-card:hover::before { transform: scaleX(1); }
-    .service-core-card:hover .icon-circle { transform: scale(1.08) rotate(-4deg); background: var(--accent-color); color:#fff; }
-    .service-core-card .sc-index { position:absolute; top:26px; right:28px; font-size: 44px; font-weight:800; color: color-mix(in srgb, var(--default-color) 6%, transparent); line-height:1; }
-    .service-core-card h4 { margin: 18px 0 10px; }
-    .service-core-card ul { list-style:none; padding:0; margin: 16px 0 0; }
-    .service-core-card ul li { padding: 6px 0 6px 22px; position: relative; font-size: 14.5px; color: color-mix(in srgb, var(--default-color) 85%, transparent); transition: color .25s var(--ease-smooth), padding-left .25s var(--ease-smooth); }
-    .service-core-card ul li::before { content: "\F26B"; font-family: "bootstrap-icons"; position: absolute; left: 0; top: 6px; color: var(--accent-color); font-size: 13px; }
-    .service-core-card ul li:hover { padding-left: 27px; color: var(--heading-color); }
+      /* dark panels (hero / CTA) */
+      --sv-dark: #0b1220;
+      --sv-dark-radial: radial-gradient(120% 160% at 100% 0%, color-mix(in srgb, var(--accent-color) 22%, var(--sv-dark)) 0%, var(--sv-dark) 55%);
+      --sv-dark-radial-rev: radial-gradient(120% 160% at 0% 0%, color-mix(in srgb, var(--accent-color) 25%, var(--sv-dark)) 0%, var(--sv-dark) 55%);
+      --sv-on-dark: color-mix(in srgb, #fff 85%, transparent);
+      --sv-on-dark-soft: color-mix(in srgb, #fff 75%, transparent);
+    }
 
-    /* ---------- Supporting service pillars (Design/Packaging/QA/Logistics) ---------- */
-    .offer-pillar { position: relative; height: 100%; padding: 30px 24px; border-radius: 16px; background: color-mix(in srgb, var(--accent-color) 4%, var(--surface-color)); border: 1px solid color-mix(in srgb, var(--accent-color) 14%, transparent); transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth), border-color .4s var(--ease-smooth); overflow:hidden; }
-    .offer-pillar::after { content:""; position:absolute; right:-30px; top:-30px; width:110px; height:110px; border-radius:50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 16%, transparent), transparent 70%); opacity:0; transition: opacity .4s var(--ease-smooth); }
-    .offer-pillar:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -18px color-mix(in srgb, var(--accent-color) 25%, transparent); border-color: color-mix(in srgb, var(--accent-color) 40%, transparent); }
-    .offer-pillar:hover::after { opacity: 1; }
-    .offer-pillar .op-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background: color-mix(in srgb, var(--accent-color) 14%, transparent); color: var(--accent-color); font-size:18px; margin-bottom:14px; transition: all .35s var(--ease-smooth); position:relative; z-index:1; }
-    .offer-pillar:hover .op-icon { background: var(--accent-color); color:#fff; }
-    .offer-pillar h4 { margin-bottom: 10px; position:relative; z-index:1; }
-    .offer-pillar ul { list-style: none; padding: 0; margin: 14px 0 0; position:relative; z-index:1; }
-    .offer-pillar ul li { padding: 6px 0 6px 22px; position: relative; color: var(--default-color); font-size: 15px; transition: color .25s var(--ease-smooth), padding-left .25s var(--ease-smooth); }
-    .offer-pillar ul li::before { content: "\F26B"; font-family: "bootstrap-icons"; position: absolute; left: 0; top: 6px; color: var(--accent-color); font-size: 13px; }
-    .offer-pillar ul li:hover { padding-left: 26px; color: var(--heading-color); }
 
-    /* ---------- Process steps ---------- */
-    .process-track { position: relative; display:flex; flex-wrap:wrap; gap: 24px; counter-reset: step; }
-    .process-step { position: relative; flex: 1 1 190px; padding: 28px 20px 22px; border-radius: 16px; background: var(--surface-color); border: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent); text-align:center; transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth); }
-    .process-step:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -18px color-mix(in srgb, var(--accent-color) 25%, transparent); }
-    .process-step .ps-num { width:38px; height:38px; margin: 0 auto 14px; border-radius: 50%; background: var(--accent-color); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size: 14px; }
-    .process-step h5 { margin-bottom: 8px; }
-    .process-step p { font-size: 14px; color: color-mix(in srgb, var(--default-color) 80%, transparent); margin:0; }
-    .process-arrow { display:flex; align-items:center; color: color-mix(in srgb, var(--accent-color) 60%, transparent); font-size: 20px; }
-    @media (max-width: 991px) { .process-arrow { display:none; } }
 
-    /* ---------- Testing capability cards ---------- */
-    .capability-card { height:100%; padding: 22px 20px; border-radius: 14px; background: var(--surface-color); border: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent); display:flex; align-items:center; gap: 14px; transition: transform .35s var(--ease-smooth), box-shadow .35s var(--ease-smooth), border-color .35s var(--ease-smooth); }
-    .capability-card:hover { transform: translateY(-5px); box-shadow: 0 16px 32px -16px color-mix(in srgb, var(--accent-color) 25%, transparent); border-color: color-mix(in srgb, var(--accent-color) 30%, transparent); }
-    .capability-card .cc-icon { flex: none; width:42px; height:42px; border-radius:10px; display:flex; align-items:center; justify-content:center; background: color-mix(in srgb, var(--accent-color) 12%, transparent); color: var(--accent-color); font-size:17px; }
-    .capability-card span.cc-label { font-size: 14.5px; font-weight: 600; }
+    /* signature element: a small audio waveform mark replaces the generic dot divider —
+       a nod to what C&Y actually manufactures */
+    .sd-wave {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 16px;
+      flex: none;
+    }
 
-    /* ---------- Why Choose Us cards ---------- */
-    .why-card { height:100%; padding: 26px 24px; border-radius:16px; background: var(--surface-color); border:1px solid color-mix(in srgb, var(--default-color) 10%, transparent); transition: transform .35s var(--ease-smooth), box-shadow .35s var(--ease-smooth), border-color .35s var(--ease-smooth); }
-    .why-card:hover { transform: translateY(-6px); box-shadow: 0 18px 36px -18px color-mix(in srgb, var(--accent-color) 28%, transparent); border-color: color-mix(in srgb, var(--accent-color) 30%, transparent); }
-    .why-card .wc-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; background: color-mix(in srgb, var(--accent-color) 12%, transparent); color: var(--accent-color); font-size:18px; margin-bottom:14px; transition: all .3s var(--ease-smooth); }
-    .why-card:hover .wc-icon { background: var(--accent-color); color:#fff; }
-    .why-card h4 { margin-bottom:8px; font-size:17px; }
-    .why-card p { font-size:14.5px; color: color-mix(in srgb, var(--default-color) 82%, transparent); margin:0; }
+    .sd-wave span {
+      width: 3px;
+      border-radius: 2px;
+      background: var(--accent-color);
+      display: block;
+      opacity: .9;
+    }
+
+    .sd-wave span:nth-child(1) {
+      height: 6px;
+    }
+
+    .sd-wave span:nth-child(2) {
+      height: 14px;
+    }
+
+    .sd-wave span:nth-child(3) {
+      height: 9px;
+    }
+
+    .sd-wave span:nth-child(4) {
+      height: 16px;
+    }
+
+    .sd-wave span:nth-child(5) {
+      height: 7px;
+    }
+
+    /* generic image placeholder frame — swap the <img src> once real photos are ready */
+    .img-frame {
+      position: relative;
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--sv-surface-tint);
+      border: 1px dashed var(--sv-border-hover);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .img-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .img-frame .img-frame-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: var(--sv-text-muted);
+      font-size: 13px;
+      letter-spacing: .3px;
+      pointer-events: none;
+    }
+
+    .img-frame .img-frame-label i {
+      font-size: 22px;
+      color: var(--accent-color);
+      opacity: .8;
+    }
+
+    .img-frame img:not([src]),
+    .img-frame img[src=""] {
+      display: none;
+    }
+
+    .icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: var(--accent-color);
+      background: linear-gradient(145deg, var(--sv-icon-bg-strong), color-mix(in srgb, var(--accent-color) 4%, transparent));
+      border: 1px solid var(--sv-border-hover);
+      transition: transform .4s var(--ease-smooth), background .4s var(--ease-smooth), color .4s var(--ease-smooth);
+    }
+
+    .tech-badge {
+      display: inline-block;
+      transition: transform .28s var(--ease-smooth), background .28s var(--ease-smooth), color .28s var(--ease-smooth), box-shadow .28s var(--ease-smooth);
+      cursor: default;
+    }
+
+    .tech-badge:hover {
+      transform: translateY(-3px);
+      background: var(--accent-color);
+      color: #fff;
+      box-shadow: 0 10px 22px -8px var(--sv-glow-strong);
+    }
+
+    /* ---------- Hero service banner (now split: copy + framed visual) ---------- */
+    .services-hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 22px;
+      background: var(--sv-dark-radial);
+      color: #fff;
+      box-shadow: 0 30px 60px -25px rgba(0, 0, 0, .5);
+    }
+
+    .services-hero::before {
+      content: "";
+      position: absolute;
+      left: -70px;
+      top: -70px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--sv-glow-soft), transparent 70%);
+    }
+
+    .services-hero .sh-copy {
+      position: relative;
+      z-index: 1;
+      padding: 56px 46px;
+    }
+
+    .services-hero .sh-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--sv-on-dark);
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .services-hero .sh-eyebrow .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      box-shadow: 0 0 0 5px var(--sv-glow-soft);
+    }
+
+    .services-hero h2 {
+      color: #fff;
+      margin: 14px 0 12px;
+    }
+
+    .services-hero p {
+      color: var(--sv-on-dark-soft);
+      max-width: 560px;
+      font-size: 16.5px;
+    }
+
+    .services-hero .sh-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 34px;
+      margin-top: 26px;
+    }
+
+    .services-hero .sh-stats .sh-stat b {
+      display: block;
+      font-size: 26px;
+      color: #fff;
+    }
+
+    .services-hero .sh-stats .sh-stat span {
+      color: var(--sv-on-dark-soft);
+      font-size: 13.5px;
+      letter-spacing: .4px;
+    }
+
+    .services-hero .sh-visual {
+      position: relative;
+      z-index: 1;
+      padding: 0 46px 46px;
+    }
+
+    .services-hero .sh-visual .img-frame {
+      aspect-ratio: 4/3;
+      border-color: color-mix(in srgb, #fff 25%, transparent);
+      background: color-mix(in srgb, #fff 6%, transparent);
+    }
+
+    @media (min-width: 992px) {
+      .services-hero {
+        display: grid;
+        grid-template-columns: 1.15fr .85fr;
+        align-items: center;
+      }
+
+      .services-hero .sh-visual {
+        padding: 46px 46px 46px 0;
+      }
+    }
+
+    /* ---------- Core service rows (alternating media + copy, replaces 3 identical cards) ---------- */
+    .core-service-row {
+      display: grid;
+      gap: 30px;
+      align-items: center;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--sv-border);
+    }
+
+    .core-service-row:last-child {
+      border-bottom: none;
+    }
+
+    .core-service-row .csr-media .img-frame {
+      aspect-ratio: 16/11;
+    }
+
+    .core-service-row .csr-media {
+      transition: transform .45s var(--ease-smooth);
+    }
+
+    .core-service-row:hover .csr-media {
+      transform: translateY(-4px);
+    }
+
+    .core-service-row .csr-copy h4 {
+      margin: 4px 0 10px;
+    }
+
+    .core-service-row .csr-copy ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+    }
+
+    .core-service-row .csr-copy ul li {
+      padding: 6px 0 6px 22px;
+      position: relative;
+      font-size: 14.5px;
+      color: var(--sv-text-muted);
+      transition: color .25s var(--ease-smooth), padding-left .25s var(--ease-smooth);
+    }
+
+    .core-service-row .csr-copy ul li::before {
+      content: "\F26B";
+      font-family: "bootstrap-icons";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      color: var(--accent-color);
+      font-size: 13px;
+    }
+
+    .core-service-row .csr-copy ul li:hover {
+      padding-left: 27px;
+      color: var(--heading-color);
+    }
+
+    @media (min-width: 992px) {
+      .core-service-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .core-service-row.reverse .csr-media {
+        order: 2;
+      }
+
+      .core-service-row.reverse .csr-copy {
+        order: 1;
+      }
+    }
+
+    /* ---------- Supporting services: one bordered panel, four segments (not four floating cards) ---------- */
+    .pillar-panel {
+      border: 1px solid var(--sv-border);
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--surface-color);
+    }
+
+    .pillar-seg {
+      padding: 28px 26px;
+      transition: background .3s var(--ease-smooth);
+      border-bottom: 1px solid var(--sv-border);
+      border-right: 1px solid var(--sv-border);
+      position: relative;
+    }
+
+    .pillar-seg:hover {
+      background: var(--sv-surface-tint);
+    }
+
+    .pillar-seg .op-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sv-icon-bg);
+      color: var(--accent-color);
+      font-size: 18px;
+      margin-bottom: 14px;
+      transition: all .35s var(--ease-smooth);
+    }
+
+    .pillar-seg:hover .op-icon {
+      background: var(--accent-color);
+      color: #fff;
+      transform: rotate(-4deg) scale(1.05);
+    }
+
+    .pillar-seg h4 {
+      margin-bottom: 10px;
+    }
+
+    .pillar-seg ul {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
+    }
+
+    .pillar-seg ul li {
+      padding: 5px 0 5px 22px;
+      position: relative;
+      color: var(--default-color);
+      font-size: 14.5px;
+    }
+
+    .pillar-seg ul li::before {
+      content: "\F26B";
+      font-family: "bootstrap-icons";
+      position: absolute;
+      left: 0;
+      top: 5px;
+      color: var(--accent-color);
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .pillar-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .pillar-seg:nth-child(2n) {
+        border-right: none;
+      }
+
+      .pillar-seg:nth-last-child(-n+2) {
+        border-bottom: none;
+      }
+    }
+
+    @media (min-width: 992px) {
+      .pillar-panel {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .pillar-seg:nth-child(2n) {
+        border-right: 1px solid var(--sv-border);
+      }
+
+      .pillar-seg:last-child {
+        border-right: none;
+      }
+
+      .pillar-seg:nth-last-child(-n+2) {
+        border-bottom: 1px solid var(--sv-border);
+      }
+
+      .pillar-seg:nth-last-child(-n+4) {
+        border-bottom: none;
+      }
+    }
+
+    /* ---------- Process timeline (real sequence — numbers stay, connecting rail added) ---------- */
+    .process-track {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .process-track::before {
+      content: "";
+      position: absolute;
+      top: 19px;
+      left: 5%;
+      right: 5%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--sv-glow-strong) 15%, var(--sv-glow-strong) 85%, transparent);
+      z-index: 0;
+      display: none;
+    }
+
+    @media (min-width: 992px) {
+      .process-track::before {
+        display: block;
+      }
+    }
+
+    .process-step {
+      position: relative;
+      z-index: 1;
+      flex: 1 1 190px;
+      padding: 28px 20px 22px;
+      border-radius: 16px;
+      background: var(--surface-color);
+      border: 1px solid var(--sv-border);
+      text-align: center;
+      transition: transform .4s var(--ease-smooth), box-shadow .4s var(--ease-smooth), border-color .4s var(--ease-smooth);
+    }
+
+    .process-step:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--sv-shadow);
+      border-color: var(--sv-border-hover);
+    }
+
+    .process-step .ps-num {
+      width: 38px;
+      height: 38px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .process-step h5 {
+      margin-bottom: 8px;
+    }
+
+    .process-step p {
+      font-size: 14px;
+      color: var(--sv-text-muted);
+      margin: 0;
+    }
+
+    /* ---------- Testing capabilities — dense checklist grid, not ten separate boxes ---------- */
+    .capability-matrix {
+      border: 1px solid var(--sv-border);
+      border-radius: 16px;
+      background: var(--surface-color);
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 768px) {
+      .capability-matrix {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .capability-matrix {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+
+    .capability-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 16px;
+      border-bottom: 1px solid var(--sv-border);
+      border-right: 1px solid var(--sv-border);
+      transition: background .25s var(--ease-smooth);
+    }
+
+    .capability-matrix .capability-cell:hover {
+      background: var(--sv-surface-tint);
+    }
+
+    .capability-cell .cc-icon {
+      flex: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sv-icon-bg);
+      color: var(--accent-color);
+      font-size: 16px;
+      transition: background .25s var(--ease-smooth), color .25s var(--ease-smooth);
+    }
+
+    .capability-cell:hover .cc-icon {
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    .capability-cell span.cc-label {
+      font-size: 13.5px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
 
     /* ---------- Production photo gallery ---------- */
-    .capability-showcase-card { position: relative; border-radius: 1rem; overflow: hidden; height: 220px; box-shadow: 0 10px 30px rgba(0,0,0,.1); }
-    .capability-showcase-card img { width:100%; height:100%; object-fit:cover; display:block; transition: transform .4s var(--ease-smooth); }
-    .capability-showcase-card:hover img { transform: scale(1.06); }
-    .capability-showcase-overlay { position:absolute; inset:auto 0 0 0; padding: 14px 16px; background: linear-gradient(0deg, rgba(8,12,20,.92) 0%, rgba(8,12,20,.55) 65%, rgba(8,12,20,0) 100%); color:#fff; }
-    .capability-showcase-overlay h4 { font-size: .95rem; font-weight:700; margin:0; color:#fff; }
+    .capability-showcase-card {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      height: 220px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .1);
+    }
 
-    /* ---------- Stats strip (50+ / 10M+ / 100+ / 200+) ---------- */
-    .capability-stats-strip { margin-top: 20px; background: var(--accent-color); border-radius: 1.25rem; padding: 28px 30px; display:flex; flex-wrap:wrap; justify-content: space-between; gap: 20px; }
-    .capability-stat-item { flex: 1 1 160px; text-align:center; color:#fff; }
-    .capability-stat-number, .capability-stat-plus { font-size: 2rem; font-weight: 800; line-height: 1; }
-    .capability-stat-label { display:block; font-size:.85rem; margin-top:6px; color: rgba(255,255,255,.85); }
+    .capability-showcase-card .img-frame {
+      height: 100%;
+      border-radius: 0;
+      border: none;
+    }
+
+    .capability-showcase-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s var(--ease-smooth);
+    }
+
+    .capability-showcase-card:hover img {
+      transform: scale(1.06);
+    }
+
+    .capability-showcase-overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 14px 16px;
+      background: linear-gradient(0deg, rgba(8, 12, 20, .92) 0%, rgba(8, 12, 20, .55) 65%, rgba(8, 12, 20, 0) 100%);
+      color: #fff;
+      z-index: 2;
+    }
+
+    .capability-showcase-overlay h4 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin: 0;
+      color: #fff;
+    }
+
+    /* ---------- Stats strip ---------- */
+    .capability-stats-strip {
+      margin-top: 20px;
+      background: var(--accent-color);
+      border-radius: 1.25rem;
+      padding: 28px 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .capability-stat-item {
+      flex: 1 1 160px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .capability-stat-number,
+    .capability-stat-plus {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .capability-stat-label {
+      display: block;
+      font-size: .85rem;
+      margin-top: 6px;
+      color: rgba(255, 255, 255, .85);
+    }
+
+    /* ---------- Why Choose Us — compact two-column list, icon rows instead of six cards ---------- */
+    .why-list {
+      display: grid;
+      gap: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .why-list {
+        grid-template-columns: 1fr 1fr;
+        gap: 4px 32px;
+      }
+    }
+
+    .why-row {
+      display: flex;
+      gap: 16px;
+      padding: 18px 4px;
+      border-bottom: 1px solid var(--sv-border);
+      transition: padding-left .3s var(--ease-smooth);
+    }
+
+    .why-row:hover {
+      padding-left: 10px;
+    }
+
+    .why-row .wc-icon {
+      flex: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--sv-icon-bg);
+      color: var(--accent-color);
+      font-size: 17px;
+      transition: all .3s var(--ease-smooth);
+    }
+
+    .why-row:hover .wc-icon {
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    .why-row h4 {
+      margin-bottom: 4px;
+      font-size: 16.5px;
+    }
+
+    .why-row p {
+      font-size: 14.5px;
+      color: var(--sv-text-muted);
+      margin: 0;
+    }
 
     /* ---------- Closing CTA ---------- */
-    .cta-banner { position: relative; overflow: hidden; border-radius: 20px; padding: 46px; background: radial-gradient(120% 160% at 0% 0%, color-mix(in srgb, var(--accent-color) 25%, #0b1220) 0%, #0b1220 55%); color:#fff; box-shadow: 0 30px 60px -25px rgba(0,0,0,.5); }
-    .cta-banner::before { content:""; position:absolute; right:-60px; bottom:-60px; width:220px; height:220px; border-radius:50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent-color) 30%, transparent), transparent 70%); }
-    .cta-banner .cta-eyebrow { display:inline-flex; align-items:center; gap:8px; color: color-mix(in srgb, #fff 85%, transparent); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; font-weight:600; }
-    .cta-banner .cta-eyebrow .dot { width:8px; height:8px; border-radius:50%; background: var(--accent-color); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-color) 25%, transparent); }
-    .cta-banner h4 { color:#fff; margin: 16px 0 0; font-weight: 600; line-height: 1.4; max-width: 720px; position:relative; z-index:1; }
-    .cta-banner .cta-contacts { margin-top: 22px; display:flex; flex-wrap:wrap; gap: 22px; position:relative; z-index:1; }
-    .cta-banner .cta-contacts span { color: color-mix(in srgb, #fff 82%, transparent); font-size: 15px; }
-    .cta-banner .cta-contacts i { color: var(--accent-color); margin-right: 6px; }
-    .cta-banner .btn-cta { position:relative; z-index:1; display:inline-flex; align-items:center; gap:8px; margin-top:26px; padding: 12px 26px; border-radius: 999px; background: var(--accent-color); color:#fff; font-weight:600; text-decoration:none; transition: transform .3s var(--ease-smooth), box-shadow .3s var(--ease-smooth); }
-    .cta-banner .btn-cta:hover { transform: translateY(-3px); box-shadow: 0 14px 30px -10px color-mix(in srgb, var(--accent-color) 60%, transparent); color:#fff; }
+    .cta-banner {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      padding: 46px;
+      background: var(--sv-dark-radial-rev);
+      color: #fff;
+      box-shadow: 0 30px 60px -25px rgba(0, 0, 0, .5);
+    }
+
+    .cta-banner::before {
+      content: "";
+      position: absolute;
+      right: -60px;
+      bottom: -60px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--sv-glow-strong), transparent 70%);
+    }
+
+    .cta-banner .cta-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--sv-on-dark);
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .cta-banner .cta-eyebrow .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      box-shadow: 0 0 0 5px var(--sv-glow-soft);
+    }
+
+    .cta-banner h4 {
+      color: #fff;
+      margin: 16px 0 0;
+      font-weight: 600;
+      line-height: 1.4;
+      max-width: 720px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-banner .cta-contacts {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-banner .cta-contacts span {
+      color: var(--sv-on-dark-soft);
+      font-size: 15px;
+    }
+
+    .cta-banner .cta-contacts i {
+      color: var(--accent-color);
+      margin-right: 6px;
+    }
+
+    .cta-banner .btn-cta {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 26px;
+      padding: 12px 26px;
+      border-radius: 999px;
+      background: var(--accent-color);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform .3s var(--ease-smooth), box-shadow .3s var(--ease-smooth);
+    }
+
+    .cta-banner .btn-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px -10px var(--sv-glow-strong);
+      color: #fff;
+    }
 
     @media (prefers-reduced-motion: reduce) {
-      .service-core-card, .offer-pillar, .process-step, .capability-card, .why-card, .capability-showcase-card { transition: none !important; transform: none !important; }
+
+      .core-service-row,
+      .pillar-seg,
+      .process-step,
+      .capability-cell,
+      .why-row,
+      .capability-showcase-card,
+      .icon-circle,
+      .op-icon,
+      .cc-icon,
+      .wc-icon {
+        transition: none !important;
+        transform: none !important;
+      }
     }
 
     @media (max-width: 768px) {
-      .capability-showcase-card { height: 170px; }
-      .capability-stats-strip { padding: 22px; }
-      .capability-stat-number, .capability-stat-plus { font-size: 1.6rem; }
+      .capability-showcase-card {
+        height: 170px;
+      }
+
+      .capability-stats-strip {
+        padding: 22px;
+      }
+
+      .capability-stat-number,
+      .capability-stat-plus {
+        font-size: 1.6rem;
+      }
+
+      .services-hero .sh-copy {
+        padding: 40px 26px 0;
+      }
+
+      .services-hero .sh-visual {
+        padding: 26px 26px 40px;
+      }
     }
   </style>
 
@@ -225,145 +935,179 @@
 
       <div class="title-wrapper">
         <h1>Our Services</h1>
-        <p>Comprehensive manufacturing solutions — from OEM production and ODM development to private label branding, packaging, quality assurance and global logistics.</p>
+        <p>Comprehensive manufacturing solutions — from OEM production and ODM development to private label branding,
+          packaging, quality assurance and global logistics.</p>
       </div>
     </div><!-- End Page Title -->
 
     <section id="services-overview" class="portfolio-details section">
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <!-- Hero Service Banner -->
+        <!-- Hero Service Banner: copy + framed visual -->
         <div class="services-hero" data-aos="fade-up">
-          <span class="sh-eyebrow"><span class="dot"></span> <span>What We Offer</span></span>
-          <h2>Your Trusted Manufacturing Partner — From R&amp;D to Global Delivery</h2>
-          <p>C&Y Material Limited delivers end-to-end manufacturing solutions for audio devices, wireless accessories, charging solutions and customized electronics — supporting brands, distributors and private-label businesses at every stage of the product journey.</p>
-          <div class="sh-stats">
-            <div class="sh-stat"><b>OEM / ODM</b><span>Core Services</span></div>
-            <div class="sh-stat"><b>10+</b><span>Testing Systems</span></div>
-            <div class="sh-stat"><b>4</b><span>Support Pillars</span></div>
-            <div class="sh-stat"><b>Global</b><span>Shipping &amp; Sourcing</span></div>
-          </div>
-        </div>
-
-        <!-- Core Services: OEM / ODM / Private Label -->
-        <div class="section-divider" data-aos="fade-up"><span class="sd-dot"></span></div>
-        <div data-aos="fade-up" data-aos-delay="100">
-          <div class="block-header mb-4">
-            <span class="block-icon"><i class="bi bi-gem"></i></span>
-            <h3>Core Manufacturing Services</h3>
-          </div>
-          <div class="row g-4">
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="service-core-card">
-                <span class="sc-index">01</span>
-                <div class="icon-circle"><i class="bi bi-gear-wide-connected"></i></div>
-                <h4>OEM Manufacturing</h4>
-                <p>We manufacture products according to your exact specifications while maintaining strict quality standards.</p>
-                <ul>
-                  <li>Built to your technical specifications</li>
-                  <li>Dedicated production lines</li>
-                  <li>Consistent, audited quality standards</li>
-                </ul>
-              </div>
+          <div class="sh-copy">
+            <span class="sh-eyebrow"><span class="dot"></span> <span>What We Offer</span></span>
+            <h2>Your Trusted Manufacturing Partner — From R&amp;D to Global Delivery</h2>
+            <p>C&Y Material Limited delivers end-to-end manufacturing solutions for audio devices, wireless accessories,
+              charging solutions and customized electronics — supporting brands, distributors and private-label
+              businesses at every stage of the product journey.</p>
+            <div class="sh-stats">
+              <div class="sh-stat"><b>OEM / ODM</b><span>Core Services</span></div>
+              <div class="sh-stat"><b>10+</b><span>Testing Systems</span></div>
+              <div class="sh-stat"><b>4</b><span>Support Pillars</span></div>
+              <div class="sh-stat"><b>Global</b><span>Shipping &amp; Sourcing</span></div>
             </div>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
-              <div class="service-core-card">
-                <span class="sc-index">02</span>
-                <div class="icon-circle"><i class="bi bi-cpu"></i></div>
-                <h4>ODM Product Development</h4>
-                <p>Our engineering and R&D teams help transform your ideas into market-ready products.</p>
-                <ul>
-                  <li>Concept-to-prototype engineering</li>
-                  <li>In-house R&amp;D and firmware support</li>
-                  <li>Faster time-to-market</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="service-core-card">
-                <span class="sc-index">03</span>
-                <div class="icon-circle"><i class="bi bi-tags-fill"></i></div>
-                <h4>Private Label Manufacturing</h4>
-                <p>Launch your own brand with customized products designed specifically for your market.</p>
-                <ul>
-                  <li>Custom branding and logo application</li>
-                  <li>Market-specific product configuration</li>
-                  <li>Full packaging and retail-ready output</li>
-                </ul>
-              </div>
+          </div>
+          <div class="sh-visual">
+            <div class="img-frame">
+              <!-- TODO: add hero/factory photo -> assets/img/services/hero-factory.jpg -->
+              <img src="assets/img/services/hero-factory.jpg" alt="C&Y Material Limited production facility">
+              <span class="img-frame-label"><i class="bi bi-image"></i>Facility photo goes here</span>
             </div>
           </div>
         </div>
-
-        <!-- Supporting Services -->
-        <div class="section-divider" data-aos="fade-up"><span class="sd-dot"></span></div>
+      </div>
+    </section>
+    <!-- Core Services: OEM / ODM / Private Label — alternating media + copy rows -->
+    <section id="" class=" section bg-white">
+      <div class="container" data-aos="fade-up">
         <div data-aos="fade-up" data-aos-delay="100">
           <div class="block-header mb-4">
-            <span class="block-icon"><i class="bi bi-boxes"></i></span>
-            <h3>Supporting Services</h3>
+            <h2>Core Manufacturing Services</h2>
           </div>
-          <p class="lead-text mb-4">Beyond manufacturing, we support every stage of bringing a product to market — from first sketch to final delivery.</p>
-          <div class="row g-4">
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="offer-pillar">
-                <div class="op-icon"><i class="bi bi-palette-fill"></i></div>
-                <h4>Design &amp; Branding</h4>
-                <ul>
-                  <li>Industrial Design</li>
-                  <li>Product Engineering</li>
-                  <li>Prototype Development</li>
-                  <li>Performance Optimization</li>
-                </ul>
+
+          <div class="core-service-row" data-aos="fade-up" data-aos-delay="100">
+            <div class="csr-media">
+              <div class="img-frame">
+                <!-- TODO: add OEM production photo -> assets/img/services/oem-manufacturing.jpg -->
+                <img src="assets/img/services/oem-manufacturing.jpg" alt="OEM manufacturing production line">
+                <span class="img-frame-label"><i class="bi bi-image"></i>OEM production photo</span>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="150">
-              <div class="offer-pillar">
-                <div class="op-icon"><i class="bi bi-box-seam-fill"></i></div>
-                <h4>Packaging</h4>
-                <ul>
-                  <li>Logo Printing</li>
-                  <li>Product Branding</li>
-                  <li>Brand Identity Support</li>
-                  <li>Marketing Materials</li>
-                  <li>Retail &amp; Luxury Packaging Design</li>
-                </ul>
+            <div class="csr-copy">
+              <div class="icon-circle"><i class="bi bi-gear-wide-connected"></i></div>
+              <h4>OEM Manufacturing</h4>
+              <p>We manufacture products according to your exact specifications while maintaining strict quality
+                standards.</p>
+              <ul>
+                <li>Built to your technical specifications</li>
+                <li>Dedicated production lines</li>
+                <li>Consistent, audited quality standards</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="core-service-row reverse" data-aos="fade-up" data-aos-delay="150">
+            <div class="csr-media">
+              <div class="img-frame">
+                <!-- TODO: add R&D / prototyping photo -> assets/img/services/odm-development.jpg -->
+                <img src="assets/img/services/odm-development.jpg" alt="ODM engineering and product development">
+                <span class="img-frame-label"><i class="bi bi-image"></i>R&amp;D / engineering photo</span>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="offer-pillar">
-                <div class="op-icon"><i class="bi bi-patch-check-fill"></i></div>
-                <h4>Quality Assurance</h4>
-                <ul>
-                  <li>Customized &amp; Private Label Packaging</li>
-                  <li>Product Testing</li>
-                  <li>Compliance Verification</li>
-                  <li>Performance Testing</li>
-                  <li>Quality Inspections</li>
-                </ul>
+            <div class="csr-copy">
+              <div class="icon-circle"><i class="bi bi-cpu"></i></div>
+              <h4>ODM Product Development</h4>
+              <p>Our engineering and R&amp;D teams help transform your ideas into market-ready products.</p>
+              <ul>
+                <li>Concept-to-prototype engineering</li>
+                <li>In-house R&amp;D and firmware support</li>
+                <li>Faster time-to-market</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="core-service-row" data-aos="fade-up" data-aos-delay="200">
+            <div class="csr-media">
+              <div class="img-frame">
+                <!-- TODO: add branded/private-label product photo -> assets/img/services/private-label.jpg -->
+                <img src="assets/img/services/private-label.jpg" alt="Private label branded products">
+                <span class="img-frame-label"><i class="bi bi-image"></i>Branded product photo</span>
               </div>
             </div>
-            <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="250">
-              <div class="offer-pillar">
-                <div class="op-icon"><i class="bi bi-truck"></i></div>
-                <h4>Logistics &amp; Sourcing</h4>
-                <ul>
-                  <li>Global Shipping</li>
-                  <li>Export Documentation</li>
-                  <li>Supply Chain Management</li>
-                  <li>Warehousing Support</li>
-                  <li>Worldwide Distribution &amp; Sourcing</li>
-                </ul>
-              </div>
+            <div class="csr-copy">
+              <div class="icon-circle"><i class="bi bi-tags-fill"></i></div>
+              <h4>Private Label Manufacturing</h4>
+              <p>Launch your own brand with customized products designed specifically for your market.</p>
+              <ul>
+                <li>Custom branding and logo application</li>
+                <li>Market-specific product configuration</li>
+                <li>Full packaging and retail-ready output</li>
+              </ul>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- How We Work -->
-        <div class="section-divider" data-aos="fade-up"><span class="sd-dot"></span></div>
+    </section>
+
+    <!-- Supporting Services -->
+
+    <section id="" class=" section">
+      <div class="container" data-aos="fade-up">
+        <div data-aos="fade-up" data-aos-delay="100">
+          <div class="mb-2">
+            <h2>Supporting Services</h2>
+          </div>
+          <p class="lead-text mb-4">Beyond manufacturing, we support every stage of bringing a product to market — from
+            first sketch to final delivery.</p>
+
+          <div class="pillar-panel" data-aos="fade-up" data-aos-delay="100">
+            <div class="pillar-seg">
+              <div class="op-icon"><i class="bi bi-palette-fill"></i></div>
+              <h4>Design &amp; Branding</h4>
+              <ul>
+                <li>Industrial Design</li>
+                <li>Product Engineering</li>
+                <li>Prototype Development</li>
+                <li>Performance Optimization</li>
+              </ul>
+            </div>
+            <div class="pillar-seg">
+              <div class="op-icon"><i class="bi bi-box-seam-fill"></i></div>
+              <h4>Packaging</h4>
+              <ul>
+                <li>Logo Printing</li>
+                <li>Product Branding</li>
+                <li>Brand Identity Support</li>
+                <li>Marketing Materials</li>
+                <li>Retail &amp; Luxury Packaging Design</li>
+              </ul>
+            </div>
+            <div class="pillar-seg">
+              <div class="op-icon"><i class="bi bi-patch-check-fill"></i></div>
+              <h4>Quality Assurance</h4>
+              <ul>
+                <li>Customized &amp; Private Label Packaging</li>
+                <li>Product Testing</li>
+                <li>Compliance Verification</li>
+                <li>Performance Testing</li>
+                <li>Quality Inspections</li>
+              </ul>
+            </div>
+            <div class="pillar-seg">
+              <div class="op-icon"><i class="bi bi-truck"></i></div>
+              <h4>Logistics &amp; Sourcing</h4>
+              <ul>
+                <li>Global Shipping</li>
+                <li>Export Documentation</li>
+                <li>Supply Chain Management</li>
+                <li>Warehousing Support</li>
+                <li>Worldwide Distribution &amp; Sourcing</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How We Work — a real sequence, so the numbered rail stays -->
+
+    <section id="" class=" section bg-white">
+      <div class="container" data-aos="fade-up">
         <div data-aos="fade-up" data-aos-delay="100">
           <div class="block-header mb-4">
-            <span class="block-icon"><i class="bi bi-diagram-3-fill"></i></span>
-            <h3>How We Work</h3>
+            <h2>How We Work</h2>
           </div>
           <div class="process-track">
             <div class="process-step" data-aos="fade-up" data-aos-delay="100">
@@ -371,25 +1115,22 @@
               <h5>Inquiry &amp; Consultation</h5>
               <p>Share your requirements — OEM, ODM or private label — and our team scopes the right solution.</p>
             </div>
-            <div class="process-arrow"><i class="bi bi-arrow-right"></i></div>
             <div class="process-step" data-aos="fade-up" data-aos-delay="150">
               <div class="ps-num">2</div>
               <h5>Design &amp; Prototyping</h5>
               <p>Industrial design, engineering and prototype development turn concepts into testable samples.</p>
             </div>
-            <div class="process-arrow"><i class="bi bi-arrow-right"></i></div>
             <div class="process-step" data-aos="fade-up" data-aos-delay="200">
               <div class="ps-num">3</div>
               <h5>Manufacturing</h5>
               <p>Production runs on dedicated lines under strict process and quality controls.</p>
             </div>
-            <div class="process-arrow"><i class="bi bi-arrow-right"></i></div>
             <div class="process-step" data-aos="fade-up" data-aos-delay="250">
               <div class="ps-num">4</div>
               <h5>Testing &amp; QA</h5>
-              <p>Every batch passes through our lab program — audio, battery, waterproof, drop and lifecycle testing.</p>
+              <p>Every batch passes through our lab program — audio, battery, waterproof, drop and lifecycle testing.
+              </p>
             </div>
-            <div class="process-arrow"><i class="bi bi-arrow-right"></i></div>
             <div class="process-step" data-aos="fade-up" data-aos-delay="300">
               <div class="ps-num">5</div>
               <h5>Packaging &amp; Delivery</h5>
@@ -397,72 +1138,89 @@
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Manufacturing & Testing Capabilities -->
-        <div class="section-divider" data-aos="fade-up"><span class="sd-dot"></span></div>
+    <!-- Manufacturing & Testing Capabilities -->
+
+    <section id="" class=" section">
+      <div class="container" data-aos="fade-up">
         <div data-aos="fade-up" data-aos-delay="100">
           <div class="block-header mb-3">
-            <span class="block-icon"><i class="bi bi-clipboard2-pulse-fill"></i></span>
-            <h3>Manufacturing &amp; Testing Capabilities</h3>
+
+            <h2>Manufacturing &amp; Testing Capabilities</h2>
           </div>
-          <p class="lead-text mb-4">Every product that leaves our facility passes through a dedicated lab program before it ever reaches a customer.</p>
-          <div class="row g-3">
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-soundwave"></i></span><span class="cc-label">Audio Performance Testing</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="120">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-mic-mute-fill"></i></span><span class="cc-label">ANC &amp; ENC Testing Systems</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="140">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-battery-charging"></i></span><span class="cc-label">Battery Performance Testing</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="160">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-thermometer-half"></i></span><span class="cc-label">Environmental Testing Chambers</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-droplet-half"></i></span><span class="cc-label">Waterproof Testing</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="120">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-arrow-down-circle"></i></span><span class="cc-label">Drop Testing</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="140">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-broadcast"></i></span><span class="cc-label">Vibration Testing</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="160">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-usb-symbol"></i></span><span class="cc-label">Cable Durability Testing</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-hourglass-split"></i></span><span class="cc-label">Product Lifecycle Testing</span></div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-6" data-aos="fade-up" data-aos-delay="120">
-              <div class="capability-card"><span class="cc-icon"><i class="bi bi-clipboard-check"></i></span><span class="cc-label">Quality Inspection Systems</span></div>
-            </div>
+          <p class="lead-text mb-4">Every product that leaves our facility passes through a dedicated lab program before
+            it
+            ever reaches a customer.</p>
+
+          <div class="capability-matrix" data-aos="fade-up" data-aos-delay="100">
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-soundwave"></i></span><span
+                class="cc-label">Audio Performance Testing</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-mic-mute-fill"></i></span><span
+                class="cc-label">ANC &amp; ENC Testing Systems</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-battery-charging"></i></span><span
+                class="cc-label">Battery Performance Testing</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-thermometer-half"></i></span><span
+                class="cc-label">Environmental Testing Chambers</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-droplet-half"></i></span><span
+                class="cc-label">Waterproof Testing</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-arrow-down-circle"></i></span><span
+                class="cc-label">Drop Testing</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-broadcast"></i></span><span
+                class="cc-label">Vibration Testing</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-usb-symbol"></i></span><span
+                class="cc-label">Cable Durability Testing</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-hourglass-split"></i></span><span
+                class="cc-label">Product Lifecycle Testing</span></div>
+            <div class="capability-cell"><span class="cc-icon"><i class="bi bi-clipboard-check"></i></span><span
+                class="cc-label">Quality Inspection Systems</span></div>
           </div>
 
           <!-- Production Gallery -->
           <div class="row g-4 mt-4" data-aos="fade-up" data-aos-delay="150">
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
               <div class="capability-showcase-card">
-                <img src="assets/img/services/service1.png" alt="Modern production lines at C&Y Material Limited">
-                <div class="capability-showcase-overlay"><h4>Modern Production Lines</h4></div>
+                <div class="img-frame">
+                  <img src="assets/img/services/service1.png" alt="Modern production lines at C&Y Material Limited">
+                  <span class="img-frame-label"><i class="bi bi-image"></i></span>
+                </div>
+                <div class="capability-showcase-overlay">
+                  <h4>Modern Production Lines</h4>
+                </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="150">
               <div class="capability-showcase-card">
-                <img src="assets/img/services/service2.png" alt="Precision manufacturing at C&Y Material Limited">
-                <div class="capability-showcase-overlay"><h4>Precision Manufacturing</h4></div>
+                <div class="img-frame">
+                  <img src="assets/img/services/service2.png" alt="Precision manufacturing at C&Y Material Limited">
+                  <span class="img-frame-label"><i class="bi bi-image"></i></span>
+                </div>
+                <div class="capability-showcase-overlay">
+                  <h4>Precision Manufacturing</h4>
+                </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
               <div class="capability-showcase-card">
-                <img src="assets/img/services/service3.png" alt="Strict quality control at C&Y Material Limited">
-                <div class="capability-showcase-overlay"><h4>Strict Quality Control</h4></div>
+                <div class="img-frame">
+                  <img src="assets/img/services/service3.png" alt="Strict quality control at C&Y Material Limited">
+                  <span class="img-frame-label"><i class="bi bi-image"></i></span>
+                </div>
+                <div class="capability-showcase-overlay">
+                  <h4>Strict Quality Control</h4>
+                </div>
               </div>
             </div>
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="250">
               <div class="capability-showcase-card">
-                <img src="assets/img/services/service4.png" alt="Global logistics support for C&Y Material Limited">
-                <div class="capability-showcase-overlay"><h4>Global Logistics Support</h4></div>
+                <div class="img-frame">
+                  <img src="assets/img/services/service4.png" alt="Global logistics support for C&Y Material Limited">
+                  <span class="img-frame-label"><i class="bi bi-image"></i></span>
+                </div>
+                <div class="capability-showcase-overlay">
+                  <h4>Global Logistics Support</h4>
+                </div>
               </div>
             </div>
           </div>
@@ -470,85 +1228,94 @@
           <!-- Stats Strip -->
           <div class="capability-stats-strip" data-aos="fade-up" data-aos-delay="300">
             <div class="capability-stat-item">
-              <span class="capability-stat-number purecounter" data-purecounter-start="0" data-purecounter-end="50" data-purecounter-duration="2">50</span><span class="capability-stat-plus">+</span>
+              <span class="capability-stat-number purecounter" data-purecounter-start="0" data-purecounter-end="50"
+                data-purecounter-duration="2">50</span><span class="capability-stat-plus">+</span>
               <span class="capability-stat-label">Countries Served</span>
             </div>
             <div class="capability-stat-item">
-              <span class="capability-stat-number purecounter" data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="2">10</span><span class="capability-stat-plus">M+</span>
+              <span class="capability-stat-number purecounter" data-purecounter-start="0" data-purecounter-end="10"
+                data-purecounter-duration="2">10</span><span class="capability-stat-plus">M+</span>
               <span class="capability-stat-label">Units Delivered</span>
             </div>
             <div class="capability-stat-item">
-              <span class="capability-stat-number purecounter" data-purecounter-start="0" data-purecounter-end="100" data-purecounter-duration="2">100</span><span class="capability-stat-plus">+</span>
+              <span class="capability-stat-number purecounter" data-purecounter-start="0" data-purecounter-end="100"
+                data-purecounter-duration="2">100</span><span class="capability-stat-plus">+</span>
               <span class="capability-stat-label">Global Brand Partners</span>
             </div>
             <div class="capability-stat-item">
-              <span class="capability-stat-number purecounter" data-purecounter-start="0" data-purecounter-end="200" data-purecounter-duration="2">200</span><span class="capability-stat-plus">+</span>
+              <span class="capability-stat-number purecounter" data-purecounter-start="0" data-purecounter-end="200"
+                data-purecounter-duration="2">200</span><span class="capability-stat-plus">+</span>
               <span class="capability-stat-label">Skilled Employees</span>
             </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Why Choose C&Y -->
-        <div class="section-divider" data-aos="fade-up"><span class="sd-dot"></span></div>
+    <!-- Why Choose C&Y — compact two-column icon rows -->
+
+    <section id="" class=" section bg-white">
+      <div class="container" data-aos="fade-up">
         <div data-aos="fade-up" data-aos-delay="100">
           <div class="block-header mb-4">
-            <span class="block-icon"><i class="bi bi-award-fill"></i></span>
-            <h3>Why Choose C&amp;Y?</h3>
+            <h2>Why Choose C&amp;Y?</h2>
           </div>
-          <div class="row g-4">
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="why-card">
-                <div class="wc-icon"><i class="bi bi-gear-wide-connected"></i></div>
+          <div class="why-list" data-aos="fade-up" data-aos-delay="100">
+            <div class="why-row">
+              <div class="wc-icon"><i class="bi bi-gear-wide-connected"></i></div>
+              <div>
                 <h4>OEM &amp; ODM Manufacturing</h4>
                 <p>Complete product development and manufacturing solutions.</p>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
-              <div class="why-card">
-                <div class="wc-icon"><i class="bi bi-lightbulb-fill"></i></div>
+            <div class="why-row">
+              <div class="wc-icon"><i class="bi bi-lightbulb-fill"></i></div>
+              <div>
                 <h4>Innovative Technologies</h4>
                 <p>Patented and exclusive technologies for real-life solutions.</p>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="why-card">
-                <div class="wc-icon"><i class="bi bi-patch-check-fill"></i></div>
+            <div class="why-row">
+              <div class="wc-icon"><i class="bi bi-patch-check-fill"></i></div>
+              <div>
                 <h4>Quality Assurance</h4>
                 <p>Comprehensive testing and strict quality control processes.</p>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <div class="why-card">
-                <div class="wc-icon"><i class="bi bi-tags-fill"></i></div>
+            <div class="why-row">
+              <div class="wc-icon"><i class="bi bi-tags-fill"></i></div>
+              <div>
                 <h4>Private Label Solutions</h4>
                 <p>Customized branding, packaging, and market-ready solutions.</p>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
-              <div class="why-card">
-                <div class="wc-icon"><i class="bi bi-globe2"></i></div>
+            <div class="why-row">
+              <div class="wc-icon"><i class="bi bi-globe2"></i></div>
+              <div>
                 <h4>Global Supply Chain</h4>
                 <p>Efficient logistics and worldwide distribution support.</p>
               </div>
             </div>
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-              <div class="why-card">
-                <div class="wc-icon"><i class="bi bi-cpu-fill"></i></div>
+            <div class="why-row">
+              <div class="wc-icon"><i class="bi bi-cpu-fill"></i></div>
+              <div>
                 <h4>Research &amp; Development</h4>
                 <p>Dedicated engineering team for continuous innovation.</p>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Who We Work With -->
-        <div class="section-divider" data-aos="fade-up"><span class="sd-dot"></span></div>
+      </div>
+    </section>
+    <!-- Who We Work With -->
+    <section id="" class=" section">
+      <div class="container" data-aos="fade-up">
         <div data-aos="fade-up" data-aos-delay="100">
           <div class="block-header mb-4">
-            <span class="block-icon"><i class="bi bi-people-fill"></i></span>
-            <h3>Who We Work With</h3>
+            <h2>Who We Work With</h2>
           </div>
-          <p>We support distributors, importers, wholesalers, retailers, e-commerce brands, and private-label businesses worldwide with reliable manufacturing and supply solutions.</p>
+          <p>We support distributors, importers, wholesalers, retailers, e-commerce brands, and private-label businesses
+            worldwide with reliable manufacturing and supply solutions.</p>
           <div class="tech-icons mt-3">
             <span class="tech-badge">Distributors</span>
             <span class="tech-badge">Importers</span>
@@ -558,12 +1325,18 @@
             <span class="tech-badge">Private-Label Businesses</span>
           </div>
         </div>
+      </div>
+    </section>
 
+    <section id="" class=" section">
+      <div class="container" data-aos="fade-up">
         <!-- Closing CTA -->
         <div class="mt-5" data-aos="fade-up" data-aos-delay="100">
           <div class="cta-banner">
             <span class="cta-eyebrow"><span class="dot"></span> <span>Let's Build Your Next Product</span></span>
-            <h4>Whether it's OEM manufacturing, ODM development, private label solutions, or global distribution — our team is ready to help.</h4>
+            <h4>Whether it's OEM manufacturing, ODM development, private label solutions, or global distribution — our
+              team
+              is ready to help.</h4>
             <div class="cta-contacts">
               <span><i class="bi bi-envelope-fill"></i>candy@cymtr.com</span>
               <span><i class="bi bi-envelope-fill"></i>info@cymtr.com</span>
@@ -572,8 +1345,12 @@
             <a href="index.html#contact" class="btn-cta">Get a Quote <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="navigation-bar mt-5" data-aos="fade-up" data-aos-delay="100">
+    <section id="" class=" section">
+      <div class="container" data-aos="fade-up">
+       <div class="navigation-bar mt-5" data-aos="fade-up" data-aos-delay="100">
           <a href="about.html" class="nav-link prev">
             <span class="nav-icon"><i class="bi bi-arrow-left-short"></i></span>
             <span class="nav-text">About Us</span>
@@ -591,6 +1368,8 @@
       </div>
     </section>
 
+
+
   </main>
 
   <footer id="footer" class="footer light-background">
@@ -601,7 +1380,8 @@
           <a href="index.html" class="logo d-flex align-items-center mb-4">
             <span class="sitename">C&amp;Y Material Limited</span>
           </a>
-          <p>A leading manufacturer and global supplier of innovative audio devices, wireless accessories, charging solutions, and customized electronic products since 2017.</p>
+          <p>A leading manufacturer and global supplier of innovative audio devices, wireless accessories, charging
+            solutions, and customized electronic products since 2017.</p>
 
           <div class="social-links d-flex mt-4">
             <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
@@ -665,10 +1445,12 @@
       <div class="row gy-3">
         <div class="col-md-6 order-2 order-md-1">
           <div class="copyright">
-            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. <span>All Rights Reserved.</span></p>
+            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. <span>All Rights
+                Reserved.</span></p>
           </div>
           <div class="credits">
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | <a href="https://bootstrapmade.com/tools/">DevTools</a>
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | <a
+              href="https://bootstrapmade.com/tools/">DevTools</a>
           </div>
         </div>
         <div class="col-md-6 order-1 order-md-2">
@@ -680,21 +1462,14 @@
         </div>
       </div>
 
-      <!-- Language Switch -->
-      <div class="row">
-        <div class="col-12 d-flex justify-content-center mt-3">
-          <button type="button" id="langToggleBtn" class="d-inline-flex align-items-center gap-2" style="border:1px solid currentColor;background:transparent;color:inherit;padding:6px 18px;border-radius:30px;font-size:14px;cursor:pointer;opacity:0.85;">
-            <i class="bi bi-translate"></i>
-            <span id="langToggleLabel">中文 / English</span>
-          </button>
-        </div>
-      </div>
+      
     </div>
 
   </footer>
 
   <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
   <div id="preloader"></div>
@@ -712,37 +1487,7 @@
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 
-  <!-- Language Switch Script (EN / 中文) -->
-  <script>
-    (function () {
-      var STORAGE_KEY = 'cySiteLang';
-      var btn = document.getElementById('langToggleBtn');
-      var label = document.getElementById('langToggleLabel');
-      var nodes = document.querySelectorAll('[data-en][data-zh]');
-
-      function applyLang(lang) {
-        nodes.forEach(function (el) {
-          el.innerHTML = lang === 'zh' ? el.getAttribute('data-zh') : el.getAttribute('data-en');
-        });
-        document.documentElement.setAttribute('lang', lang === 'zh' ? 'zh-CN' : 'en');
-        if (label) {
-          label.textContent = lang === 'zh' ? 'English / 中文' : '中文 / English';
-        }
-        try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
-      }
-
-      var saved = 'en';
-      try { saved = localStorage.getItem(STORAGE_KEY) || 'en'; } catch (e) {}
-      applyLang(saved);
-
-      if (btn) {
-        btn.addEventListener('click', function () {
-          var current = document.documentElement.getAttribute('lang') === 'zh-CN' ? 'zh' : 'en';
-          applyLang(current === 'zh' ? 'en' : 'zh');
-        });
-      }
-    })();
-  </script>
+ 
 
 </body>
 

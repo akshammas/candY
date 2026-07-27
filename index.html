@@ -227,7 +227,6 @@
 
     /* Bottom feature strip */
     .hero-feature-strip {
-
       background: #fff;
       border-radius: 1.25rem;
       box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
@@ -265,6 +264,19 @@
 
       .hero-feature-strip {
         padding: 20px;
+      }
+
+    }
+    /* Mobile */
+    @media (max-width: 480px) {
+      .hero-feature-strip {
+        padding: 16px 20px;
+        gap: 12px;
+        justify-content: flex-start;
+      }
+
+      .hero-feature-strip > * {
+        flex: 1 1 45%; /* two items per row instead of one-by-one */
       }
     }
 
@@ -817,7 +829,24 @@
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-        <div class="swiper featured-products-swiper">
+        <div class="swiper featured-products-swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": false,
+              "speed": 600,
+              "slidesPerView": 2,
+              "spaceBetween": 16,
+              "pagination": {
+                "el": ".swiper-pagination",
+                "clickable": true
+              },
+              "breakpoints": {
+                "576": { "slidesPerView": 2, "spaceBetween": 16 },
+                "768": { "slidesPerView": 3, "spaceBetween": 20 },
+                "992": { "slidesPerView": 4, "spaceBetween": 24 }
+              }
+            }
+          </script>
           <div class="swiper-wrapper" id="featured-products-grid">
             <div class="swiper-slide grid-status">Loading products…</div>
           </div>
@@ -1471,7 +1500,7 @@
             <!-- You can delete the links only if you've purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | <a
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | 
               href="https://bootstrapmade.com/tools/">DevTools</a>
           </div>
         </div>
@@ -1508,7 +1537,12 @@
   <script src="assets/js/main.js"></script>
 
   <script>
-    // Featured Products carousel — pulls up to 8 latest products from the Laravel API
+    // Featured Products carousel — main.js already builds a Swiper instance
+    // for every .init-swiper element (same mechanism the testimonials
+    // carousel above uses) reading the swiper-config JSON right above it.
+    // This script just fetches products, swaps the placeholder slide for
+    // real cards, then tells that same Swiper instance to re-scan its
+
     (function () {
       const FEATURED_LIMIT = 8;
       const wrapper = document.getElementById("featured-products-grid");
@@ -1543,7 +1577,7 @@
                 </div>
               </div>
             </div>
-            <div class="member-info">
+            <div class="member-info h-100">
               <span class="member-badge">${badge}</span>
               <h4>${escapeHtml(product.name)}</h4>
               ${summary ? `<p>${summary}</p>` : ""}
@@ -1558,31 +1592,15 @@
           const data = await res.json();
           const products = (data.products || []).slice(0, FEATURED_LIMIT);
 
-          if (!products.length) {
-            wrapper.innerHTML = `<div class="swiper-slide grid-status">No products yet.</div>`;
-            return;
-          }
-
-          wrapper.innerHTML = products.map(productCardHTML).join("");
-          if (window.AOS) AOS.refresh();
-
-          new Swiper(".featured-products-swiper", {
-            slidesPerView: 2,
-            spaceBetween: 16,
-            pagination: {
-              el: ".swiper-pagination",
-              clickable: true,
-            },
-            breakpoints: {
-              576: { slidesPerView: 2, spaceBetween: 16 },
-              768: { slidesPerView: 3, spaceBetween: 20 },
-              992: { slidesPerView: 4, spaceBetween: 24 },
-            },
-          });
+          wrapper.innerHTML = products.length
+            ? products.map(productCardHTML).join("")
+            : `<div class="swiper-slide grid-status">No products yet.</div>`;
         } catch (err) {
           console.error("Failed to load featured products", err);
           wrapper.innerHTML = `<div class="swiper-slide grid-status">Couldn't load products.</div>`;
         }
+
+
       }
 
       loadFeaturedProducts();

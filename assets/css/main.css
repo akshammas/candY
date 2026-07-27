@@ -889,7 +889,7 @@ section,
 # Hero Section
 --------------------------------------------------------------*/
 .hero {
-  padding: 120px 0 80px;
+  padding: 5px 0 80px;
   position: relative;
   overflow: hidden;
   background: linear-gradient(135deg, var(--background-color) 0%, color-mix(in srgb, var(--accent-color), transparent 95%) 100%);
@@ -1161,7 +1161,7 @@ section,
 
 @media (max-width: 992px) {
   .hero {
-    padding: 100px 0 60px;
+    padding: 10px 0 60px;
   }
 
   .hero .hero-content {
@@ -1362,11 +1362,11 @@ section,
   margin-bottom: 30px;
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .about .features-grid {
     grid-template-columns: 1fr;
   }
-}
+} */
 
 .about .feature-card {
   display: flex;
@@ -1406,7 +1406,8 @@ section,
 
 @media (max-width: 576px) {
   .about .stats-row {
-    flex-direction: column;
+    /* flex-direction: column; */
+    text-align: center;
     gap: 20px;
     padding: 20px 0;
   }
@@ -4388,7 +4389,7 @@ section,
   transform: scale(1);
 }
 
-.portfolio-details .navigation-bar {
+.navigation-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -4396,7 +4397,7 @@ section,
   border-top: 1px solid color-mix(in srgb, var(--default-color) 10%, transparent);
 }
 
-.portfolio-details .navigation-bar .nav-link {
+.navigation-bar .nav-link {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -4407,7 +4408,7 @@ section,
   transition: all 0.3s;
 }
 
-.portfolio-details .navigation-bar .nav-link .nav-icon {
+.navigation-bar .nav-link .nav-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4418,61 +4419,61 @@ section,
   transition: all 0.3s;
 }
 
-.portfolio-details .navigation-bar .nav-link .nav-icon i {
+.navigation-bar .nav-link .nav-icon i {
   font-size: 22px;
 }
 
-.portfolio-details .navigation-bar .nav-link:hover {
+.navigation-bar .nav-link:hover {
   color: var(--accent-color);
 }
 
-.portfolio-details .navigation-bar .nav-link:hover .nav-icon {
+.navigation-bar .nav-link:hover .nav-icon {
   background: var(--accent-color);
 }
 
-.portfolio-details .navigation-bar .nav-link:hover .nav-icon i {
+.navigation-bar .nav-link:hover .nav-icon i {
   color: var(--contrast-color);
 }
 
-.portfolio-details .navigation-bar .nav-link.prev:hover .nav-icon {
+.navigation-bar .nav-link.prev:hover .nav-icon {
   transform: translateX(-4px);
 }
 
-.portfolio-details .navigation-bar .nav-link.next:hover .nav-icon {
+.navigation-bar .nav-link.next:hover .nav-icon {
   transform: translateX(4px);
 }
 
-.portfolio-details .navigation-bar .nav-link.center {
+.navigation-bar .nav-link.center {
   background: var(--accent-color);
   color: var(--contrast-color);
   box-shadow: 0 8px 24px color-mix(in srgb, var(--accent-color) 35%, transparent);
 }
 
-.portfolio-details .navigation-bar .nav-link.center .nav-icon {
+.navigation-bar .nav-link.center .nav-icon {
   background: color-mix(in srgb, var(--contrast-color) 20%, transparent);
 }
 
-.portfolio-details .navigation-bar .nav-link.center .nav-icon i {
+.navigation-bar .nav-link.center .nav-icon i {
   color: var(--contrast-color);
 }
 
-.portfolio-details .navigation-bar .nav-link.center:hover {
+.navigation-bar .nav-link.center:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 32px color-mix(in srgb, var(--accent-color) 45%, transparent);
   color: var(--contrast-color);
 }
 
 @media (max-width: 768px) {
-  .portfolio-details .navigation-bar {
+  .navigation-bar {
     flex-direction: column;
     gap: 16px;
   }
 
-  .portfolio-details .navigation-bar .nav-link.center {
+  .navigation-bar .nav-link.center {
     order: -1;
   }
 
-  .portfolio-details .navigation-bar .nav-link {
+  .navigation-bar .nav-link {
     width: 100%;
     justify-content: center;
   }
