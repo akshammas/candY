@@ -95,6 +95,9 @@
 
     .featured-products-swiper .swiper-pagination-bullet-active {
       background: var(--accent-color, #0d6efd);
+      width: 26px;
+      border-radius: 10px;
+      transition: all 0.4s ease;
     }
 
     .grid-status {
@@ -267,6 +270,7 @@
       }
 
     }
+
     /* Mobile */
     @media (max-width: 480px) {
       .hero-feature-strip {
@@ -275,8 +279,9 @@
         justify-content: flex-start;
       }
 
-      .hero-feature-strip > * {
-        flex: 1 1 45%; /* two items per row instead of one-by-one */
+      .hero-feature-strip>* {
+        flex: 1 1 45%;
+        /* two items per row instead of one-by-one */
       }
     }
 
@@ -718,8 +723,7 @@
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="capability-showcase-card service-showcase-card">
               <span class="service-showcase-badge"><i class="bi bi-star-fill"></i> Popular</span>
-              <img src="assets/img/services/service2.png"
-                alt="Private label manufacturing at C&Y Material Limited">
+              <img src="assets/img/services/service2.png" alt="Private label manufacturing at C&Y Material Limited">
               <div class="capability-showcase-overlay">
                 <div class="service-showcase-icon"><i class="bi bi-tags"></i></div>
                 <h4>Private Label Manufacturing</h4>
@@ -734,8 +738,7 @@
           <!-- Service Card 4 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="capability-showcase-card service-showcase-card">
-              <img src="assets/img/services/service3.png"
-                alt="Design and branding services at C&Y Material Limited">
+              <img src="assets/img/services/service3.png" alt="Design and branding services at C&Y Material Limited">
               <div class="capability-showcase-overlay">
                 <div class="service-showcase-icon"><i class="bi bi-palette2"></i></div>
                 <h4>Design &amp; Branding</h4>
@@ -751,8 +754,7 @@
           <!-- Service Card 5 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="capability-showcase-card service-showcase-card">
-              <img src="assets/img/services/service3.png"
-                alt="Quality assurance and testing at C&Y Material Limited">
+              <img src="assets/img/services/service3.png" alt="Quality assurance and testing at C&Y Material Limited">
               <div class="capability-showcase-overlay">
                 <div class="service-showcase-icon"><i class="bi bi-shield-check"></i></div>
                 <h4>Quality Assurance &amp; Testing</h4>
@@ -768,8 +770,7 @@
           <!-- Service Card 6 -->
           <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
             <div class="capability-showcase-card service-showcase-card">
-              <img src="assets/img/services/service4.png"
-                alt="Global logistics and sourcing at C&Y Material Limited">
+              <img src="assets/img/services/service4.png" alt="Global logistics and sourcing at C&Y Material Limited">
               <div class="capability-showcase-overlay">
                 <div class="service-showcase-icon"><i class="bi bi-globe-americas"></i></div>
                 <h4>Global Logistics &amp; Sourcing</h4>
@@ -831,28 +832,33 @@
 
         <div class="swiper featured-products-swiper init-swiper">
           <script type="application/json" class="swiper-config">
-            {
-              "loop": false,
-              "speed": 600,
-              "slidesPerView": 2,
-              "spaceBetween": 16,
-              "pagination": {
-                "el": ".swiper-pagination",
-                "clickable": true
-              },
-              "breakpoints": {
-                "576": { "slidesPerView": 2, "spaceBetween": 16 },
-                "768": { "slidesPerView": 3, "spaceBetween": 20 },
-                "992": { "slidesPerView": 4, "spaceBetween": 24 }
-              }
-            }
-          </script>
+                 {
+                  "loop": true,
+                  "speed": 600,
+                  "autoplay": {
+                    "delay": 4000
+                  },
+                  "slidesPerView": 2,
+                  "spaceBetween": 16,
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  },
+                  "breakpoints": {
+                    "576": { "slidesPerView": 2, "spaceBetween": 16 },
+                    "768": { "slidesPerView": 3, "spaceBetween": 20 },
+                    "992": { "slidesPerView": 4, "spaceBetween": 24 }
+                  }
+                }
+              </script>
           <div class="swiper-wrapper" id="featured-products-grid">
 
             <div class="swiper-slide">
               <div class="team-card">
                 <div class="member-img">
-                  <img src="assets/img/products/1 (2).jpg" class="img-fluid" alt="DreamWave Pillow Speaker" loading="lazy">
+                  <img src="assets/img/products/1 (2).jpg" class="img-fluid" alt="DreamWave Pillow Speaker"
+                    loading="lazy">
                   <div class="social-overlay">
                     <div class="social-links">
                       <a href="product_detail.html?id=1" aria-label="View details"><i class="bi bi-eye"></i></a>
@@ -870,7 +876,8 @@
             <div class="swiper-slide">
               <div class="team-card">
                 <div class="member-img">
-                  <img src="assets/img/products/sleep-pillow-speaker-2.jpg" class="img-fluid" alt="NightBand Sleep Headphones" loading="lazy">
+                  <img src="assets/img/products/sleep-pillow-speaker-2.jpg" class="img-fluid"
+                    alt="NightBand Sleep Headphones" loading="lazy">
                   <div class="social-overlay">
                     <div class="social-links">
                       <a href="product_detail.html?id=2" aria-label="View details"><i class="bi bi-eye"></i></a>
@@ -888,7 +895,8 @@
             <div class="swiper-slide">
               <div class="team-card">
                 <div class="member-img">
-                  <img src="assets/img/products/open ear.png" class="img-fluid" alt="AirBuds Pro TWS Earbuds" loading="lazy">
+                  <img src="assets/img/products/open ear.png" class="img-fluid" alt="AirBuds Pro TWS Earbuds"
+                    loading="lazy">
                   <div class="social-overlay">
                     <div class="social-links">
                       <a href="product_detail.html?id=3" aria-label="View details"><i class="bi bi-eye"></i></a>
@@ -906,7 +914,8 @@
             <div class="swiper-slide">
               <div class="team-card">
                 <div class="member-img">
-                  <img src="assets/img/products/openear2.png" class="img-fluid" alt="UrbanClip Bone Conduction" loading="lazy">
+                  <img src="assets/img/products/openear2.png" class="img-fluid" alt="UrbanClip Bone Conduction"
+                    loading="lazy">
                   <div class="social-overlay">
                     <div class="social-links">
                       <a href="product_detail.html?id=4" aria-label="View details"><i class="bi bi-eye"></i></a>
@@ -924,7 +933,8 @@
             <div class="swiper-slide">
               <div class="team-card">
                 <div class="member-img">
-                  <img src="assets/img/products/game.jpg" class="img-fluid" alt="StormCore Gaming Headset" loading="lazy">
+                  <img src="assets/img/products/game.jpg" class="img-fluid" alt="StormCore Gaming Headset"
+                    loading="lazy">
                   <div class="social-overlay">
                     <div class="social-links">
                       <a href="product_detail.html?id=6" aria-label="View details"><i class="bi bi-eye"></i></a>
@@ -942,7 +952,8 @@
             <div class="swiper-slide">
               <div class="team-card">
                 <div class="member-img">
-                  <img src="assets/img/products/game.jpg" class="img-fluid" alt="PulseFire Wireless Gaming Earbuds" loading="lazy">
+                  <img src="assets/img/products/game.jpg" class="img-fluid" alt="PulseFire Wireless Gaming Earbuds"
+                    loading="lazy">
                   <div class="social-overlay">
                     <div class="social-links">
                       <a href="product_detail.html?id=7" aria-label="View details"><i class="bi bi-eye"></i></a>
@@ -960,7 +971,8 @@
             <div class="swiper-slide">
               <div class="team-card">
                 <div class="member-img">
-                  <img src="assets/img/products/1 (1).jpg" class="img-fluid" alt="EchoLoop Smart Ring Speaker" loading="lazy">
+                  <img src="assets/img/products/1 (1).jpg" class="img-fluid" alt="EchoLoop Smart Ring Speaker"
+                    loading="lazy">
                   <div class="social-overlay">
                     <div class="social-links">
                       <a href="product_detail.html?id=8" aria-label="View details"><i class="bi bi-eye"></i></a>
@@ -978,7 +990,8 @@
             <div class="swiper-slide">
               <div class="team-card">
                 <div class="member-img">
-                  <img src="assets/img/products/charge.png" class="img-fluid" alt="SolarPeak Portable Charger" loading="lazy">
+                  <img src="assets/img/products/charge.png" class="img-fluid" alt="SolarPeak Portable Charger"
+                    loading="lazy">
                   <div class="social-overlay">
                     <div class="social-links">
                       <a href="product_detail.html?id=9" aria-label="View details"><i class="bi bi-eye"></i></a>
@@ -1644,8 +1657,8 @@
             <!-- You can delete the links only if you've purchased the pro version. -->
             <!-- Licensing information: https://bootstrapmade.com/license/ -->
             <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> | 
-              href="https://bootstrapmade.com/tools/">DevTools</a>
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> |
+            href="https://bootstrapmade.com/tools/">DevTools</a>
           </div>
         </div>
         <div class="col-md-6 order-1 order-md-2">
